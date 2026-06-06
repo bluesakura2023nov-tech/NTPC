@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>清潔隊交通事故AI分析報告變數清單</title>
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --primary-hover: #218838;
+            --secondary-color: #6c757d;
+            --secondary-hover: #5a6268;
+            --error-color: #dc3545;
+            --info-color: #0c5460;
+            --info-bg: #d1ecf1;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --border-color: #ced4da;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+        }
+
+        select:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+            color: #6c757d;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .helper-text {
+            display: none;
+            font-size: 14px;
+            margin-top: 6px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .helper-text.show.info {
+            display: block;
+            background-color: var(--info-bg);
+            color: var(--info-color);
+            border-left: 4px solid #17a2b8;
+        }
+
+        .helper-text.show.error {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid var(--error-color);
+        }
+
+        .input-error {
+            border-color: var(--error-color) !important;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex: 1;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-reset {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .output-section {
+            margin-top: 24px;
+            display: none;
+        }
+
+        .output-textarea {
+            background-color: #f8f9fa;
+            font-family: monospace;
+            font-size: 14px;
+            color: #495057;
+            min-height: 260px;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>清潔隊交通事故AI分析報告變數清單</h1>
+
+    <form id="accident-form">
+        <div class="form-group">
+            <label>【本局車種】</label>
+            <select id="field-1" required>
+                <option value="">請選擇</option>
+                <option value="垃圾車">垃圾車</option>
+                <option value="資源回收車">資源回收車</option>
+                <option value="抓斗車">抓斗車</option>
+                <option value="掃街車">掃街車</option>
+                <option value="公務小客車">公務小客車</option>
+                <option value="公務機車">公務機車</option>
+                <option value="鏟裝機">鏟裝機</option>
+                <option value="挖掘機">挖掘機</option>
+                <option value="堆高機">堆高機</option>
+                <option value="清溝車">清溝車</option>
+                <option value="灑水車">灑水車</option>
+                <option value="高空作業車">高空作業車</option>
+                <option value="水肥車">水肥車</option>
+                <option value="密封廚餘回收車">密封廚餘回收車</option>
+            </select>
+            <div id="helper-field-1" class="helper-text error">⚠️ 錯誤：請選擇本局車種。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【對造類型】</label>
+            <select id="field-2" required>
+                <option value="">請選擇</option>
+                <option value="一般車輛">一般車輛</option>
+                <option value="空域固定物">空域固定物</option>
+                <option value="平面固定物">平面固定物</option>
+                <option value="行人">行人</option>
+            </select>
+            <div id="helper-field-2" class="helper-text error">⚠️ 錯誤：請選擇對造類型。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【案件層級】</label>
+            <select id="field-3" required>
+                <option value="">請選擇</option>
+                <option value="一般案件">一般案件</option>
+                <option value="重大案件">重大案件</option>
+            </select>
+            <div id="helper-field-3" class="helper-text error">⚠️ 錯誤：請選擇案件層級。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【重大類型】</label>
+            <select id="field-4" required disabled>
+                <option value="">請選擇</option>
+                <option value="無">無</option>
+                <option value="本局駕駛故意行為">本局駕駛故意行為</option>
+                <option value="外部故意行為">外部故意行為</option>
+                <option value="本局司機重大過失">本局司機重大過失</option>
+                <option value="本局司機酒駕">本局司機酒駕</option>
+                <option value="本局司機無照駕駛">本局司機無照駕駛</option>
+                <option value="人員死亡">人員死亡</option>
+                <option value="人員重傷(刑§10Ⅳ)">人員重傷(刑§10Ⅳ)</option>
+                <option value="人員體傷嚴重住院">人員體傷嚴重住院</option>
+                <option value="對造財損預估超過理賠額度50萬元">對造財損預估超過理賠額度50萬元</option>
+                <option value="本局車損預估超過10萬元">本局車損預估超過10萬元</option>
+                <option value="媒體報導">媒體報導</option>
+            </select>
+            <div id="helper-field-4" class="helper-text"></div>
+        </div>
+
+        <div class="form-group">
+            <label>【事故地形】</label>
+            <select id="field-5" required>
+                <option value="">請選擇</option>
+                <option value="清潔隊場區">清潔隊場區</option>
+                <option value="本局ROT之焚化廠/資收場">本局ROT之焚化廠/資收場</option>
+                <option value="我車斜坡停等/停車滑動肇事">我車斜坡停等/停車滑動肇事</option>
+                <option value="停車定點收運處">停車定點收運處</option>
+                <option value="交岔路口(有號誌)">交岔路口(有號誌)</option>
+                <option value="交岔路口(無號誌或閃光號誌)">交岔路口(無號誌或閃光號誌)</option>
+                <option value="窄巷(僅容清潔車單向通行)">窄巷(僅容清潔車單向通行)</option>
+                <option value="無分向線之道路">無分向線之道路</option>
+                <option value="一般道路">一般道路</option>
+                <option value="快速道路">快速道路</option>
+                <option value="其他非道路場域">其他非道路場域</option>
+            </select>
+            <div id="helper-field-5" class="helper-text error">⚠️ 錯誤：請選擇事故地形。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【行車影像】</label>
+            <select id="field-6" required>
+                <option value="">請選擇</option>
+                <option value="影像正常已擷取">影像正常已擷取</option>
+                <option value="設備故障未儲存">設備故障未儲存</option>
+                <option value="鏡頭故障">鏡頭故障</option>
+                <option value="影像遭覆蓋">影像遭覆蓋</option>
+            </select>
+            <div id="helper-field-6" class="helper-text error">⚠️ 錯誤：請選擇行車影像狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【車速紀錄】</label>
+            <select id="field-7" required>
+                <option value="">請選擇</option>
+                <option value="記錄器正常">記錄器正常</option>
+                <option value="紙卡時間軸偏離">紙卡時間軸偏離</option>
+                <option value="逾8噸車輛未裝紙卡">逾8噸車輛未裝紙卡</option>
+                <option value="尚未安裝記錄器">尚未安裝記錄器</option>
+                <option value="8噸以下車輛未裝紙卡">8噸以下車輛未裝紙卡</option>
+                <option value="車速記錄器故障">車速記錄器故障</option>
+            </select>
+            <div id="helper-field-7" class="helper-text error">⚠️ 錯誤：請選擇車速紀錄狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【報警備案】</label>
+            <select id="field-8" required>
+                <option value="">請選擇</option>
+                <option value="已依規定報案">已依規定報案</option>
+                <option value="未立即報警">未立即報警</option>
+            </select>
+            <div id="helper-field-8" class="helper-text error">⚠️ 錯誤：請選擇報警備案狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【車組體傷】</label>
+            <select id="field-9" required>
+                <option value="">請選擇</option>
+                <option value="無體傷">無體傷</option>
+                <option value="輕微體傷">輕微體傷</option>
+                <option value="嚴重體傷">嚴重體傷</option>
+                <option value="死亡">死亡</option>
+            </select>
+            <div id="helper-field-9" class="helper-text error">⚠️ 錯誤：請選擇車組體傷狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【車組財損】</label>
+            <select id="field-10" required>
+                <option value="">請選擇</option>
+                <option value="無財損">無財損</option>
+                <option value="一般財損">一般財損</option>
+                <option value="重大財損(逾10萬元)">重大財損(逾10萬元)</option>
+                <option value="財損輕微不處理">財損輕微不處理</option>
+            </select>
+            <div id="helper-field-10" class="helper-text error">⚠️ 錯誤：請選擇車組財損狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【對造體傷】</label>
+            <select id="field-11" required>
+                <option value="">請選擇</option>
+                <option value="無體傷">無體傷</option>
+                <option value="輕微體傷">輕微體傷</option>
+                <option value="嚴重體傷">嚴重體傷</option>
+                <option value="死亡">死亡</option>
+            </select>
+            <div id="helper-field-11" class="helper-text error">⚠️ 錯誤：請選擇對造體傷狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【對造財損】</label>
+            <select id="field-12" required>
+                <option value="">請選擇</option>
+                <option value="無財損">無財損</option>
+                <option value="一般財損">一般財損</option>
+                <option value="重大財損(逾50萬元)">重大財損(逾50萬元)</option>
+            </select>
+            <div id="helper-field-12" class="helper-text error">⚠️ 錯誤：請選擇對造財損狀態。</div>
+        </div>
+
+        <div class="form-group">
+            <label>【肇事經過】</label>
+            <textarea id="field-13" placeholder="請詳述肇事經過..." required></textarea>
+            <div id="helper-field-13" class="helper-text error">⚠️ 錯誤：此欄位為必填，請完整敘述後再行產出。</div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-submit" onclick="generateAndCopy()">產出並複製資料</button>
+            <button type="button" class="btn btn-reset" onclick="resetForm()">重置表單</button>
+        </div>
+
+        <div id="output-section" class="output-section">
+            <label>產出結果 (已自動複製)：</label>
+            <textarea id="output-text" class="output-textarea" readonly></textarea>
+        </div>
+    </form>
+</div>
+
+<div id="toast">✅ 複製成功！請切換至 LINE 貼上</div>
+
+<script>
+    const levelSelect = document.getElementById('field-3');
+    const majorTypeSelect = document.getElementById('field-4');
+    const majorHelper = document.getElementById('helper-field-4');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('field-1').focus();
+        updateMajorTypeState();
+    });
+
+    levelSelect.addEventListener('change', updateMajorTypeState);
+
+    majorTypeSelect.addEventListener('change', function() {
+    if (levelSelect.value === '重大案件') {
+        if (this.value !== '無' && this.value !== '') {
+            clearMajorTypeError();
+        } else {
+            // 如果選擇了無效值，顯示錯誤提示
+            majorTypeSelect.classList.add('input-error');
+            showMajorTypeError('⚠️ 錯誤：重大案件必須指定具體類型，不得為「無」或未選擇。');
+        }
+    }
+});
+
+    for (let i = 1; i <= 13; i++) {
+        const element = document.getElementById(`field-${i}`);
+        const helper = document.getElementById(`helper-field-${i}`);
+        
+        if (element && helper && i !== 4) {
+            element.addEventListener('change', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('input-error');
+                    helper.classList.remove('show');
+                }
+            });
+            
+            if (element.tagName === 'TEXTAREA') {
+                element.addEventListener('input', function() {
+                    if (this.value.trim() !== '') {
+                        this.classList.remove('input-error');
+                        helper.classList.remove('show');
+                    }
+                });
+            }
+        }
+    }
+
+    function clearMajorTypeError() {
+        majorTypeSelect.classList.remove('input-error');
+        majorHelper.classList.remove('show', 'info', 'error');
+        majorHelper.innerHTML = '';
+    }
+
+    function showMajorTypeInfo(message) {
+        majorHelper.classList.remove('show', 'error');
+        majorHelper.classList.add('show', 'info');
+        majorHelper.innerHTML = message;
+    }
+
+    function showMajorTypeError(message) {
+        majorHelper.classList.remove('show', 'info');
+        majorHelper.classList.add('show', 'error');
+        majorHelper.innerHTML = message;
+    }
+
+    function updateMajorTypeState() {
+        clearMajorTypeError();
+        
+        if (levelSelect.value === '一般案件') {
+            majorTypeSelect.value = '無';
+            majorTypeSelect.disabled = true;
+            showMajorTypeInfo('💡 說明：一般案件非屬重大類型，已自動鎖定為「無」。');
+        } else if (levelSelect.value === '重大案件') {
+            majorTypeSelect.disabled = false;
+            // 切換為重大案件時，若原本為無或空，重置為空值促使重新選擇，且不立即觸發錯誤提示
+            if (majorTypeSelect.value === '無' || majorTypeSelect.value === '') {
+                majorTypeSelect.value = '';
+            }
+        } else { 
+            majorTypeSelect.value = '';
+            majorTypeSelect.disabled = true;
+        }
+    }
+
+    function validateForm() {
+        let isValid = true;
+        let firstErrorField = null;
+
+        for (let i = 1; i <= 13; i++) {
+            const element = document.getElementById(`field-${i}`);
+            const helper = document.getElementById(`helper-field-${i}`);
+            
+            if (!element || !helper) continue;
+            if (i === 4) continue; 
+            
+            if (element.value.trim() === '') {
+                element.classList.add('input-error');
+                helper.classList.add('show');
+                
+                if (!firstErrorField) {
+                    firstErrorField = element;
+                }
+                isValid = false;
+            } else {
+                element.classList.remove('input-error');
+                helper.classList.remove('show');
+            }
+        }
+
+        if (levelSelect.value === '重大案件') {
+            if (majorTypeSelect.value === '無' || majorTypeSelect.value === '') {
+                majorTypeSelect.classList.add('input-error');
+                showMajorTypeError('⚠️ 錯誤：重大案件必須指定具體類型，不得為「無」或未選擇。');
+                
+                if (!firstErrorField) {
+                    firstErrorField = majorTypeSelect;
+                }
+                isValid = false;
+            } else {
+                clearMajorTypeError();
+            }
+        } else {
+            clearMajorTypeError();
+        }
+
+        if (firstErrorField) {
+            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        return isValid;
+    }
+
+    function generateAndCopy() {
+        if (!validateForm()) {
+            return;
+        }
+
+        const fieldsMap = [
+            { label: "【本局車種】", id: "field-1" },
+            { label: "【對造類型】", id: "field-2" },
+            { label: "【案件層級】", id: "field-3" },
+            { label: "【重大類型】", id: "field-4" },
+            { label: "【事故地形】", id: "field-5" },
+            { label: "【行車影像】", id: "field-6" },
+            { label: "【車速紀錄】", id: "field-7" },
+            { label: "【報警備案】", id: "field-8" },
+            { label: "【車組體傷】", id: "field-9" },
+            { label: "【車組財損】", id: "field-10" },
+            { label: "【對造體傷】", id: "field-11" },
+            { label: "【對造財損】", id: "field-12" },
+            { label: "【肇事經過】", id: "field-13" }
+        ];
+
+        let resultText = "";
+        fieldsMap.forEach((field, index) => {
+            const element = document.getElementById(field.id);
+            let value = element.value.trim();
+            if (field.id === "field-13") {
+                // 更嚴謹的換行符號過濾，確保 Make 解析穩定
+                value = value.replace(/\r?\n/g, " "); 
+            }
+            
+            resultText += `${field.label}\t${value}`;
+            if (index < fieldsMap.length - 1) {
+                resultText += "\n";
+            }
+        });
+
+        const outputSection = document.getElementById('output-section');
+        const outputText = document.getElementById('output-text');
+        outputSection.style.display = 'block';
+        outputText.value = resultText;
+
+        outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        navigator.clipboard.writeText(resultText).then(() => {
+            showToast();
+        }).catch(err => {
+            alert('複製失敗，請手動全選下方文字框進行複製。');
+            console.error('複製失敗:', err);
+        });
+    }
+
+    function resetForm() {
+        document.getElementById('accident-form').reset();
+        document.getElementById('output-section').style.display = 'none';
+        document.getElementById('output-text').value = ''; 
+        
+        updateMajorTypeState();
+        
+        for (let i = 1; i <= 13; i++) {
+            const element = document.getElementById(`field-${i}`);
+            const helper = document.getElementById(`helper-field-${i}`);
+            
+            if (element) element.classList.remove('input-error');
+            if (helper && i !== 4) helper.classList.remove('show');
+        }
+        
+        document.getElementById('field-1').focus();
+    }
+
+    function showToast() {
+        const toast = document.getElementById("toast");
+        toast.className = "show";
+        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+</script>
+
+</body>
+</html>
