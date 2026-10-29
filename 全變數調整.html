@@ -449,7 +449,7 @@
 
         try {
             // 附加時間戳記與 no-store 確保絕不讀取瀏覽器舊快取
-            const response = await fetch(`${GIST_RAW_URL}?t=${Date.now()}`, { cache: "no-store" });
+            const response = await fetch(GIST_RAW_URL, { cache: "no-store" });
             if (!response.ok) throw new Error(`HTTP 狀態碼 ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data) || data.length === 0) throw new Error("卡片庫格式異常或為空");
