@@ -46,14 +46,14 @@
             font-size: 22px;
             text-align: center;
             margin-top: 0;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             color: #2c3e50;
             border-bottom: 2px solid #eee;
             padding-bottom: 12px;
         }
 
-        /* 雲端卡片庫連線狀態列 */
-        .cloud-status-bar {
+        /* 系統狀態列 */
+        .system-status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -65,26 +65,16 @@
             background-color: #e9ecef;
             border-left: 5px solid var(--secondary-color);
         }
-        .cloud-status-bar.online {
+        .system-status-bar.ready {
             background-color: #d4edda;
             color: #155724;
             border-left-color: var(--primary-color);
         }
-        .cloud-status-bar.offline {
+        .system-status-bar.error {
             background-color: #f8d7da;
             color: #721c24;
             border-left-color: var(--error-color);
         }
-        .btn-sync {
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 4px 10px;
-            font-size: 13px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-sync:hover { background: #f1f1f1; }
 
         /* 區塊標題 */
         .section-header {
@@ -101,11 +91,7 @@
             align-items: center;
         }
         .section-header:first-of-type { margin-top: 0; }
-        .section-subtitle {
-            font-size: 12px;
-            font-weight: normal;
-            color: #d1d8e0;
-        }
+        .section-subtitle { font-size: 12px; font-weight: normal; color: #d1d8e0; }
 
         /* 貼上解析區 */
         .paste-box {
@@ -156,51 +142,18 @@
             flex-wrap: wrap;
             gap: 4px;
         }
-        label {
-            font-weight: 700;
-            font-size: 15px;
-            color: #2c3e50;
-            margin: 0;
-        }
-        .var-key-code {
-            font-family: monospace;
-            font-size: 12px;
-            color: #6c757d;
-            background: #e9ecef;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-            font-weight: normal;
-        }
-        .badge-rule {
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-        .badge-severity {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-        }
-        .badge-multi {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
+        label { font-weight: 700; font-size: 15px; color: #2c3e50; margin: 0; }
+        .var-key-code { font-family: monospace; font-size: 12px; color: #6c757d; background: #e9ecef; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: normal; }
+        .badge-rule { font-size: 12px; padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+        .badge-severity { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .badge-multi { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
 
-        /* 3 欄並列下拉選單 */
         .multi-select-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
-        @media (max-width: 640px) {
-            .multi-select-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-        }
+        @media (max-width: 640px) { .multi-select-grid { grid-template-columns: 1fr; gap: 8px; } }
 
         select, textarea, input[type="text"] {
             width: 100%;
@@ -217,62 +170,17 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.18);
         }
-        select:disabled, input[type="text"]:disabled {
-            background-color: #e9ecef;
-            cursor: not-allowed;
-            color: #6c757d;
-        }
+        select:disabled, input[type="text"]:disabled { background-color: #e9ecef; cursor: not-allowed; color: #6c757d; }
+        textarea { resize: vertical; min-height: 130px; font-family: monospace; font-size: 13px; }
 
-        textarea {
-            resize: vertical;
-            min-height: 130px;
-            font-family: monospace;
-            font-size: 13px;
-        }
+        .helper-text { display: none; font-size: 13px; margin-top: 6px; padding: 6px 10px; border-radius: 4px; }
+        .helper-text.show { display: block; }
+        .helper-text.show.info { background-color: var(--info-bg); color: var(--info-color); border-left: 4px solid #17a2b8; }
+        .helper-text.show.warn { background-color: var(--warning-bg); color: #856404; border-left: 4px solid var(--warning-border); }
 
-        .helper-text {
-            display: none;
-            font-size: 13px;
-            margin-top: 6px;
-            padding: 6px 10px;
-            border-radius: 4px;
-        }
-        .helper-text.show.info {
-            display: block;
-            background-color: var(--info-bg);
-            color: var(--info-color);
-            border-left: 4px solid #17a2b8;
-        }
-        .helper-text.show.warn {
-            display: block;
-            background-color: var(--warning-bg);
-            color: #856404;
-            border-left: 4px solid var(--warning-border);
-        }
-
-        /* 按鈕群組 */
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 14px 18px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s, opacity 0.2s;
-            flex: 1;
-            min-width: 180px;
-            text-align: center;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .btn-group { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+        .btn { padding: 14px 18px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.2s, opacity 0.2s; flex: 1; min-width: 180px; text-align: center; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-primary { background-color: var(--primary-color); color: white; }
         .btn-primary:hover:not(:disabled) { background-color: var(--primary-hover); }
         .btn-blue { background-color: var(--blue-color); color: white; }
@@ -288,72 +196,16 @@
             padding: 16px;
             background-color: #fff;
         }
-        .preview-header {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
-        .card-tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .card-pill {
-            background: #e8f4fd;
-            color: #004085;
-            border: 1px solid #b8daff;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .card-pill.blocking {
-            background: #f8d7da;
-            color: #721c24;
-            border-color: #f5c6cb;
-        }
+        .preview-header { font-weight: bold; font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .card-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .card-pill { background: #e8f4fd; color: #004085; border: 1px solid #b8daff; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+        .card-pill.blocking { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
 
-        .output-section {
-            margin-top: 20px;
-            display: none;
-        }
-        .output-textarea {
-            background-color: #f8f9fa;
-            font-family: monospace;
-            font-size: 13px;
-            color: #212529;
-            min-height: 280px;
-        }
+        .output-section { margin-top: 20px; display: none; }
+        .output-textarea { background-color: #f8f9fa; font-family: monospace; font-size: 13px; color: #212529; min-height: 280px; }
 
-        #toast {
-            visibility: hidden;
-            min-width: 260px;
-            background-color: #2c3e50;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 14px 20px;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 15px;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
+        #toast { visibility: hidden; min-width: 260px; background-color: #2c3e50; color: #fff; text-align: center; border-radius: 8px; padding: 14px 20px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 15px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
     </style>
 </head>
 <body>
@@ -361,10 +213,8 @@
 <div class="container">
     <h1>清潔隊交通事故法理變數編修與報告產製系統</h1>
 
-    <!-- 雲端卡片庫單一真實來源狀態列 -->
-    <div id="cloud-status" class="cloud-status-bar">
-        <span id="cloud-status-text">⏳ 正在連線讀取雲端最新法理卡片庫...</span>
-        <button type="button" class="btn-sync" onclick="fetchOnlineCards()">🔄 重新同步雲端卡片</button>
+    <div id="system-status" class="system-status-bar">
+        <span id="system-status-text">⏳ 正在初始化系統...</span>
     </div>
 
     <!-- 區塊一：智慧貼上解析區 -->
@@ -376,8 +226,6 @@
         <div class="paste-toolbar">
             <span style="font-size: 14px; font-weight: 600; color: #495057;">請將單筆案件之 JSON 貼於下方：</span>
             <div class="demo-btns">
-                <button type="button" onclick="loadSample(1)">載入測試範例 1 (單一變數)</button>
-                <button type="button" onclick="loadSample(2)">載入測試範例 2 (多變數自動擇重/去重)</button>
                 <button type="button" onclick="clearPasteInput()">清空貼上區</button>
             </div>
         </div>
@@ -406,12 +254,12 @@
     <!-- 區塊三：即時命中卡片預覽與雙軌輸出 -->
     <div class="section-header">
         <span>步驟四：即時卡片預覽與報告產製</span>
-        <span class="section-subtitle">可免過 Make 直接產出 PDF 報告，或複製 JSON 貼回 LINE</span>
+        <span class="section-subtitle">可直接產出 PDF 報告，或複製 JSON</span>
     </div>
 
     <div class="preview-box">
         <div class="preview-header">
-            <span id="matched-title">🎯 目前變數命中卡片預覽</span>
+            <span id="matched-title">🎯 目前變數命中卡片預覽 (僅顯示標題)</span>
             <span id="matched-count-badge" style="font-size: 14px; color: #0056b3;">計算中...</span>
         </div>
         <div id="matched-cards-list" class="card-tag-list"></div>
@@ -419,7 +267,7 @@
 
     <div class="btn-group" style="margin-top: 20px;">
         <button type="button" id="btn-generate-report" class="btn btn-blue" onclick="openReportWindow()" disabled>🖨️ 直接產製正式報告 (另存 PDF)</button>
-        <button type="button" class="btn btn-primary" onclick="exportAndCopyJSON()">📋 產出並複製 JSON (貼至 LINE)</button>
+        <button type="button" class="btn btn-primary" onclick="exportAndCopyJSON()">📋 產出並複製 JSON</button>
         <button type="button" class="btn btn-secondary" style="flex: 0.5;" onclick="resetAll()">重置全表</button>
     </div>
 
@@ -432,162 +280,42 @@
 <div id="toast">✅ 操作成功！</div>
 
 <script>
-    // =========================================================================
-    // 1. 雲端法理卡片庫單一真實來源 (Online Single Source of Truth)
-    // =========================================================================
-    const GIST_RAW_URL = "[https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/2e70bcdaea39a5ec03d0485d843b9781c47d8366/legal_cards.json)";
-    
-	let ONLINE_LEGAL_CARDS = null;
-
-    async function fetchOnlineCards() {
-        const statusEl = document.getElementById('cloud-status');
-        const textEl = document.getElementById('cloud-status-text');
-        const reportBtn = document.getElementById('btn-generate-report');
-
-        statusEl.className = "cloud-status-bar";
-        textEl.textContent = "⏳ 正在從 GitHub Gist 同步最新法理卡片庫...";
-        reportBtn.disabled = true;
-
-        try {
-            // 👇 拿掉原有的時間戳記 (?t=...) 與 no-store 限制，避免觸發 GitHub 伺服器的跨來源阻擋
-            const response = await fetch(GIST_RAW_URL);
-            
-            if (!response.ok) throw new Error(`HTTP 狀態碼 ${response.status}`);
-            const data = await response.json();
-            if (!Array.isArray(data) || data.length === 0) throw new Error("卡片庫格式異常或為空");
-
-            ONLINE_LEGAL_CARDS = data;
-            statusEl.className = "cloud-status-bar online";
-            textEl.textContent = `✅ 已連線雲端最新卡片庫（共載入 ${data.length} 張法理卡片，確保零舊版誤差）`;
-            reportBtn.disabled = false;
-            updateLivePreview();
-        } catch (err) {
-            ONLINE_LEGAL_CARDS = null;
-            statusEl.className = "cloud-status-bar offline";
-            textEl.textContent = `❌ 無法取得雲端卡片庫 (${err.message})。為避免以舊版資料產製報告，已暫停報告產製功能。`;
-            reportBtn.disabled = true;
-            document.getElementById('matched-cards-list').innerHTML = `<span style="color:#dc3545; font-weight:bold;">⚠️ 請確認網路連線並點擊右上角「重新同步雲端卡片」。</span>`;
-        }
-    }
+    let LOCAL_LEGAL_CARDS = null;
 
     // =========================================================================
-    // 2. 25項法理變數完整辭典與欄位規格定義 (已全面統一最新辭典)
+    // 1. 25項法理變數完整辭典與欄位規格定義
     // =========================================================================
-    // mode:
-    // - 'single': 單一下拉選單 (輸出為單一元素陣列 ["值"] 或 null)
-    // - 'text_null': 文字輸入框 (無異常時鎖定為 null)
-    // - 'severity': 程度型變數 (介面保留 3 個並列選單，但解析時自動依嚴重度排序，僅帶入最嚴重之單一變數至選單 1)
-    // - 'multi': 多變數屬性欄位 (介面固定並列 3 個選單，自動去重)
     const FIELD_SCHEMA = [
         // --- Module B: 顯性變數与零階阻斷 ---
-        {
-            key: "trigger_exception", label: "【零階阻斷異常】", group: "B", mode: "single", requiredDefault: "無異常",
-            options: ["無異常", "隱性重大案件", "致命撞擊來源不明", "財損歸屬不明", "同仁身分與狀態不明", "酒駕關鍵資訊缺失"]
-        },
-        {
-            key: "trigger_exception_detail", label: "【異常具體說明】", group: "B", mode: "text_null"
-        },
-        {
-            key: "trigger_vehicle_type", label: "【本局車種】", group: "B", mode: "single",
-            options: ["垃圾車", "資源回收車", "抓斗車", "掃街車", "公務小客車", "公務機車", "鏟裝機", "挖掘機", "堆高機", "清溝車", "灑水車", "高空作業車", "水肥車", "密封廚餘回收車"]
-        },
-        {
-            key: "trigger_opponent_type", label: "【對造類型】", group: "B", mode: "multi",
-            options: ["一般車輛", "行人", "空域固定物", "平面固定物"]
-        },
-        {
-            key: "trigger_severity", label: "【案件層級】", group: "B", mode: "single", requiredDefault: "一般案件",
-            options: ["一般案件", "重大案件"]
-        },
-        {
-            key: "trigger_major_type", label: "【重大類型】", group: "B", mode: "multi", requiredDefault: "無",
-            options: ["無", "本局司機故意行為", "外部故意行為", "本局司機重大過失", "本局司機酒駕", "本局司機無照駕駛", "人員死亡", "人員重傷(刑§10Ⅳ)", "人員體傷嚴重住院", "對造財損預估超過理賠額度50萬元", "本局車損預估超過10萬元", "媒體報導"]
-        },
-        {
-            key: "trigger_terrain", label: "【事故地形】", group: "B", mode: "single",
-            options: ["清潔隊場區", "本局ROT之焚化廠/資收場", "我車滑坡肇事(車道停等)", "我車滑坡肇事(路側停駐)", "停車定點收運處", "交岔路口(有號誌)", "交岔路口(無號誌/閃光號誌)", "窄巷(僅容清潔車單向通行)", "無分向線之道路", "一般道路", "快速道路", "其他非道路場域"]
-        },
-        {
-            key: "trigger_video_status", label: "【行車影像】", group: "B", mode: "single", requiredDefault: "影像正常已擷取",
-            options: ["影像正常已擷取", "設備故障未儲存", "鏡頭故障", "影像遭覆蓋"]
-        },
-        {
-            key: "trigger_tachograph", label: "【車速紀錄】", group: "B", mode: "single", requiredDefault: "記錄器正常",
-            options: ["記錄器正常", "紙卡時間軸偏離", "逾8噸車輛未裝紙卡", "尚未安裝記錄器", "8噸以下車輛未裝紙卡", "車速記錄器故障"]
-        },
-        {
-            key: "trigger_police_report", label: "【報警備案】", group: "B", mode: "single", requiredDefault: "已依規定報案",
-            options: ["已依規定報案", "未立即報警"]
-        },
-        {
-            key: "trigger_our_injury", label: "【車組體傷】", group: "B", mode: "severity", requiredDefault: "無體傷",
-            options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"],
-            severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 }
-        },
-        {
-            key: "trigger_our_damage", label: "【車組財損】", group: "B", mode: "severity", requiredDefault: "無財損",
-            options: ["無財損", "財損輕微不處理", "一般財損", "重大財損(逾10萬元)"],
-            severityRank: { "重大財損(逾10萬元)": 4, "一般財損": 3, "財損輕微不處理": 2, "無財損": 1 }
-        },
-        {
-            key: "trigger_opponent_injury", label: "【對造體傷】", group: "B", mode: "severity", requiredDefault: "無體傷",
-            options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"],
-            severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 }
-        },
-        {
-            key: "trigger_opponent_damage", label: "【對造財損】", group: "B", mode: "severity", requiredDefault: "無財損",
-            options: ["無財損", "一般財損", "重大財損(逾50萬元)"],
-            severityRank: { "重大財損(逾50萬元)": 3, "一般財損": 2, "無財損": 1 }
-        },
+        { key: "trigger_exception", label: "【零階阻斷異常】", group: "B", mode: "single", requiredDefault: "無異常", options: ["無異常", "隱性重大案件", "致命撞擊來源不明", "財損歸屬不明", "同仁身分與狀態不明", "酒駕關鍵資訊缺失"] },
+        { key: "trigger_exception_detail", label: "【異常具體說明】", group: "B", mode: "text_null" },
+        { key: "trigger_vehicle_type", label: "【本局車種】", group: "B", mode: "single", options: ["垃圾車", "資源回收車", "抓斗車", "掃街車", "公務小客車", "公務機車", "鏟裝機", "挖掘機", "堆高機", "清溝車", "灑水車", "高空作業車", "水肥車", "密封廚餘回收車"] },
+        { key: "trigger_opponent_type", label: "【對造類型】", group: "B", mode: "multi", options: ["一般車輛", "行人", "空域固定物", "平面固定物"] },
+        { key: "trigger_severity", label: "【案件層級】", group: "B", mode: "single", requiredDefault: "一般案件", options: ["一般案件", "重大案件"] },
+        { key: "trigger_major_type", label: "【重大類型】", group: "B", mode: "multi", requiredDefault: "無", options: ["無", "本局司機故意行為", "外部故意行為", "本局司機重大過失", "本局司機酒駕", "本局司機無照駕駛", "人員死亡", "人員重傷(刑§10Ⅳ)", "人員體傷嚴重住院", "對造財損預估超過理賠額度50萬元", "本局車損預估超過10萬元", "媒體報導"] },
+        { key: "trigger_terrain", label: "【事故地形】", group: "B", mode: "single", options: ["清潔隊場區", "本局ROT之焚化廠/資收場", "我車滑坡肇事(車道停等)", "我車滑坡肇事(路側停駐)", "停車定點收運處", "交岔路口(有號誌)", "交岔路口(無號誌/閃光號誌)", "窄巷(僅容清潔車單向通行)", "無分向線之道路", "一般道路", "快速道路", "其他非道路場域"] },
+        { key: "trigger_video_status", label: "【行車影像】", group: "B", mode: "single", requiredDefault: "影像正常已擷取", options: ["影像正常已擷取", "設備故障未儲存", "鏡頭故障", "影像遭覆蓋"] },
+        { key: "trigger_tachograph", label: "【車速紀錄】", group: "B", mode: "single", requiredDefault: "記錄器正常", options: ["記錄器正常", "紙卡時間軸偏離", "逾8噸車輛未裝紙卡", "尚未安裝記錄器", "8噸以下車輛未裝紙卡", "車速記錄器故障"] },
+        { key: "trigger_police_report", label: "【報警備案】", group: "B", mode: "single", requiredDefault: "已依規定報案", options: ["已依規定報案", "未立即報警"] },
+        { key: "trigger_our_injury", label: "【車組體傷】", group: "B", mode: "severity", requiredDefault: "無體傷", options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"], severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 } },
+        { key: "trigger_our_damage", label: "【車組財損】", group: "B", mode: "severity", requiredDefault: "無財損", options: ["無財損", "財損輕微不處理", "一般財損", "重大財損(逾10萬元)"], severityRank: { "重大財損(逾10萬元)": 4, "一般財損": 3, "財損輕微不處理": 2, "無財損": 1 } },
+        { key: "trigger_opponent_injury", label: "【對造體傷】", group: "B", mode: "severity", requiredDefault: "無體傷", options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"], severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 } },
+        { key: "trigger_opponent_damage", label: "【對造財損】", group: "B", mode: "severity", requiredDefault: "無財損", options: ["無財損", "一般財損", "重大財損(逾50萬元)"], severityRank: { "重大財損(逾50萬元)": 3, "一般財損": 2, "無財損": 1 } },
 
-        // --- Module C: 第二軌隱性變數 (無則填 null) ---
-        {
-            key: "trigger_crew_identity", label: "【車組人員身分 (限本車車內)】", group: "C", mode: "multi", nullable: true,
-            options: ["本局駕駛", "隨車同仁"]
-        },
-        {
-            key: "trigger_our_property_identity", label: "【我方財物歸屬】", group: "C", mode: "multi", nullable: true,
-            options: ["本區隊公有財物", "車組同仁私有財物"]
-        },
-        {
-            key: "trigger_opponent_person_identity", label: "【對造人員身分 (限車外第三人)】", group: "C", mode: "multi", nullable: true,
-            options: ["外部人員", "本局同仁"]
-        },
-        {
-            key: "trigger_opponent_duty_status", label: "【對造同仁勤務狀態 (僅對造為本局同仁時)】", group: "C", mode: "multi", nullable: true,
-            options: ["執行勤務中", "上下班途中", "休假中"]
-        },
-        {
-            key: "trigger_opponent_property_identity", label: "【對造財物歸屬】", group: "C", mode: "multi", nullable: true,
-            options: ["外部私有財物", "車外同仁私有財物", "本區隊公有財物", "他區隊公有財物"]
-        },
-        {
-            key: "trigger_opponent_property_state", label: "【對造財物狀態】", group: "C", mode: "multi", nullable: true,
-            options: ["一般行駛", "車道停等", "靜止停放", "勤務中攜帶與操作"]
-        },
-        {
-            key: "trigger_action_phase", label: "【作業階段】", group: "C", mode: "single", nullable: true,
-            options: ["一般行駛", "進入場域", "道路作業中", "結束作業駛離"]
-        },
-        {
-            key: "trigger_action", label: "【本車動作】", group: "C", mode: "single", nullable: true,
-            options: ["一般直行", "起步", "變換車道", "右轉彎", "左轉彎", "迴車", "倒車", "靜止", "開啟車門", "會車"]
-        },
-        {
-            key: "trigger_bac_state", label: "【酒測狀態】", group: "C", mode: "single", nullable: true,
-            options: ["未飲酒", "0.15~0.24", "0.25以上", "抗法行為"]
-        },
-        {
-            key: "trigger_factor", label: "【肇事防禦因素】", group: "C", mode: "multi", nullable: true,
-            options: ["未注意車前狀況", "未保持安全距離", "裝載物飛落", "油水滲漏(路面)", "壓縮噴濺", "壓縮彈射", "打滑失控", "未注意後方/未派員指揮", "未注意後方來車", "尾門鬆脫", "幼童竄出", "未保持安全間隔", "車斗脫鉤", "動物竄出", "視線死角未確認", "緩速移動作業", "資收物交付事故", "未依規定停讓", "未注意限高"]
-        },
-        {
-            key: "trigger_osh_fault", label: "【職安與管理缺失】", group: "C", mode: "multi", nullable: true,
-            options: ["未戴安全帽", "未繫妥頤帶", "未穿反光背心", "未使用安全護欄", "未繫妥防墜掛勾", "普通駕照", "新手駕駛", "累犯肇事", "影像輕微異常", "車輛定檢異常", "駕照審驗異常", "裝載物超出車身", "本局司機嚴重違規"]
-        }
+        // --- Module C: 第二軌隱性變數 ---
+        { key: "trigger_crew_identity", label: "【車組人員身分 (限本車車內)】", group: "C", mode: "multi", nullable: true, options: ["本局駕駛", "隨車同仁"] },
+        { key: "trigger_our_property_identity", label: "【我方財物歸屬】", group: "C", mode: "multi", nullable: true, options: ["本區隊公有財物", "車組同仁私有財物"] },
+        { key: "trigger_opponent_person_identity", label: "【對造人員身分 (限車外第三人)】", group: "C", mode: "multi", nullable: true, options: ["外部人員", "本局同仁"] },
+        { key: "trigger_opponent_duty_status", label: "【對造同仁勤務狀態】", group: "C", mode: "multi", nullable: true, options: ["執行勤務中", "上下班途中", "休假中"] },
+        { key: "trigger_opponent_property_identity", label: "【對造財物歸屬】", group: "C", mode: "multi", nullable: true, options: ["外部私有財物", "車外同仁私有財物", "本區隊公有財物", "他區隊公有財物"] },
+        { key: "trigger_opponent_property_state", label: "【對造財物狀態】", group: "C", mode: "multi", nullable: true, options: ["一般行駛", "車道停等", "靜止停放", "勤務中攜帶與操作"] },
+        { key: "trigger_action_phase", label: "【作業階段】", group: "C", mode: "single", nullable: true, options: ["一般行駛", "進入場域", "道路作業中", "結束作業駛離"] },
+        { key: "trigger_action", label: "【本車動作】", group: "C", mode: "single", nullable: true, options: ["一般直行", "起步", "變換車道", "右轉彎", "左轉彎", "迴車", "倒車", "靜止", "開啟車門", "會車"] },
+        { key: "trigger_bac_state", label: "【酒測狀態】", group: "C", mode: "single", nullable: true, options: ["未飲酒", "0.15~0.24", "0.25以上", "抗法行為"] },
+        { key: "trigger_factor", label: "【肇事防禦因素】", group: "C", mode: "multi", nullable: true, options: ["未注意車前狀況", "未保持安全距離", "裝載物飛落", "油水滲漏(路面)", "壓縮噴濺", "壓縮彈射", "打滑失控", "未注意後方/未派員指揮", "未注意後方來車", "尾門鬆脫", "幼童竄出", "未保持安全間隔", "車斗脫鉤", "動物竄出", "視線死角未確認", "緩速移動作業", "資收物交付事故", "未依規定停讓", "未注意限高"] },
+        { key: "trigger_osh_fault", label: "【職安與管理缺失】", group: "C", mode: "multi", nullable: true, maxSlots: 6, options: ["未戴安全帽", "未繫妥頤帶", "未穿反光背心", "未使用安全護欄", "未繫妥防墜掛勾", "普通駕照", "新手駕駛", "累犯肇事", "影像輕微異常", "車輛定檢異常", "駕照審驗異常", "裝載物超出車身", "本局司機嚴重違規"] }
     ];
 
-    // 歷史同義詞防呆自動轉換表
     const SYNONYM_MAP = {
         "本局駕駛故意行為": "本局司機故意行為",
         "交岔路口(無號誌或閃光號誌)": "交岔路口(無號誌/閃光號誌)",
@@ -595,7 +323,7 @@
     };
 
     // =========================================================================
-    // 3. 動態建構表單 UI
+    // 2. 動態建構表單 UI
     // =========================================================================
     function buildFormUI() {
         const containerB = document.getElementById('module-b-container');
@@ -608,9 +336,9 @@
 
             let badgeHTML = '';
             if (field.mode === 'severity') {
-                badgeHTML = `<span class="badge-rule badge-severity">⚡ 自動擇重 (僅帶入最嚴重單一變數)</span>`;
+                badgeHTML = `<span class="badge-rule badge-severity">⚡ 自動擇重</span>`;
             } else if (field.mode === 'multi') {
-                badgeHTML = `<span class="badge-rule badge-multi">🔢 支援多變數 (自動去重)</span>`;
+                badgeHTML = `<span class="badge-rule badge-multi">🔢 自動去重</span>`;
             }
 
             const emptyLabel = field.nullable ? "-- 無 (null) --" : "-- 請選擇 / 留空忽略 --";
@@ -629,8 +357,10 @@
             } else if (field.mode === 'multi' || field.mode === 'severity') {
                 const opts = field.options.map(o => `<option value="${o}">${o}</option>`).join('');
                 let selects = '';
-                for (let i = 0; i < 3; i++) {
-                    const slotPlaceholder = i === 0 ? emptyLabel : `-- 選單 ${i + 1} (留空忽略) --`;
+                const slotsCount = field.maxSlots || 3;
+                
+                for (let i = 0; i < slotsCount; i++) {
+                    const slotPlaceholder = i === 0 ? emptyLabel : `-- 選單 ${i + 1} (留空) --`;
                     selects += `
                         <select id="select-${field.key}-${i}" onchange="onFieldChange('${field.key}')">
                             <option value="">${slotPlaceholder}</option>
@@ -667,7 +397,8 @@
                 const el = document.getElementById(`select-${field.key}-0`);
                 el.value = field.requiredDefault || '';
             } else {
-                for (let i = 0; i < 3; i++) {
+                const slotsCount = field.maxSlots || 3;
+                for (let i = 0; i < slotsCount; i++) {
                     const el = document.getElementById(`select-${field.key}-${i}`);
                     el.value = (i === 0 && field.requiredDefault) ? field.requiredDefault : '';
                     el.disabled = false;
@@ -680,9 +411,6 @@
         updateLivePreview();
     }
 
-    // =========================================================================
-    // 4. 欄位連動防呆邏輯 (案件層級 <-> 重大類型、異常 <-> 異常說明)
-    // =========================================================================
     function onFieldChange(changedKey) {
         if (changedKey === 'trigger_severity' || changedKey === 'trigger_major_type') {
             syncSeverityAndMajorType(changedKey);
@@ -696,30 +424,23 @@
 
     function syncSeverityAndMajorType(changedKey) {
         const sevEl = document.getElementById('select-trigger_severity-0');
-        const m0 = document.getElementById('select-trigger_major_type-0');
-        const m1 = document.getElementById('select-trigger_major_type-1');
-        const m2 = document.getElementById('select-trigger_major_type-2');
         const helper = document.getElementById('helper-trigger_major_type');
+        const mEls = [];
+        for(let i=0; i<3; i++) { mEls.push(document.getElementById(`select-trigger_major_type-${i}`)); }
 
         if (sevEl.value === '一般案件') {
-            m0.value = '無';
-            m1.value = '';
-            m2.value = '';
-            m0.disabled = true;
-            m1.disabled = true;
-            m2.disabled = true;
+            mEls[0].value = '無';
+            mEls[1].value = '';
+            mEls[2].value = '';
+            mEls.forEach(el => el.disabled = true);
             helper.className = 'helper-text show info';
-            helper.textContent = '💡 一般案件非屬重大類型，已自動鎖定為「無」。';
+            helper.textContent = '💡 一般案件自動鎖定重大類型為「無」。';
         } else if (sevEl.value === '重大案件') {
-            m0.disabled = false;
-            m1.disabled = false;
-            m2.disabled = false;
-            if (changedKey === 'trigger_severity' && m0.value === '無') {
-                m0.value = '';
-            }
-            if (!m0.value && !m1.value && !m2.value) {
+            mEls.forEach(el => el.disabled = false);
+            if (changedKey === 'trigger_severity' && mEls[0].value === '無') { mEls[0].value = ''; }
+            if (!mEls[0].value && !mEls[1].value && !mEls[2].value) {
                 helper.className = 'helper-text show warn';
-                helper.textContent = '⚠️ 重大案件請至少於選單 1 指定一項具體重大類型（不得為「無」）。';
+                helper.textContent = '⚠️ 重大案件請指定具體重大類型。';
             } else {
                 helper.className = 'helper-text';
             }
@@ -749,7 +470,6 @@
         if (field.mode === 'text_null') {
             isActive = val !== null && val !== '';
         } else if (Array.isArray(val) && val.length > 0) {
-            // 若非預設「無/無異常/無體傷/無財損」則特別高亮，或只要有值於 Module C 即高亮
             const defaultNegatives = ["無異常", "無", "無體傷", "無財損"];
             if (field.group === 'C') isActive = true;
             else isActive = val.some(v => !defaultNegatives.includes(v));
@@ -760,24 +480,16 @@
     }
 
     // =========================================================================
-    // 5. 智慧 JSON 解析器 (自動剝除雜訊、去重、傷亡財損自動擇重)
+    // 3. 智慧 JSON 解析器 (貼上解析)
     // =========================================================================
     function extractCleanJSON(rawText) {
-        // 1. 替換 NBSP (\u00A0) 為標準半形空白
         let cleaned = rawText.replace(/\u00A0/g, ' ').trim();
-        // 2. 移除 Markdown code fence
         cleaned = cleaned.replace(/```json/gi, '').replace(/```/g, '').trim();
 
-        // 3. 尋找第一個 '{' 與對應的結構
         const firstBrace = cleaned.indexOf('{');
-        if (firstBrace === -1) throw new Error("找不到有效的 JSON 起始括號 '{'");
+        if (firstBrace === -1) throw new Error("找不到 JSON 起始括號 '{'");
 
-        // 使用括號計數器精準擷取第一個完整 JSON 物件（避免貼上含分隔線文字時解析失敗）
-        let depth = 0;
-        let inString = false;
-        let escape = false;
-        let endBrace = -1;
-
+        let depth = 0, inString = false, escape = false, endBrace = -1;
         for (let i = firstBrace; i < cleaned.length; i++) {
             const ch = cleaned[i];
             if (escape) { escape = false; continue; }
@@ -792,7 +504,7 @@
             }
         }
 
-        if (endBrace === -1) throw new Error("JSON 括號結構不完整，請確認複製內容是否齊全");
+        if (endBrace === -1) throw new Error("JSON 括號結構不完整");
         const jsonSubstring = cleaned.substring(firstBrace, endBrace + 1);
         const parsed = JSON.parse(jsonSubstring);
         return parsed.llm_json ? parsed.llm_json : parsed;
@@ -804,7 +516,7 @@
 
         if (!rawInput.trim()) {
             logEl.className = 'helper-text show warn';
-            logEl.textContent = '⚠️ 請先於上方文字框貼上 Gemini 產出的 JSON 內容。';
+            logEl.textContent = '⚠️ 請先於上方貼上 JSON。';
             return;
         }
 
@@ -824,7 +536,6 @@
                     return;
                 }
 
-                // 正規化為陣列並執行同義詞校正與空值過濾
                 let arr = [];
                 if (Array.isArray(rawVal)) {
                     arr = rawVal.filter(v => v !== null && v !== undefined && String(v).trim() !== '' && String(v).trim() !== 'null')
@@ -839,40 +550,35 @@
                     sel.value = arr.length > 0 ? arr[0] : (field.nullable ? '' : (field.requiredDefault || ''));
                 } 
                 else if (field.mode === 'severity') {
-                    // 程度型變數：自動依嚴重度排序，僅保留最嚴重之單一變數於選單 1，選單 2 & 3 強制留空
-                    const uniqueOriginal = [...new Set(arr)];
-                    let chosen = field.requiredDefault || '';
-                    if (arr.length > 0) {
-                        const sorted = [...arr].sort((a, b) => (field.severityRank[b] || 0) - (field.severityRank[a] || 0));
-                        chosen = sorted[0];
+                    const chosen = (arr.length > 0) 
+                        ? [...arr].sort((a, b) => (field.severityRank[b] || 0) - (field.severityRank[a] || 0))[0] 
+                        : (field.requiredDefault || '');
+                    
+                    const slotsCount = field.maxSlots || 3;
+                    for(let i=0; i<slotsCount; i++){
+                        document.getElementById(`select-${field.key}-${i}`).value = (i === 0) ? chosen : '';
                     }
-                    document.getElementById(`select-${field.key}-0`).value = chosen;
-                    document.getElementById(`select-${field.key}-1`).value = '';
-                    document.getElementById(`select-${field.key}-2`).value = '';
 
                     if (arr.length > 1) {
-                        const msg = `已由 [${arr.join('、')}] 自動擇重收斂為單一變數「${chosen}」`;
-                        logs.push(`${field.label}：${msg}`);
+                        logs.push(`${field.label}：收斂為單一變數「${chosen}」`);
                         helperEl.className = 'helper-text show info';
-                        helperEl.textContent = `⚡ ${msg}`;
+                        helperEl.textContent = `⚡ 自動擇重：${chosen}`;
                     }
                 } 
                 else if (field.mode === 'multi') {
-                    // 多變數屬性欄位：自動去除重複值，依序填入選單 1~3
                     const deduped = [...new Set(arr)];
-                    for (let i = 0; i < 3; i++) {
+                    const slotsCount = field.maxSlots || 3;
+                    for (let i = 0; i < slotsCount; i++) {
                         document.getElementById(`select-${field.key}-${i}`).value = deduped[i] || '';
                     }
                     if (arr.length > deduped.length) {
-                        const msg = `已自動去除重複項 [${arr.join('、')}] ➔ [${deduped.join('、')}]`;
-                        logs.push(`${field.label}：${msg}`);
+                        logs.push(`${field.label}：去除重複項`);
                         helperEl.className = 'helper-text show info';
-                        helperEl.textContent = `✨ ${msg}`;
+                        helperEl.textContent = `✨ 已自動去除重複變數`;
                     }
                 }
             });
 
-            // 檢查重大類型若含有非「無」之選項，自動確保案件層級同步
             const m0 = document.getElementById('select-trigger_major_type-0').value;
             if (m0 && m0 !== '無') {
                 document.getElementById('select-trigger_severity-0').value = '重大案件';
@@ -884,8 +590,8 @@
             updateLivePreview();
 
             logEl.className = 'helper-text show info';
-            logEl.innerHTML = `✅ <strong>JSON 解析成功！</strong>` + (logs.length > 0 ? `<br>• ${logs.join('<br>• ')}` : ' 所有變數已載入下方選單。');
-            showToast("✅ JSON 已成功解析並載入表單！");
+            logEl.innerHTML = `✅ <strong>解析成功！</strong>` + (logs.length > 0 ? `<br>• ${logs.join('<br>• ')}` : '');
+            showToast("✅ JSON 解析成功");
         } catch (err) {
             logEl.className = 'helper-text show warn';
             logEl.textContent = `❌ 解析失敗：${err.message}`;
@@ -893,7 +599,7 @@
     }
 
     // =========================================================================
-    // 6. 讀取目前表單數值並組裝標準 llm_json
+    // 4. 讀取與輸出
     // =========================================================================
     function getFieldValue(field) {
         if (field.mode === 'text_null') {
@@ -902,20 +608,18 @@
             if (excVal === '無異常' || excVal === '' || textVal === '') return null;
             return textVal;
         }
-
         if (field.mode === 'single') {
             const val = document.getElementById(`select-${field.key}-0`).value.trim();
             if (!val) return field.nullable ? null : (field.requiredDefault ? [field.requiredDefault] : null);
             return [val];
         }
 
-        // mode === 'multi' or 'severity'
         let rawVals = [];
-        for (let i = 0; i < 3; i++) {
+        const slotsCount = field.maxSlots || 3;
+        for (let i = 0; i < slotsCount; i++) {
             const v = document.getElementById(`select-${field.key}-${i}`).value.trim();
             if (v !== '') rawVals.push(v);
         }
-        // 自動去重
         let deduped = [...new Set(rawVals)];
 
         if (field.key === 'trigger_major_type') {
@@ -924,7 +628,6 @@
             deduped = deduped.filter(v => v !== '無');
             return deduped.length > 0 ? deduped : ["無"];
         }
-
         if (deduped.length === 0) {
             return field.nullable ? null : (field.requiredDefault ? [field.requiredDefault] : null);
         }
@@ -940,11 +643,10 @@
     }
 
     // =========================================================================
-    // 7. 法理卡片比對引擎與靜態 HTML 報告渲染器 (100% 移植自 Cloudflare Workers)
+    // 5. 卡片比對與預覽 (僅顯示標題)
     // =========================================================================
     function evaluateMatchedCards() {
-        if (!ONLINE_LEGAL_CARDS) return { isBlocked: false, cards: [], finalVars: {} };
-
+        if (!LOCAL_LEGAL_CARDS) return { isBlocked: false, cards: [], finalVars: {} };
         const parsedLlmVars = buildLlmJsonObject().llm_json;
         let finalVars = {};
 
@@ -960,7 +662,7 @@
         }
 
         let matchedCards = [];
-        for (const card of ONLINE_LEGAL_CARDS) {
+        for (const card of LOCAL_LEGAL_CARDS) {
             const rules = card.trigger_rules || {};
             let isMatch = true;
             for (const [key, allowedValues] of Object.entries(rules)) {
@@ -974,7 +676,6 @@
                     if (isExclude && actualValuesArray.length === 0) { isMatch = false; break; }
                     continue;
                 }
-
                 const safeAllowedArray = Array.isArray(allowedValues) ? allowedValues : [allowedValues];
                 const hasIntersection = actualValuesArray.some(v => safeAllowedArray.includes(v));
 
@@ -990,10 +691,8 @@
         let finalOutputCards = matchedCards;
         const blockingCards = matchedCards.filter(c => c.card_name.startsWith('00_'));
         let isBlocked = blockingCards.length > 0;
-
         if (isBlocked) finalOutputCards = blockingCards;
         else finalOutputCards.sort((a, b) => a.card_name.localeCompare(b.card_name));
-
         return { isBlocked, cards: finalOutputCards, finalVars };
     }
 
@@ -1001,18 +700,19 @@
         const listEl = document.getElementById('matched-cards-list');
         const badgeEl = document.getElementById('matched-count-badge');
 
-        if (!ONLINE_LEGAL_CARDS) {
-            badgeEl.textContent = "尚未載入雲端卡片庫";
+        if (!LOCAL_LEGAL_CARDS) {
+            badgeEl.textContent = "未載入卡片庫";
+            listEl.innerHTML = "";
             return;
         }
 
         const { isBlocked, cards } = evaluateMatchedCards();
         badgeEl.textContent = isBlocked
-            ? `⚠️ 觸發系統阻斷 (${cards.length} 張阻斷卡)`
-            : `✅ 共匹配 ${cards.length} 張法理處置卡片`;
+            ? `⚠️ 觸發系統阻斷 (${cards.length} 張)`
+            : `✅ 共匹配 ${cards.length} 張處置卡片`;
 
         if (cards.length === 0) {
-            listEl.innerHTML = `<span style="color:#6c757d;">⚠️ 目前變數組合未匹配任何卡片（或無須特別處置說明）。</span>`;
+            listEl.innerHTML = `<span style="color:#6c757d;">⚠️ 變數未匹配任何卡片（或為無須說明之案件）。</span>`;
             return;
         }
 
@@ -1022,33 +722,26 @@
         }).join('');
     }
 
-    // 原生移植自 Code_Cloudflare Workers_2.md 的無狀態 HTML 渲染引擎
+    // =========================================================================
+    // 6. 正式報告渲染器 (無狀態 HTML 產出)
+    // =========================================================================
     function generateStaticHTMLReport(vars, cards) {
         function parseMarkdownToHTML(text) {
             const lines = text.split('\n');
             let html = '';
-
             lines.forEach(line => {
                 let trimmed = line.trim();
-                if (trimmed === '') {
-                    html += '<div class="md-spacer"></div>';
-                    return;
-                }
+                if (trimmed === '') { html += '<div class="md-spacer"></div>'; return; }
                 let processedLine = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 const headerMatch = processedLine.match(/^(#{1,6})\s+(.*)/);
-                if (headerMatch) {
-                    html += `<div class="md-heading">${headerMatch[2]}</div>`;
-                } else if (processedLine.startsWith('- ')) {
-                    html += `<div class="md-list-item"><span class="md-bullet">•</span><span class="md-content">${processedLine.substring(2)}</span></div>`;
-                } else if (/^\d+\.\s/.test(processedLine)) {
+                if (headerMatch) { html += `<div class="md-heading">${headerMatch[2]}</div>`; } 
+                else if (processedLine.startsWith('- ')) { html += `<div class="md-list-item"><span class="md-bullet">•</span><span class="md-content">${processedLine.substring(2)}</span></div>`; } 
+                else if (/^\d+\.\s/.test(processedLine)) {
                     let numMatch = processedLine.match(/^(\d+\.)\s(.*)/);
                     html += `<div class="md-list-item"><span class="md-number">${numMatch[1]}</span><span class="md-content">${numMatch[2]}</span></div>`;
                 } else {
-                    if (line.startsWith('  ') || line.startsWith('\t')) {
-                        html += `<div class="md-indent">${processedLine}</div>`;
-                    } else {
-                        html += `<div class="md-p">${processedLine}</div>`;
-                    }
+                    if (line.startsWith('  ') || line.startsWith('\t')) { html += `<div class="md-indent">${processedLine}</div>`; } 
+                    else { html += `<div class="md-p">${processedLine}</div>`; }
                 }
             });
             return html;
@@ -1065,51 +758,28 @@
                     return Array.isArray(val) ? val.join("、") : (val || "【未知資訊】");
                 });
                 const renderedHTML = parseMarkdownToHTML(content);
-                cardsHTML += `
-                    <div class="section">
-                        <div class="section-title">${card.card_name}</div>
-                        <div class="section-body">${renderedHTML}</div>
-                    </div>
-                `;
+                cardsHTML += `<div class="section"><div class="section-title">${card.card_name}</div><div class="section-body">${renderedHTML}</div></div>`;
             });
         }
 
         const dateStr = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-
         return `<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>清潔隊交通事故處理說明</title>
-  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-  <link href="[https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap)" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Times New Roman', 'Noto Sans TC', sans-serif;
-      font-size: 16pt;
-      color: #000;
-      line-height: 1.4;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    body { font-family: 'Times New Roman', 'Noto Sans TC', sans-serif; font-size: 16pt; color: #000; line-height: 1.4; padding: 20px; max-width: 800px; margin: 0 auto; }
     .main-title { text-align: center; font-size: 22pt; margin-top: 0; margin-bottom: 15px; font-weight: bold; }
-    .meta-info {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      font-size: 14pt; font-weight: bold; border-bottom: 2px solid #000;
-      padding-bottom: 10px; margin-bottom: 25px;
-    }
+    .meta-info { display: flex; justify-content: space-between; align-items: flex-end; font-size: 14pt; font-weight: bold; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; }
     .meta-disclaimer { font-weight: normal; color: #555; }
     .section { border-bottom: 1px solid #d3d3d3; padding-bottom: 25px; margin-bottom: 25px; }
     .section:last-child { border-bottom: none; padding-bottom: 0; }
-    .section-title {
-      font-size: 18pt; font-weight: bold;
-      border-left: 6px solid #000; padding-left: 10px;
-      margin-top: 10px; margin-bottom: 15px;
-      page-break-after: avoid;
-    }
+    .section-title { font-size: 18pt; font-weight: bold; border-left: 6px solid #000; padding-left: 10px; margin-top: 10px; margin-bottom: 15px; page-break-after: avoid; }
     .section-body { padding-left: 16px; orphans: 3; widows: 3; text-align: justify; text-justify: inter-ideograph; }
     .md-heading { margin-top: 18px; margin-bottom: 8px; font-weight: bold; font-size: 16pt; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
     .md-list-item { display: flex; margin-bottom: 6px; }
@@ -1121,11 +791,7 @@
     .md-spacer { height: 12px; }
     strong { font-weight: bold; }
     .btn-print { display: block; width: 220px; margin: 20px auto; padding: 10px; text-align: center; background-color: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16pt; font-family: inherit; }
-    @media print {
-      .btn-print { display: none; }
-      @page { margin: 2cm 2cm 2.5cm 2cm; }
-      body { padding: 0; }
-    }
+    @media print { .btn-print { display: none; } @page { margin: 2cm 2cm 2.5cm 2cm; } body { padding: 0; } }
   </style>
 </head>
 <body>
@@ -1143,28 +809,21 @@
     }
 
     function openReportWindow() {
-        if (!ONLINE_LEGAL_CARDS) {
-            alert("目前無法連線至雲端法理卡片庫，為避免使用舊版資料，已阻斷報告生成。");
+        if (!LOCAL_LEGAL_CARDS) {
+            alert("⚠️ 系統未能載入母版卡片庫，無法產製報告。");
             return;
         }
         const { cards, finalVars } = evaluateMatchedCards();
         const htmlContent = generateStaticHTMLReport(finalVars, cards);
         const reportWin = window.open("", "_blank");
-        if (!reportWin) {
-            alert("彈出視窗遭瀏覽器攔截，請允許本頁面的彈出視窗權限。");
-            return;
-        }
+        if (!reportWin) { alert("彈出視窗遭攔截，請允許本頁面的視窗權限。"); return; }
         reportWin.document.open();
         reportWin.document.write(htmlContent);
         reportWin.document.close();
     }
 
-    // =========================================================================
-    // 8. 匯出標準 JSON 並複製至剪貼簿 (確保純半形空白 U+0020)
-    // =========================================================================
     function exportAndCopyJSON() {
         const finalObj = buildLlmJsonObject();
-        // 強制使用標準半形空白並移除任何潛在 NBSP
         const jsonString = JSON.stringify(finalObj, null, 2).replace(/\u00A0/g, ' ');
 
         const outSec = document.getElementById('output-section');
@@ -1174,77 +833,11 @@
         outSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         navigator.clipboard.writeText(jsonString).then(() => {
-            showToast("✅ 標準 JSON 已複製！可直接切換至 LINE 貼上");
+            showToast("✅ JSON 已複製！");
         }).catch(() => {
             outTxt.select();
-            alert("自動複製失敗，請手動複製下方文字框內容。");
+            alert("自動複製失敗，請手動複製。");
         });
-    }
-
-    // =========================================================================
-    // 9. 測試範例與輔助函式
-    // =========================================================================
-    function loadSample(num) {
-        const sample1 = `{
-  "llm_json": {
-    "trigger_exception": ["無異常"],
-    "trigger_exception_detail": null,
-    "trigger_vehicle_type": ["公務小客車"],
-    "trigger_opponent_type": ["一般車輛"],
-    "trigger_severity": ["一般案件"],
-    "trigger_major_type": ["無"],
-    "trigger_terrain": ["交岔路口(有號誌)"],
-    "trigger_video_status": ["影像正常已擷取"],
-    "trigger_tachograph": ["記錄器正常"],
-    "trigger_police_report": ["已依規定報案"],
-    "trigger_our_injury": ["無體傷"],
-    "trigger_our_damage": ["一般財損"],
-    "trigger_opponent_injury": ["無體傷"],
-    "trigger_opponent_damage": ["一般財損"],
-    "trigger_crew_identity": null,
-    "trigger_our_property_identity": null,
-    "trigger_opponent_person_identity": null,
-    "trigger_opponent_duty_status": null,
-    "trigger_opponent_property_identity": ["外部私有財物"],
-    "trigger_opponent_property_state": ["一般行駛"],
-    "trigger_action_phase": ["一般行駛"],
-    "trigger_action": ["靜止"],
-    "trigger_bac_state": null,
-    "trigger_factor": null,
-    "trigger_osh_fault": null
-  }
-}`;
-        const sample2 = `{
-  "llm_json": {
-    "trigger_exception": ["無異常"],
-    "trigger_exception_detail": null,
-    "trigger_vehicle_type": ["垃圾車"],
-    "trigger_opponent_type": ["一般車輛", "一般車輛", "一般車輛"],
-    "trigger_severity": ["一般案件"],
-    "trigger_major_type": ["無"],
-    "trigger_terrain": ["快速道路"],
-    "trigger_video_status": ["影像正常已擷取"],
-    "trigger_tachograph": ["記錄器正常"],
-    "trigger_police_report": ["已依規定報案"],
-    "trigger_our_injury": ["無體傷"],
-    "trigger_our_damage": ["一般財損"],
-    "trigger_opponent_injury": ["無體傷", "輕微體傷", "無體傷"],
-    "trigger_opponent_damage": ["無財損", "一般財損", "一般財損"],
-    "trigger_crew_identity": null,
-    "trigger_our_property_identity": null,
-    "trigger_opponent_person_identity": ["外部人員", "外部人員", "外部人員"],
-    "trigger_opponent_duty_status": null,
-    "trigger_opponent_property_identity": ["外部私有財物", "外部私有財物", "外部私有財物"],
-    "trigger_opponent_property_state": ["一般行駛", "車道停等", "車道停等"],
-    "trigger_action_phase": ["一般行駛"],
-    "trigger_action": ["一般直行"],
-    "trigger_bac_state": null,
-    "trigger_factor": ["未注意車前狀況", "未保持安全間隔"],
-    "trigger_osh_fault": null
-  }
-}`;
-        document.getElementById('raw-json-input').value = num === 1 ? sample1 : sample2;
-        parseAndPopulate();
     }
 
     function clearPasteInput() {
@@ -1261,7 +854,7 @@
         });
         applyDefaultValues();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        showToast("🔄 表單已重置為預設狀態");
+        showToast("🔄 表單已重置");
     }
 
     function showToast(msg) {
@@ -1271,11 +864,2064 @@
         setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
     }
 
-    // 初始化啟動
     document.addEventListener('DOMContentLoaded', () => {
         buildFormUI();
-        fetchOnlineCards();
+        
+        // 系統啟動時自動載入內嵌的卡片庫
+        const statusEl = document.getElementById('system-status');
+        const textEl = document.getElementById('system-status-text');
+        
+        try {
+            LOCAL_LEGAL_CARDS = JSON.parse(RAW_CARDS_JSON);
+            statusEl.className = "system-status-bar ready";
+            textEl.innerHTML = `✅ 系統就緒：已載入母版卡片庫 (共 ${LOCAL_LEGAL_CARDS.length} 張卡片)`;
+            document.getElementById('btn-generate-report').disabled = false;
+        } catch (err) {
+            LOCAL_LEGAL_CARDS = null;
+            statusEl.className = "system-status-bar error";
+            textEl.innerHTML = `❌ 系統錯誤：母版卡片庫 JSON 格式損毀，請檢查最底部的 RAW_CARDS_JSON (${err.message})`;
+            document.getElementById('btn-generate-report').disabled = true;
+        }
+        updateLivePreview();
     });
+
+    // =========================================================================
+    // 🌟 【專屬卡片庫資料區】請將 legal_cards.json 的完整內容貼在下方兩個反引號 (`) 之間
+    // =========================================================================
+    const RAW_CARDS_JSON = `
+
+[
+  {
+    "card_name": "00_阻斷型卡片1：隱性重大案件糾錯",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "隱性重大",
+        "系統糾錯"
+      ],
+      "trigger_exception": [
+        "隱性重大案件"
+      ]
+    },
+    "ui_content": "【系統防呆糾錯：重大案件通報等級異常】\n1. 案件升級判定：經系統檢核本案敘述，發現包含「{{trigger_exception_detail}}」之情形，依法理與本局規定應屬重大案件，但前端聯單層級勾選有誤。請修正【案件層級】為「重大案件」，並選擇對應【重大類型】後，重新提交資料。\n2. 通報升級：請立即陳報「重大危安通報」。\n3. 證據保全：請盡速保全完整行車影像及車速紀錄（大餅紙卡或數位紀錄），以備後續肇責釐清與可能之司法程序。"
+  },
+  {
+    "card_name": "00_阻斷型卡片2：財損歸屬與產權資訊補正 (Information Missing Interrupt)",
+    "trigger_rules": {
+      "tags": [
+        "系統阻斷",
+        "資訊補全",
+        "場域防呆"
+      ],
+      "trigger_exception": [
+        "財損歸屬不明"
+      ]
+    },
+    "ui_content": "【系統阻斷：財損歸屬與產權資訊未齊全】\n本案涉及財物毀損，因「公有/私有」及「區隊隸屬」將直接決定是否啟動第三人責任保險或國家賠償程序。為避免產出錯誤之理賠指導，流程已強制暫停。\n\n請您於肇事經過中補充以下關鍵資訊：\n1. 【產權與隸屬】：受損客體是「私人財產」，還是機關的「公有財產（車輛/設施）」？若為公有財產，該財產是隸屬於「本區隊」還是「他區隊」？\n2. 【私人財損情境】：若受損客體為私人財產，該物品事發當下是「靜態停放（如私有汽機車）」，還是同仁「勤務過程中隨身攜帶/騎乘之物品」？\n\n▶ 處理建議：請釐清上述財損歸屬後，再次提交表單重新產製報告。"
+  },
+  {
+    "card_name": "00_阻斷型卡片3：同仁事故資訊補正 (Information Missing Interrupt)",
+    "trigger_rules": {
+      "tags": [
+        "系統阻斷",
+        "資訊補全",
+        "身分防呆"
+      ],
+      "trigger_exception": [
+        "同仁身分與狀態不明"
+      ]
+    },
+    "ui_content": "【系統阻斷：同仁身分與勤務狀態未明】\n本案疑似涉及本局同仁之體傷或私人財損。因同仁於「執行勤務」與「休假」狀態下之保險理賠（第三人責任險）與行政處置（職災程序）具備絕對排他性，系統已強制暫停。\n\n請您於肇事經過中明確補充以下資訊：\n1. 【體傷同仁歸屬】：受傷之同仁，是該肇事車輛之「車組人員（駕駛/隨車）」，還是「車外同仁」？\n2. 【車外同仁勤務狀態】：若為車外同仁受傷，事發當下該員屬「執行勤務中」、「上下班途中」或「休假中」？\n3. 【私人財損情境】：若事故造成同仁之私人交通工具或財物受損，該同仁當時是否正在「執行公務」？\n\n▶ 處理建議：請釐清該員身分與勤務狀態後，再次提交表單重新產製報告。"
+  },
+  {
+    "card_name": "00_阻斷型卡片4：機具肇事致內部人員傷亡 (純職災攔截)",
+    "trigger_rules": {
+      "tags": [
+        "重大職災",
+        "機具肇事",
+        "程序阻斷",
+        "內部事故"
+      ],
+      "trigger_vehicle_type": [
+        "鏟裝機",
+        "堆高機",
+        "挖掘機"
+      ],
+      "trigger_opponent_person_identity_exclude": [
+        "外部人員"
+      ],
+      "trigger_opponent_duty_status_exclude": [
+        "上下班途中",
+        "休假中"
+      ],
+      "trigger_our_damage": [
+        "無財損"
+      ],
+      "trigger_opponent_damage": [
+        "無財損"
+      ]
+    },
+    "ui_content": "1. 【程序阻斷】：因重機械機具無強制汽車責任險，且本案未造成內部財損亦未涉及外部第三人，不適用常規車輛肇事處理及外部理賠程序。請區隊【立即停止】填寫本聯單（速報聯），全案請循【職業災害處理程序】辦理。\n2. 【損害填補與國家賠償】：本案依法屬國家賠償案件，參照《民法》第 186 條等相關法理，賠償應由「國家責任先行」，若扣除雇主之職業災害與勞工保險等給付外，仍有損害未足填補，可循小額賠償或國家賠償程序受償。本局履行賠償責任後，將視肇事人員之過失情節，啟動內部求償程序。\n3.  【刑民事責任脫鉤】：實質損害賠償依法將回歸國賠或民事訴訟，由機關預算填補。但機關無義務為駕駛支付「免除刑責之溢價」。刑事補償是爭取自由的個人代價，建議於調解程序或訴訟程序中提出能力所及之補償，以免除或降低刑事責任。"
+  },
+  {
+    "card_name": "00_阻斷型卡片5：僅駕駛體傷案件攔截",
+    "trigger_rules": {
+      "tags": [
+        "系統阻斷",
+        "單一事故",
+        "駕駛體傷"
+      ],
+      "trigger_our_injury": [
+        "輕微體傷",
+        "嚴重體傷"
+      ],
+      "trigger_crew_identity": [
+        "本局駕駛"
+      ],
+      "trigger_crew_identity_exclude": [
+        "隨車同仁"
+      ],
+      "trigger_opponent_injury": [
+        "無體傷"
+      ],
+      "trigger_our_damage": [
+        "無財損"
+      ],
+      "trigger_opponent_damage": [
+        "無財損"
+      ]
+    },
+    "ui_content": "本案因僅有駕駛體傷，而無其他體傷或財損請區隊【立即停止】填寫本聯單（速報聯），全案請循【職業災害處理程序】辦理。"
+  },
+  {
+    "card_name": "00_阻斷型卡片6：酒駕事故資訊補正",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "重大案件",
+        "酒駕攔截",
+        "資訊補全"
+      ],
+      "trigger_exception": [
+        "酒駕關鍵資訊缺失"
+      ]
+    },
+    "ui_content": "【系統阻斷：酒駕重大案件資訊未齊全】\n本案涉及本局人員酒後駕車，為極度敏感之重大違安事件，後續處置涉及複雜之刑事責任、國賠程序與車損求償等法律程序。為產製精確之行政指導，流程已暫停。\n\n請您於聯單或敘述中補充以下關鍵資訊：\n【精準酒測值】：駕駛酒測吐氣數值為多少 mg/L？是否有《道路交通管理處罰條例》第35條第4款拒絕酒測等抗法行為。\n\n\n▶ 處理建議：請補全上述資訊後，再次提交以產製專屬之酒駕處置報告。"
+  },
+  {
+    "card_name": "00_阻斷型卡片7：致命撞擊來源不明",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "隱性重大",
+        "系統糾錯"
+      ],
+      "trigger_exception": [
+        "致命撞擊來源不明"
+      ]
+    },
+    "ui_content": "【系統阻斷：死亡案件資訊未齊全】\n本案人員涉及重大死亡事故，後續處置涉及複雜之刑事責任、國賠程序等法律程序。為產製精確之行政指導，流程已暫停。\n\n請您於聯單或敘述中補充以下關鍵資訊：\n1. **致命撞擊客體：** 死者初步研判是遭「本局車輛」直接撞擊/輾壓？還是遭「外部對造車輛」撞擊？\n2. **死者事故瞬間位置：** 事故發生瞬間，死者位於車內、正在上下車、還是在車外執行勤務？\n3. **動態描述：** 請使用主動語態清晰描述（例：「本局駕駛倒車時不慎撞擊後方同仁」或「同仁於車外作業時，遭後方外部小客車追撞」）。\n\n待物理事實與撞擊來源補齊後，系統方能為您展開正確的法務與行政處置指引。"
+  },
+  {
+    "card_name": "01_重大案件通用處置機制 (總綱)",
+    "trigger_rules": {
+      "tags": [
+        "全域檢核",
+        "危機升級",
+        "重大案件",
+        "緊急通報"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ]
+    },
+    "ui_content": "1. 本案屬重大案件，請即時以通訊軟體向上級主管及局本部通報，另請依標準作業程序於8小時內陳報「重大危安通報」。\n2. 統一發言與封鎖機制：如有嚴重違法情形、人員死亡、重傷或已引發媒體報導，請嚴格落實新聞與發言紀律。除本局指定之新聞發言人外，現場人員與區隊主管切勿私下對外發表涉及肇責判定之言論，避免引發後續輿論危機。\n3. 證據與現場保全：請盡速保全完整行車影像及車速紀錄【對A1事故至關重要】，以備後續肇責釐清。\n4. 訴訟協助：可視需求安排職安科或本局之法律諮詢。"
+  },
+  {
+    "card_name": "02_未報警備案(涉體傷肇逃)",
+    "trigger_rules": {
+      "tags": [
+        "肇逃風險",
+        "報警異常",
+        "程序違規"
+      ],
+      "trigger_police_report": [
+        "未立即報警"
+      ],
+      "trigger_opponent_injury_exclude": [
+        "無體傷"
+      ]
+    },
+    "ui_content": "1. 請區隊指派幹部立即陪同該駕駛至轄區交通分隊補行製作筆錄。\n2. 本案因造成體傷，駕駛駛離現場疑涉刑法第185-4條肇事逃逸罪（非告訴乃論）。請調閱事故車輛行車影像，重點檢視事故發生後，是否有「減速、停車查看」之動作，以釐清是否具備肇事逃逸之主觀犯意，如顯非未能察覺事故，請即陳報「重大危安通報」，並將案件會辦政風室備查。"
+  },
+  {
+    "card_name": "10_重大案件-外部故意行為",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "故意衝撞",
+        "妨害公務",
+        "刑事追訴",
+        "涉訟輔助"
+      ],
+      "trigger_major_type": [
+        "外部故意行為"
+      ]
+    },
+    "ui_content": "1. 立即報警並通報政風：本案性質為刑事犯罪現場，當下務必立即報警，並注意勿移動現場，妥善保存證跡。另應盡速陳報職安科及政風室以因應處理。\n\n2. 妨害公務與侮辱之追訴 (非告訴乃論，刑§135、§140)：\n   若對造係針對「依法執行職務中」之本局同仁與車輛施加強暴脅迫（如故意衝撞），或於現場當場侮辱，已涉犯《刑法》第 135 條（妨害公務執行罪）及第 140 條（侮辱公務員罪）。現場同仁可立即向警方提出「告訴」，要求依立案偵辦。\n\n3. 公物毀損之重罪定性 (非告訴乃論，刑§138)：\n   若事故造成本局車輛或機具毀損，本局車輛屬「公務員職務上掌管之物品」，對造故意衝撞毀損，涉犯《刑法》第 138 條之重罪。本案應簽辦公函向警方提出「告訴」，藉由強大之刑事壓力，迫使對造全額賠償機關財損。\n\n4. 同仁體傷之告訴與協助 (告訴乃論，刑§277)：\n   若對造故意行為造成本局同仁體傷，屬《刑法》第 277 條第 1 項之傷害罪。雖屬告訴乃論，須由「受傷同仁本人」提出告訴，惟區隊應全力協助同仁向警方完成筆錄與提告程序，並主動告知對造，若未達成令同仁滿意之民事賠償，同仁絕不撤回刑事告訴。\n\n5. 涉訟輔助與身心關懷 ：\n   本案同仁為犯罪被害人，請區隊主管務必給予心理支持。若同仁因本案需出庭作證或提出民事附帶訴訟，機關應依《公務人員因公涉訟輔助辦法》提供必要之法律諮詢或律師費用補助，確保基層同仁安心執法，捍衛機關尊嚴。"
+  },
+  {
+    "card_name": "10_重大案件-本局司機故意行為",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "故意行為",
+        "刑事犯罪",
+        "政風移送"
+      ],
+      "trigger_major_type": [
+        "本局司機故意行為"
+      ]
+    },
+    "ui_content": "1. 刑事案件定性與理賠程序阻斷：本案涉及公務員於執行職務時之故意犯罪行為，屬汽車第三人責任保險之不保事項。強制責任保險理賠對造醫療費用後，將向肇事駕駛代位求償。\n2. 故意傷害罪之處置 (非告訴乃論)：若事故造成人員體傷，參照《刑法》第 277 條第 1 項及第 287 條後段規定，公務員於執行職務時犯傷害罪，屬「非告訴乃論」之罪。若現場處理之警方未主動立案偵辦，區隊應將全案事證移請本局政風室進行調查，並依法移送司法機關偵辦。\n3. 故意毀損罪之處置 (告訴乃論)：若事故僅造成財物毀損，參照《刑法》第 354 條規定，屬「告訴乃論」之罪。雖須受損財物所有人提告方能追訴，但因涉本局人員之故意違法失職，區隊仍應將相關事證移請政風室調查。\n4. 公物毀損之重罪定性 (非告訴乃論，刑§138)：如受損者係本局財物，故意毀損「公務員職務上掌管之物品」，涉犯《刑法》第 138 條之重罪。本案應簽辦公函向警方提出「告訴」，藉由強大之刑事壓力，迫使駕駛全額賠償機關財損。\n5. 職務調整與管制：針對涉嫌故意犯罪之駕駛，於政風與司法調查期間，請區隊依規定評估暫停其駕駛公務車輛之職務，以防範後續衍生更嚴重之危安事件。"
+  },
+  {
+    "card_name": "10_重大案件-酒駕-低於刑法標準 (0.15~0.24)",
+    "trigger_rules": {
+      "tags": [
+        "酒駕態樣",
+        "刑事未達標",
+        "行政處分",
+        "紀律防範"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_bac_state": [
+        "0.15~0.24"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕"
+      ]
+    },
+    "ui_content": "1. 刑事移送風險評估：本案酒測值雖未達《刑法》第185-3條 第 1 款所訂吐氣 0.25 mg/L 之標準，但仍可能因涉嫌違反同條第 2 款「不能安全駕駛罪」而遭移送法辦。惟如未實際發現異常駕駛行為，檢察官通常將以不起訴處分偵結。本案請依工作規則懲處。\n2. 駕照處分與職務調離：本案駕駛依法將遭吊扣駕照，請區隊立即將該員調離司機職務。如係酒駕累犯依法將吊銷駕照。且縱使日後重新考領駕照，亦不得駕駛未裝設酒精鎖之車輛。"
+  },
+  {
+    "card_name": "10_重大案件-酒駕-拒絕酒測 (消極抗法)",
+    "trigger_rules": {
+      "tags": [
+        "酒駕態樣",
+        "拒絕酒測",
+        "鉅額裁罰",
+        "規避調查"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_bac_state": [
+        "抗法行為"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕"
+      ]
+    },
+    "ui_content": "1. 拒測之鉅額罰鍰與強制抽血：本案駕駛拒絕酒測，依法將面臨18 萬元鉅額行政罰鍰，且必要時將由檢察官核發鑑定許可，強制移送抽血，如因抽血鑑定結果觸犯公共危險罪而遭檢察官起訴，請追蹤刑事判決結果，如被告未獲緩刑宣告而須入監服刑，須依法解僱。本案屬重斲傷機關聲譽之重大惡劣行徑，請區隊依工作規則從重議處。\n2. 駕照處分與職務調離：本案駕駛依法將吊銷駕照。且縱使日後重新考領駕照，亦不得駕駛未裝設酒精鎖之車輛。"
+  },
+  {
+    "card_name": "10_重大案件-酒駕-達刑法標準 (0.25 以上)",
+    "trigger_rules": {
+      "tags": [
+        "酒駕態樣",
+        "刑事達標",
+        "公共危險",
+        "重大懲處"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_bac_state": [
+        "0.25以上"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕"
+      ]
+    },
+    "ui_content": "1. 觸犯公共危險罪：本案酒測值已達《刑法》第185-3條第1款吐氣數值達 0.25 mg/L之標準，駕駛將遭檢察官起訴。請追蹤刑事判決結果，如被告未獲緩刑宣告而須入監服刑，須依法解僱。本案係駕駛公務車輛從事犯罪行為，嚴重斲傷機關聲譽。請依工作規則從重議處。\n2. 駕照處分與職務調離：本案駕駛依法將吊銷駕照，請立即調離司機職務。且縱使日後重新考領駕照，亦不得駕駛未裝設酒精鎖之車輛。本案係駕駛公務車輛從事犯罪行為，請依工作規則從重議處。"
+  },
+  {
+    "card_name": "10_重大案件-酒駕通用卡片",
+    "trigger_rules": {
+      "tags": [
+        "酒駕態樣",
+        "通用處置",
+        "扣牌求償",
+        "保險阻斷"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕"
+      ]
+    },
+    "ui_content": "1. 車輛移置與扣牌求償 (重大財產損失)：本案因涉酒駕肇事，肇事車輛將依法遭當場移置保管扣繳牌照，並吊扣該車輛牌照 2 年。相關拖吊及保管費用應由駕駛全額負擔。牌照遭吊扣可試行以「出勤前確實酒測，已善盡管理責任」之理由進行申訴。如申訴遭駁回，因車輛遭扣牌 2 年導致本局車輛無法出勤之營運損失（如：租賃類似車輛 2 年之費用），應依法向該名駕駛進行追償。\n2. 自行申請初判表釐清責任：本案非屬第三人責任險承保範圍，保險公司不會協助釐清肇事責任。酒駕固屬違法行為，但與肇事責任未必有關(例如停等號誌遭後車追撞)。請區隊主動釐清肇事責任，以利案件處理，如初判表僅記載進入司法程序不予研判，則請同仁向檢察官申請囑託鑑定。\n3. 內部紀律：請區隊嚴格落實每日至少 2 次之勤前酒測，以免類似事故再次發生，並增加牌照遭吊扣時申訴成功之可能。"
+  },
+  {
+    "card_name": "10_重大案件：本局司機無照駕駛",
+    "trigger_rules": {
+      "tags": [
+        "無照駕駛",
+        "扣牌求償",
+        "貪污移送",
+        "行政處分"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_major_type": [
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "1. 職務調離與車輛移置：本案駕駛屬無照駕駛，請區隊立即將該員調離司機職務。肇事車輛依法將遭當場移置保管並扣繳牌照，相關之拖吊及保管費用，應由該名違規駕駛全額自行負擔。\n2. 扣牌與求償：本局車輛依法將遭吊扣牌照 3 個月（若為累犯將展延，最長可達 1 年）。請區隊試行以「機關已定期進行駕照查核，善盡管理責任」為由提出申訴。如申訴遭駁回，因車輛遭扣牌導致本局無法出勤之營運損失（如：租賃類似車輛之費用），應依法向該名駕駛進行追償。\n3. 行政罰鍰之責任歸屬：依《道路交通管理處罰條例》第 21 條第 7 項及第21-1條第1項，車輛所有人將因未盡管理責任遭同步裁罰。此項針對機關管理疏失之罰鍰，【無法律上理由】向駕駛人進行民事追償，應由區隊年度相關預算支應並檢討管理責任。\n4. 內部懲處與違紀：無照駕駛公務車輛屬嚴重藐視法紀之行為，請區隊依本局工作規則從重懲處。\n5. 詐領公款移送法辦：請區隊立即清查該員駕照遭吊扣/吊銷之日期。若該員於失去駕駛資格後仍刻意隱瞞、持續擔任駕駛並「按月領有駕駛安全獎金」者，涉嫌詐領公款，應即檢附相關事證請政風室調查後移送地檢署偵辦。"
+  },
+  {
+    "card_name": "20_重大案件-死亡事故：本局造成隨車人員死亡",
+    "trigger_rules": {
+      "tags": [
+        "死亡事故",
+        "重大職災",
+        "內部風暴",
+        "撫卹國賠",
+        "刑事防禦"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_our_injury": [
+        "死亡"
+      ],
+      "trigger_crew_identity": [
+        "隨車同仁"
+      ],
+      "trigger_major_type_exclude": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "# 一、 行政與法務處置建議 (給區隊與承辦人)\n1. 通報與現場勘驗 (法定強制作為)：\n   本案為重大職業災害。除報警外，區隊需依法於 8 小時內通報勞動檢查機構，並【嚴格保持現場完整】以供警方調查，如係於場區內發生，應注意保留現場供勞檢調查。\n2. 拘留偵訊之陪伴支持：\n   事故當下至次日，駕駛將面臨警方拘留與地檢署偵訊。若駕駛未及時延聘律師，請區隊務必派員陪伴，給予心理支持。\n3. 內部風暴控管與家屬斡旋：\n   死者家屬與肇事駕駛通常為熟識之同事，主管應介入斡旋，避免雙方發生激烈衝突，並主動協助家屬釐清機關的撫卹與賠償責任。\n3. 保險理賠限制與拘留陪伴：\n   - 本案雖非屬第三人責任保險承保範圍，但可協助家屬申請「強制汽車責任保險」之死亡給付 200 萬元。\n   - 事故當下至次日，駕駛將面臨拘留偵訊。若未延聘律師，請區隊派員陪伴，給予心理支持。\n4. 撫卹與賠償雙軌制：\n   - 【軌道一：職災與專案給付】：全力協助家屬申請勞保職災死亡給付，以及「環境部清潔隊員執行職務死亡濟助基金」1,200,000 元。\n   - 【軌道二：國家賠償先行】：主動引導案件進入國家賠償程序。但須向家屬明確說明，依法理規定，機關各類職災給付、環境部濟助金及強制險理賠，皆須自國賠總額中予以扣除（抵充）。\n# 二、 肇事駕駛訴訟生存指南 (請區隊務必轉知肇事駕駛本人)\n1. 【涉訟輔助與律師延聘策略】：\n   - 歸墊風險評估：因公涉訟輔助僅適用於最終「無任何過失」之案件，若最終獲有罪判決，將全額追繳輔助金額。故若本案駕駛「非顯無任何過失」，建議先行自行延聘律師，待取得無罪判決後，方可申請歸墊。\n   - 律師進場時機：過失致死案件為非告訴乃論。若駕駛非顯無任何過失，建議於「刑事訴訟一審程序」再行延聘律師辯護，以免於漫長的偵查階段徒費律師費用。如擬於偵查程序即延聘律師辯護，應於事故當下盡速找到律師陪同偵訊，這是偵查程序中，律師最重要的時刻。\n2. 【刑民事責任脫鉤】建立正確賠償認知：\n   請駕駛認知：實質損害賠償依法將回歸機關之國賠、撫卹與保險體系填補。駕駛於刑事訴訟程序中自掏腰包提出能力所及之補償，是為了向法官展現彌補過錯之誠意，以換取免於入監、保全工作權與人身自由的個人代價，切勿與機關的民事賠償混為一談。\n3. 【防禦策略的不作為】絕對禁止指責死者：\n   刑事訴訟防禦核心應嚴格守住界線，僅聚焦客觀環境限制與自身行為陳述。死者為共同值勤之同事，絕對禁止主動攻擊或評論死者過失。雙方肇責比例將由車鑑會報告客觀呈現，法庭上交由辯護律師客觀援引作為量刑考量即可。若駕駛帶有防衛性地指責死者，將瞬間激化家屬喪親之痛，致使法官受家屬情緒影響而給予不利判決。\n4. 【訴訟全程的態度定錨】以持續調解穩固悔過心證：\n   面對昔日同事家屬提出的求償，駕駛必須全程保持平靜與極低姿態，展現高度同理心與深切歉意。持續出席調解並提出自身能負擔之方案，即便破局，此過程亦足以向法官證明被告具備真誠悔意，此為爭取緩刑之最關鍵考量。"
+  },
+  {
+    "card_name": "20_重大案件-死亡事故：第三人造成車組人員死亡",
+    "trigger_rules": {
+      "tags": [
+        "死亡事故",
+        "職災撫卹",
+        "強制險理賠",
+        "肇責未明",
+        "隨車人員"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_our_injury": [
+        "死亡"
+      ]
+    },
+    "ui_content": "1. 法定撫卹與濟助金申請：\n   本案為重大職業災害，請區隊全力協助死者家屬申請「勞工保險職災死亡給付」，並同步啟動申請「環境部清潔隊員執行職務死亡濟助基金」1,200,000 元之專案撫卹。\n\n2. 強制汽車責任保險請領策略：\n   請協助家屬優先向對造肇事車輛投保之保險公司申請「強制汽車責任保險」死亡給付。若對造車輛未投保強制險且殉職同仁與我車有發生碰撞，依法可逕向「本局肇事車輛」投保之保險公司提出強制險理賠申請，以確保理賠金及早到位。\n\n3. 肇責釐清與訴訟保留：\n   因事故初期肇事責任尚未明確（可能涉及多方共同過失），請區隊現階段務必以安撫家屬、協助請領法定撫卹為唯一主軸。切勿於現場或調解初期過早定調肇責歸屬，一切後續之民事求償與刑事告訴策略，均須俟警方初步分析研判表或車鑑會報告出爐後，再行研議辦理。"
+  },
+  {
+    "card_name": "21_不保事項：車輛造成隨車人員體傷",
+    "trigger_rules": {
+      "tags": [
+        "身分檢核",
+        "勤務體傷",
+        "保險分流",
+        "刑事阻斷",
+        "調解程序"
+      ],
+      "trigger_vehicle_type_exclude": [
+        "挖掘機",
+        "堆高機",
+        "鏟裝機"
+      ],
+      "trigger_our_injury": [
+        "輕微體傷",
+        "嚴重體傷"
+      ],
+      "trigger_crew_identity": [
+        "隨車同仁"
+      ]
+    },
+    "ui_content": "1. 醫療保障與關懷：本案受傷對象為執勤中同仁，區隊關懷同仁傷勢，並請協助其申請「勞保職災醫療給付」及可重複領取之「強制汽車責任保險」。如體傷係與因第三人車輛發生交通事故所致，優先申請第三人車輛投保之強制責任險，如該第三人有過失，則可申請該車投保之第三人責任險理賠。\n2. 保險除外預警與國家賠償：另因體傷發生於執行職務過程中，屬本局車輛投保之第三人責任保險之不保事項。如同仁體傷係純因本局駕駛行為所致，請向雙方說明，本案依法屬國家賠償案件，參照《民法》第 186 條法理，賠償應由國家責任先行。受傷同仁若認勞保與強制險給付不足填補損害，可循小額賠償或國家賠償程序受償。本局履行賠償責任後，將視肇事駕駛過失情節，啟動內部求償程序。\n3. 刑事風險防範與建議調解：   因「刑事告訴權不得事先拋棄」，一般和解或協議缺乏實質拘束力，如雙方當事人有賠償爭議，請引導至「鄉鎮市區調解委員會」進行正式調解，經法院核定之調解書視同法院判決，有阻斷刑事程序之效力。"
+  },
+  {
+    "card_name": "21_不保事項：車輛違法肇事造成隨車人員嚴重傷亡",
+    "trigger_rules": {
+      "tags": [
+        "重大案件",
+        "違法肇事",
+        "傷亡理賠",
+        "抵充國賠",
+        "刑事重責"
+      ],
+      "trigger_vehicle_type_exclude": [
+        "挖掘機",
+        "鏟裝機",
+        "堆高機"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕",
+        "本局司機無照駕駛",
+        "本局司機故意行為"
+      ],
+      "trigger_our_injury": [
+        "死亡",
+        "嚴重體傷"
+      ],
+      "trigger_crew_identity": [
+        "隨車同仁"
+      ]
+    },
+    "ui_content": "1. 強制險先行與抵充戰略 (極重要)：本案造雖屬第三人責任險不保事項，但「強制汽車責任保險」仍可理賠。請區隊【主動協助】申請強制險理賠，藉由及時撥付之醫療/失能/死亡給付，依法抵充本局可能產生之國家賠償責任，避免本局承受超額之鉅款求償。\n2. 保險代位求償與內部侵權切割：請向肇事駕駛嚴正說明，保險公司於強制險理賠後，依法將向其進行「代位求償」。且該強制險向駕駛之代位求償金額，【不得抵充】駕駛應負擔之內部侵權責任分擔。\n3. 刑事重責與和解切割：本案因伴隨酒駕或無照甚至於故意犯罪等重大違法行為，肇事駕駛將面臨極度嚴格之刑事追訴。刑事部分之和解與補償金（平事），須由駕駛人自行全額籌措面對，本局及保險公司無義務亦無法為其分擔免除刑責之代價。\n4. 國家賠償與終局求償：如駕駛無力全額賠償，致對造循國家賠償程序處理，於本局國家賠償程序終結、依法撥付賠償金後，將依《國家賠償法》規定，針對該駕駛之嚴重違法行為啟動內部求償。\n5. 如因造成造成重大傷亡，致車輛遭沒入，建請區隊依車輛市值向駕駛全額求償。"
+  },
+  {
+    "card_name": "21_不保事項：駕駛死亡",
+    "trigger_rules": {
+      "tags": [
+        "駕駛體傷"
+      ],
+      "trigger_crew_identity": [
+        "本局駕駛"
+      ],
+      "trigger_our_injury": [
+        "死亡"
+      ]
+    },
+    "ui_content": "因駕駛人之傷亡非屬本局所投保之任何車輛或機具保險之理賠範圍，僅能以職業災害案件為同仁申請勞保與職災相關給付。惟如係與其他車輛發生交通事故，可申請該車所投保之強制責任險死亡給付，如對造有肇事責任，則可申請該車投保之第三人責任險理賠。"
+  },
+  {
+    "card_name": "21_不保事項：駕駛體傷",
+    "trigger_rules": {
+      "tags": [
+        "駕駛體傷"
+      ],
+      "trigger_crew_identity": [
+        "本局駕駛"
+      ],
+      "trigger_our_injury": [
+        "輕微體傷",
+        "嚴重體傷"
+      ]
+    },
+    "ui_content": "請關心同仁傷勢。另因駕駛人之體傷非屬本局所投保之任何車輛或機具保險之理賠範圍，僅能以職業災害案件為同仁申請勞保與職災相關給付。惟如係與其他車輛發生交通事故，可申請該車所投保之強制責任險，如對造有肇事責任，則可申請該車投保之第三人責任險理賠。"
+  },
+  {
+    "card_name": "30_重大案件-本局車損逾 10 萬元",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "重大車損",
+        "PCM會勘",
+        "損害求償",
+        "全額追償"
+      ],
+      "trigger_our_damage": [
+        "重大財損(逾10萬元)"
+      ]
+    },
+    "ui_content": "1. 啟動會勘機制：應立即以便簽敘明案情與初步估價，報請庶務科會同 PCM（明志科技大學）進行實車會勘。會勘後之報告將作為後續對外求償與對內分攤之法定損害額認定依據。\n2. 會勘完畢後，如急需用車可進行維修，並務必保留完整維修資料。如對造應負賠償責任，可據以求償。如求償未果可先行申請調解，調解前可先行計算「車輛零件折舊」後之金額作為談判底限，避免因求償金額落差導致程序僵持。若對造無賠償誠意，應評估聲請支付命令或逕為起訴。"
+  },
+  {
+    "card_name": "31_ 本局小額財損處理",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "一般車損",
+        "折舊求償"
+      ],
+      "trigger_our_damage": [
+        "一般財損"
+      ]
+    },
+    "ui_content": "彈性維修指引：如車輛急需出勤使用，可先行維修。務必保留完整維修資料。如對造應負賠償責任，可據以求償。如求償未果可先行申請調解，調解前可先行計算「車輛零件折舊」後之金額作為談判底限，避免因求償金額落差導致程序僵持。若對造無賠償誠意，應評估聲請支付命令或逕為起訴。"
+  },
+  {
+    "card_name": "31_ 本局輕微財損不維修",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "本局財損",
+        "輕微免修",
+        "結案備查"
+      ],
+      "trigger_our_damage": [
+        "財損輕微不處理"
+      ]
+    },
+    "ui_content": "拍照存證與結案備查：本案經區隊評估屬「財損輕微不處理」，惟為避免日後財損認定爭議，請區隊務必針對受損部位【拍照存證】並隨聯單檢附。"
+  },
+  {
+    "card_name": "31_不保事項：車組同仁財損",
+    "trigger_rules": {
+      "tags": [
+        "身分檢核",
+        "同仁財損",
+        "勤務相關",
+        "國賠程序"
+      ],
+      "trigger_our_damage": [
+        "一般財損",
+        "重大財損(逾10萬元)"
+      ],
+      "trigger_our_property_identity": [
+        "車組同仁私有財物"
+      ]
+    },
+    "ui_content": "1. 保險除外條款預警：本案因受僱人之財損發生於直接執行職務之過程中，屬第三人責任保險之不保事項。\n2. 內部協議與國家賠償先行：請區隊主管向財物受損之同仁妥善說明保險條款限制，並協調雙方當事人之賠償共識。本案依法屬國家賠償案件，參照《民法》第 186 條規定，賠償應由「國家責任先行」，肇事駕駛無直接（或單獨）面對求償之責任。\n3. 損害填補與內部求償：財物受損之同仁若欲主張權益，可循小額賠償程序或國家賠償程序受償。待獲償後，再由本局視肇事駕駛之過失情節啟動內部求償程序。"
+  },
+  {
+    "card_name": "32_維修費用內部分攤_一般案件",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "本局財損",
+        "維修分攤"
+      ],
+      "trigger_our_damage": [
+        "一般財損",
+        "重大財損(逾10萬元)"
+      ],
+      "trigger_major_type_exclude": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機重大過失",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "如因駕駛過失造成本局車損之案件，依肇事責任比例計算本局自負之維修費用後：\n- 115年2月1日起之事故：依本局《清潔隊車輛機具維修費用分攤處理原則》，核算駕駛應分攤之維修費用。\n- 115年1月31日(含)前之事故：區隊可引用前揭規定計算分攤費用，如未引用前揭規定，亦應敘明駕駛應分攤維修費用之金額及理由。"
+  },
+  {
+    "card_name": "32_維修費用內部分攤_重大違規",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "本局財損",
+        "維修分攤"
+      ],
+      "trigger_our_damage": [
+        "一般財損",
+        "重大財損(逾10萬元)"
+      ],
+      "trigger_major_type": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機重大過失",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "重大違紀全額負擔：視肇事責任比例計算我方負擔之費用後，依本局清潔隊車輛機具維修費用分攤處理原則第5條第2項規定，本案屬重大違紀案件，駕駛應全額負擔維修費用。"
+  },
+  {
+    "card_name": "40_重大案件-死亡事故：本局造成第三人死亡",
+    "trigger_rules": {
+      "tags": [
+        "死亡事故",
+        "國賠戰略",
+        "刑事平事",
+        "訴訟防禦",
+        "刑民脫鉤",
+        "律師延聘"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_opponent_injury": [
+        "死亡"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ],
+      "trigger_major_type_exclude": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "# 一、 行政與法務處置建議 (給區隊與承辦人)\n1. 初期關懷與強制險先行：\n   盡速協助對造申請汽車強制責任險之死亡給付 200 萬元，並建議區隊主管親自攜帶同仁前往奠祭。請評估啟動第三人責任險之「奠儀慰問金」。【極度重要】：給付前須徵詢保險理賠人員同意，並確認核銷方式，區隊切勿於現場擅自承諾家屬任何賠償金額。\n\n2. 拘留偵訊之陪伴支持：\n   事故當下至次日，駕駛將面臨警方拘留與地檢署偵訊。若駕駛未及時延聘律師，請區隊務必派員陪伴，給予心理支持。\n\n3. 民事賠償之「國賠化」戰略分流：\n   當遺屬請求之金額與核保金額差距過大時，應主動引導案件進入「國家賠償程序」。本案依法屬國家賠償案件，參照《民法》第 186 條規定，賠償應由「國家責任先行」，肇事駕駛無直接（或單獨）面對求償之責任。可向家屬說明，政府機關財務健全，所有依法得請求之損害皆可完全受償無賴帳風險，且能避免家屬因直接提告民事附帶訴訟遭法院程序駁回，徒增律師費與訴訟成本。\n   - 【路徑 A：逾越保險額度】：若求償金額逾保險額度，請正常進行完整之國家賠償程序。惟請向肇事駕駛聲明，待國家賠償程序終結，將視駕駛過失情形啟動內部求償。\n   - 【路徑 B：保險額度內】：若經核算賠償金額在理賠額度內，且保險核保金額與國賠計算基準相仿，可與對造溝通，以「本局委任保險公司協議無果」為由，逕行開立協議不成立證明書，將案件盡速導入民事訴訟，以判決確定賠償金額。進入訴訟程序後，可具狀向法院聲請訴訟告知，請保險公司參加訴訟。\n\n# 二、 肇事駕駛訴訟生存指南 (請區隊務必轉知肇事駕駛本人)\n\n1. 【涉訟輔助與律師延聘策略】：\n   - 歸墊風險評估：因公涉訟輔助僅適用於最終「無任何過失」之案件，若最終獲有罪判決，將全額追繳輔助金額。故若本案駕駛「非顯無任何過失」，建議先行自行延聘律師，待取得無罪判決後，再申請歸墊。\n   - 律師進場時機：過失致死案件為非告訴乃論。若駕駛非顯無任何過失，建議於「刑事訴訟一審程序」再行延聘律師辯護，以免於偵查階段徒費律師費用。如擬於偵查程序即延聘律師辯護，應於事故當下盡速找到律師陪同偵訊，這是偵查程序中，律師最重要的時刻。\n\n2. 【刑民事責任脫鉤】建立正確賠償認知：\n   請駕駛認知：保險公司僅負責理賠法定項目，無義務為駕駛支付「免除刑責之溢價」。刑事補償是爭取自由的個人代價。公務駕駛執行職務肇事，實質損害賠償依法將回歸國賠或民事訴訟，由機關預算與保險填補。駕駛於訴訟程序中應提出能力所及之補償，展現彌補過錯之誠意，以保全自身工作權與人身自由，切勿與機關的民事賠償混為一談。\n\n3. 【防禦策略的不作為】絕對禁止指責死者：\n   刑事訴訟防禦核心應嚴格守住界線，僅聚焦客觀環境限制（如視距死角）與自身行為陳述。絕對禁止主動攻擊或評論死者過失。雙方肇責比例將由車鑑會報告客觀呈現，法庭上交由辯護律師客觀援引作為量刑考量即可。若駕駛帶有防衛性地指責死者，將瞬間激化家屬喪親之痛，家屬一旦拒絕原諒，法官為安撫家屬情緒，駕駛可能受較為不利之判決結果。\n\n4. 【訴訟全程的態度定錨】以持續調解穩固悔過心證：\n   面對家屬因悲痛提出的高額求償，駕駛必須全程保持平靜與低姿態，展現高度同理心與深切歉意。請持續出席每一次調解庭，並明確提出自身當下所能負擔之補償方案。即便調解屢屢破局，此過程已足以向法官傳遞強烈心證，證明被告具備真誠悔意、不推諉卸責且積極試圖修復損害。此態度為法官最終願意給予緩刑的最關鍵考量。"
+  },
+  {
+    "card_name": "40_重大案件-死亡事故：本局造成車外勤務中同仁死亡",
+    "trigger_rules": {
+      "tags": [
+        "死亡事故",
+        "重大職災",
+        "內部風暴",
+        "撫卹國賠",
+        "刑事防禦"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_opponent_injury": [
+        "死亡"
+      ],
+      "trigger_opponent_person_identity": [
+        "本局同仁"
+      ],
+      "trigger_opponent_duty_status": [
+        "執行勤務中"
+      ],
+      "trigger_major_type_exclude": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "# 一、 行政與法務處置建議 (給區隊與承辦人)\n1. 通報與現場勘驗 (法定強制作為)：\n   本案為重大職業災害。除報警外，區隊需依法於 8 小時內通報勞動檢查機構，並【嚴格保持現場完整】以供警方調查，如係於場區內發生，應注意保留現場供勞檢調查。\n2. 拘留偵訊之陪伴支持：\n   事故當下至次日，駕駛將面臨警方拘留與地檢署偵訊。若駕駛未及時延聘律師，請區隊務必派員陪伴，給予心理支持。\n3. 內部風暴控管與家屬斡旋：\n   死者家屬與肇事駕駛通常為熟識之同事，主管應介入斡旋，避免雙方發生激烈衝突，並主動協助家屬釐清機關的撫卹與賠償責任。\n3. 保險理賠限制與拘留陪伴：\n   - 本案雖非屬第三人責任保險承保範圍，但可協助家屬申請「強制汽車責任保險」之死亡給付 200 萬元。\n   - 事故當下至次日，駕駛將面臨拘留偵訊。若未延聘律師，請區隊派員陪伴，給予心理支持。\n4. 撫卹與賠償雙軌制：\n   - 【軌道一：職災與專案給付】：全力協助家屬申請勞保職災死亡給付，以及「環境部清潔隊員執行職務死亡濟助基金」1,200,000 元。\n   - 【軌道二：國家賠償先行】：主動引導案件進入國家賠償程序。但須向家屬明確說明，依法理規定，機關各類職災給付、環境部濟助金及強制險理賠，皆須自國賠總額中予以扣除（抵充）。\n# 二、 肇事駕駛訴訟生存指南 (請區隊務必轉知肇事駕駛本人)\n1. 【涉訟輔助與律師延聘策略】：\n   - 歸墊風險評估：因公涉訟輔助僅適用於最終「無任何過失」之案件，若最終獲有罪判決，將全額追繳輔助金額。故若本案駕駛「非顯無任何過失」，建議先行自行延聘律師，待取得無罪判決後，方可申請歸墊。\n   - 律師進場時機：過失致死案件為非告訴乃論。若駕駛非顯無任何過失，建議於「刑事訴訟一審程序」再行延聘律師辯護，以免於漫長的偵查階段徒費律師費用。如擬於偵查程序即延聘律師辯護，應於事故當下盡速找到律師陪同偵訊，這是偵查程序中，律師最重要的時刻。\n2. 【刑民事責任脫鉤】建立正確賠償認知：\n   請駕駛認知：實質損害賠償依法將回歸機關之國賠、撫卹與保險體系填補。駕駛於刑事訴訟程序中自掏腰包提出能力所及之補償，是為了向法官展現彌補過錯之誠意，以換取免於入監、保全工作權與人身自由的個人代價，切勿與機關的民事賠償混為一談。\n3. 【防禦策略的不作為】絕對禁止指責死者：\n   刑事訴訟防禦核心應嚴格守住界線，僅聚焦客觀環境限制與自身行為陳述。死者為共同值勤之同事，絕對禁止主動攻擊或評論死者過失。雙方肇責比例將由車鑑會報告客觀呈現，法庭上交由辯護律師客觀援引作為量刑考量即可。若駕駛帶有防衛性地指責死者，將瞬間激化家屬喪親之痛，致使法官受家屬情緒影響而給予不利判決。\n4. 【訴訟全程的態度定錨】以持續調解穩固悔過心證：\n   面對昔日同事家屬提出的求償，駕駛必須全程保持平靜與極低姿態，展現高度同理心與深切歉意。持續出席調解並提出自身能負擔之方案，即便破局，此過程亦足以向法官證明被告具備真誠悔意，此為爭取緩刑之最關鍵考量。"
+  },
+  {
+    "card_name": "40_重大案件-第三人重傷或住院 (國賠與刑事雙軌分流)",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "重大案件",
+        "第三人體傷",
+        "國賠程序",
+        "刑事平事"
+      ],
+      "trigger_severity": [
+        "重大案件"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ],
+      "trigger_opponent_injury": [
+        "嚴重體傷"
+      ],
+      "trigger_major_type_exclude": [
+        "本局司機故意行為",
+        "本局司機酒駕",
+        "本局司機無照駕駛"
+      ]
+    },
+    "ui_content": "1. 持續關懷與紀錄：請區隊持續追蹤對造傷勢復原情形，並協助申請強制險理賠。若案件因爭議未能於 3 個月內順利和解，請於陳報初報聯時，一併詳述對造當下之復原狀況。\n2. 主管關懷與慰問金：建議區隊主管攜同仁前往探視。同時評估啟動第三人責任險之「特約慰問金」。給付前須徵詢理賠人員同意，並確認核銷方式，切勿擅自承諾金額。\n3. 賠償程序之「國賠化」戰略 (解決高額索賠)：\n   當對造出現請求之理賠金額與核保金額差距過大難以達成協議時，應主動引導案件進入「國家賠償程序」(有書信範例)，本案依法屬國家賠償案件，參照《民法》第 186 條規定，賠償應由「國家責任先行」，肇事駕駛無直接（或單獨）面對求償之責任。可向對造說明，政府機關財務健全，所有依法得請求之損害皆可完全受償無賴帳風險，且能避免家屬因直接提告民事附帶訴訟遭法院程序駁回，徒增律師費與訴訟成本。\n   - 【路徑 A：逾越保險額度】：若求償金額逾保險額度，請正常進行完整之國家賠償程序。惟請向肇事駕駛聲明，待國家賠償程序終結，將視駕駛過失情形啟動內部求償。\n   - 【路徑 B：保險額度內】：若經核算賠償金額在理賠額度內，保險核保金額與國賠計算基準相仿，進入國賠償程序時，可與對造溝通，以「本局委任保險公司協議無果」為由，逕行開立協議不成立證明書，將案件盡速導入民事訴訟，以判決確定賠償金額。進入訴訟程序後，可具狀向法院聲請訴訟告知，請保險公司參加訴訟。\n5. 刑事責任之「個人化」處理 (解決刑事風險)：\n   刑事責任屬駕駛人個人行為，保險公司僅負責理賠法定理賠項目，無義務為駕駛支付「免除刑責之溢價」。如難以達成賠償協議，應導至調解程序，由駕駛人以「刑事補償」（不計入正式賠償金額）展現道歉誠意，取得對造原諒而不追究刑事責任，經法院核定之調解書，有阻斷刑事程序之效力，可免處除後續事端。"
+  },
+  {
+    "card_name": "42_不保事項：機具違法肇事致第三人傷亡",
+    "trigger_rules": {
+      "tags": [
+        "重大案件",
+        "違法肇事",
+        "傷亡理賠",
+        "抵充國賠",
+        "刑事重責"
+      ],
+      "trigger_vehicle_type": [
+        "挖掘機",
+        "鏟裝機",
+        "堆高機"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕",
+        "本局司機無照駕駛",
+        "本局司機故意行為"
+      ],
+      "trigger_opponent_injury": [
+        "死亡",
+        "輕微體傷",
+        "嚴重體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ]
+    },
+    "ui_content": "1. 重大違規非承保範圍：本案屬第三人責任險不保事項。應由重大違規之駕駛自行負擔賠償責任。\n2. 刑事重責與和解切割：本案因伴隨酒駕或無照甚至於故意犯罪等重大違法行為，肇事駕駛將面臨極度嚴格之刑事追訴。刑事部分之和解與補償金（平事），須由駕駛人自行全額籌措面對，本局及保險公司無義務亦無法為其分擔免除刑責之代價。\n3. 國家賠償與終局求償：如駕駛無力全額賠償，致對造循國家賠償程序處理，於本局國家賠償程序終結、依法撥付賠償金後，將依《國家賠償法》規定，針對該駕駛之嚴重違法行為啟動內部求償。\n4. 如因造成造成重大傷亡，致車輛遭沒入，建請區隊依車輛市值向駕駛全額求償。"
+  },
+  {
+    "card_name": "42_不保事項：車輛造成車外勤務中同仁體傷",
+    "trigger_rules": {
+      "tags": [
+        "身分檢核",
+        "勤務體傷",
+        "保險分流",
+        "刑事阻斷",
+        "調解程序"
+      ],
+      "trigger_vehicle_type_exclude": [
+        "挖掘機",
+        "堆高機",
+        "鏟裝機"
+      ],
+      "trigger_opponent_injury": [
+        "輕微體傷",
+        "嚴重體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "本局同仁"
+      ],
+      "trigger_opponent_duty_status": [
+        "執行勤務中"
+      ]
+    },
+    "ui_content": "1. 醫療保障與關懷：本案受傷對象為執勤中同仁，區隊關懷同仁傷勢，並請協助其申請「勞保職災醫療給付」及可重複領取之「強制汽車責任保險」。\n2. 保險除外預警與國家賠償：另因體傷發生於執行職務過程中，屬第三人責任保險之不保事項。請向雙方說明，本案依法屬國家賠償案件，參照《民法》第 186 條法理，賠償應由國家責任先行。受傷同仁若認勞保與強制險給付不足填補損害，可循小額賠償或國家賠償程序受償。本局履行賠償責任後，將視肇事駕駛過失情節，啟動內部求償程序。\n3. 刑事風險防範與建議調解：   因「刑事告訴權不得事先拋棄」，一般和解或協議缺乏實質拘束力，如雙方當事人有賠償爭議，請引導至「鄉鎮市區調解委員會」進行正式調解，經法院核定之調解書視同法院判決，有阻斷刑事程序之效力。"
+  },
+  {
+    "card_name": "42_不保事項：車輛違法肇事致第三人嚴重傷亡",
+    "trigger_rules": {
+      "tags": [
+        "重大案件",
+        "違法肇事",
+        "傷亡理賠",
+        "抵充國賠",
+        "刑事重責"
+      ],
+      "trigger_vehicle_type_exclude": [
+        "挖掘機",
+        "鏟裝機",
+        "堆高機"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕",
+        "本局司機無照駕駛",
+        "本局司機故意行為"
+      ],
+      "trigger_opponent_injury": [
+        "死亡",
+        "嚴重體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ]
+    },
+    "ui_content": "1. 強制險先行與抵充戰略 (極重要)：本案造成對造重大傷亡，雖屬第三人責任險不保事項，但「強制汽車責任保險」仍可理賠。請區隊【一律主動協助對造】申請強制險理賠，藉由及時撥付之失能/死亡給付，依法抵充本局可能產生之國家賠償責任，避免本局承受超額之鉅款求償。\n2. 保險代位求償與內部侵權切割：請向肇事駕駛嚴正說明，保險公司於強制險理賠後，依法將向其進行「代位求償」。且該強制險向駕駛之代位求償金額，【不得抵充】駕駛應負擔之內部侵權責任分擔。\n3. 刑事重責與和解切割：本案因伴隨酒駕或無照甚至於故意犯罪等重大違法行為，肇事駕駛將面臨極度嚴格之刑事追訴。刑事部分之和解與補償金（平事），須由駕駛人自行全額籌措面對，本局及保險公司無義務亦無法為其分擔免除刑責之代價。\n4. 國家賠償與終局求償：如駕駛無力全額賠償，致對造循國家賠償程序處理，於本局國家賠償程序終結、依法撥付賠償金後，將依《國家賠償法》規定，針對該駕駛之嚴重違法行為啟動內部求償。\n5. 如因造成造成重大傷亡，致車輛遭沒入，建請區隊依車輛市值向駕駛全額求償。"
+  },
+  {
+    "card_name": "42_不保事項：車輛違法肇事致第三人輕微體傷",
+    "trigger_rules": {
+      "tags": [
+        "重大案件",
+        "違法肇事",
+        "國賠求償",
+        "保險阻斷"
+      ],
+      "trigger_vehicle_type_exclude": [
+        "挖掘機",
+        "鏟裝機",
+        "堆高機"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕",
+        "本局司機無照駕駛",
+        "本局司機故意行為"
+      ],
+      "trigger_opponent_injury": [
+        "輕微體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ]
+    },
+    "ui_content": "1. 保險絕對阻斷與肇責自負：本案屬第三人責任險之「絕對不保事項」。強制險固可理賠醫療費用，但事後必向肇事者代位求償。故本案實際上之賠償係由肇事駕駛【全額自行負擔】，而不建議申請強制險理賠。\n2. 調解引導與訴訟程序：本案因駕駛有嚴重可罰性，如進入刑事訴訟程序將有極不利之判決結果，建議肇事駕駛展現誠意，盡速與對造於調解會達成賠償協議，並於調解書載明賠償已計入強制責任險額度及對造不再追究刑事責任，以降低或免除刑事責任。\n3. 國賠防線與內部求償：如肇事駕駛未能全額賠償對造，對造得依法循國家賠償程序向本局請求。惟請明確告知駕駛，國家賠償程序終結後，本局必將向其啟動內部求償；如有強制險代位求償，其金額不得抵充其內部侵權責任分擔。"
+  },
+  {
+    "card_name": "42_理賠說明：本局造成車外通勤中同仁體傷",
+    "trigger_rules": {
+      "tags": [
+        "身分檢核",
+        "勤務體傷",
+        "保險分流",
+        "刑事阻斷",
+        "調解程序"
+      ],
+      "trigger_opponent_injury": [
+        "輕微體傷",
+        "嚴重體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "本局同仁"
+      ],
+      "trigger_opponent_duty_status": [
+        "上下班途中"
+      ]
+    },
+    "ui_content": "1. 醫療保障與關懷：本案受傷對象為「上下班途中」同仁，區隊關懷同仁傷勢，並請協助其申請「勞保職災醫療給付」。\n2. 本案雖屬第三人責任保險及強制汽車責任保險之理賠範圍，但保險公司可依《勞動基準法》第 60 條規定，主張本局基於雇傭關係所給付之職災補償，可抵充對同一事故所生損害之賠償金額。故同仁僅可主張保險賠償未被涵攝於職災補償範圍內之項目，例如：\n - 【精神慰撫金】勞保給付及職災補償不包含精神損失。\n - 【財產損失】如車輛受損之維修費用。\n - 【特殊醫療】勞保未涵蓋之自費醫療項目、特殊輔具、看護費用等。\n3. 刑事風險防範與建議調解：   因「刑事告訴權不得事先拋棄」，一般和解或協議缺乏實質拘束力，如雙方當事人有賠償爭議，請引導至「鄉鎮市區調解委員會」進行正式調解，經法院核定之調解書視同法院判決，有阻斷刑事程序之效力。"
+  },
+  {
+    "card_name": "42_輕微體傷：休假中之本局同仁",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "國賠程序",
+        "刑事平事",
+        "休假中之本局同仁"
+      ],
+      "trigger_opponent_injury": [
+        "輕微體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "本局同仁"
+      ],
+      "trigger_opponent_duty_status": [
+        "休假中"
+      ]
+    },
+    "ui_content": "1. 請區隊關懷同仁傷勢復原情形。本案非屬職業災害案件而係一般交通事故，為強制責任保險與第三人責任保險理賠範圍。\n2. 刑事風險防範與建議調解：   因「刑事告訴權不得事先拋棄」，一般和解或協議缺乏實質拘束力，如雙方當事人有賠償爭議，請引導至「鄉鎮市區調解委員會」進行正式調解，經法院核定之調解書視同法院判決，有阻斷刑事程序之效力。\n3. 賠償程序之「國賠化」戰略 (解決高額索賠)：   當對造出現請求之理賠金額與核保金額差距過大難以達成協議時，應主動引導案件進入「國家賠償程序」，並可與對造溝通，以「本局委任保險公司協議無果」為由，逕行開立協議不成立證明書，將案件盡速導入民事訴訟，以判決確定賠償金額。進入訴訟程序後，可具狀向法院聲請訴訟告知，請保險公司參加訴訟。"
+  },
+  {
+    "card_name": "42_輕微體傷：外部人員",
+    "trigger_rules": {
+      "tags": [
+        "案件層級",
+        "第三人體傷",
+        "國賠程序",
+        "刑事平事"
+      ],
+      "trigger_opponent_injury": [
+        "輕微體傷"
+      ],
+      "trigger_opponent_person_identity": [
+        "外部人員"
+      ]
+    },
+    "ui_content": "1. 請區隊關懷對造傷勢復原情形，並協助申請強制險理賠。\n2. 刑事風險防範與建議調解：   因「刑事告訴權不得事先拋棄」，一般和解或協議缺乏實質拘束力，如雙方當事人有賠償爭議，請引導至「鄉鎮市區調解委員會」進行正式調解，經法院核定之調解書視同法院判決，有阻斷刑事程序之效力。\n3. 賠償程序之「國賠化」戰略 (解決高額索賠)：   當對造出現請求之理賠金額與核保金額差距過大難以達成協議時，應主動引導案件進入「國家賠償程序」，並可與對造溝通，以「本局委任保險公司協議無果」為由，逕行開立協議不成立證明書，將案件盡速導入民事訴訟，以判決確定賠償金額。進入訴訟程序後，可具狀向法院聲請訴訟告知，請保險公司參加訴訟。如有前揭對造請求不合理之情形，可視駕駛同仁需求安排本局或職安科之法律諮詢。"
+  },
+  {
+    "card_name": "50_重大案件-對造財損逾 50 萬元",
+    "trigger_rules": {
+      "tags": [
+        "財產檢核",
+        "重大車損",
+        "PCM會勘",
+        "損害求償",
+        "全額追償"
+      ],
+      "trigger_opponent_damage": [
+        "重大財損(逾50萬元)"
+      ]
+    },
+    "ui_content": "1. 國賠程序：參照《民法》第 186 條規定，賠償應由「國家責任先行」，肇事駕駛無直接（或單獨）面對求償之責任。對造發生重大財損，可先行評估肇事責任與折舊等計算基準，如確認金額逾保險額度，可循小額賠償程序或國家賠償程序辦理。惟請向肇事駕駛聲明，待國家賠償程序終結，將視駕駛過失情形啟動內部求償。"
+  },
+  {
+    "card_name": "51_不保事項：財產自損",
+    "trigger_rules": {
+      "tags": [
+        "財產自損",
+        "理賠阻斷"
+      ],
+      "trigger_opponent_damage": [
+        "一般財損",
+        "重大財損(逾50萬元)"
+      ],
+      "trigger_opponent_property_identity": [
+        "本區隊公有財物"
+      ]
+    },
+    "ui_content": "1. 理賠阻斷與財產處置：本案肇事與受損客體皆為區隊自有財產，非屬任意第三人責任保險之承保範圍，保險不予啟動。肇事車輛/機具造成之機關財產毀損，請逕循本局內部財產管理（報廢/修復）程序辦理。\n2. 行政究責與內部求償：請區隊詳查肇事駕駛或操作人員之過失責任，並務必於後續聯單中具體陳報針對該員之行政懲處，以及內部損害賠償（求償）之辦理情形。"
+  },
+  {
+    "card_name": "51_不保事項：車外勤務中同仁財損",
+    "trigger_rules": {
+      "tags": [
+        "身分檢核",
+        "同仁財損",
+        "勤務相關",
+        "國賠程序"
+      ],
+      "trigger_opponent_damage": [
+        "一般財損"
+      ],
+      "trigger_opponent_property_identity": [
+        "車外同仁私有財物"
+      ],
+      "trigger_opponent_duty_status": [
+        "執行勤務中"
+      ]
+    },
+    "ui_content": "1. 保險除外條款預警：本案因受僱人之財損發生於直接執行職務之過程中，屬第三人責任保險之不保事項。\n2. 內部協議與國家賠償先行：請區隊主管向財物受損之同仁妥善說明保險條款限制，並協調雙方當事人之賠償共識。本案依法屬國家賠償案件，參照《民法》第 186 條規定，賠償應由「國家責任先行」，肇事駕駛無直接（或單獨）面對求償之責任。\n3. 損害填補與內部求償：財物受損之同仁若欲主張權益，可循小額賠償程序或國家賠償程序受償。待獲償後，再由本局視肇事駕駛之過失情節啟動內部求償程序。"
+  },
+  {
+    "card_name": "51_不保事項：違法肇事致第三人單純財損",
+    "trigger_rules": {
+      "tags": [
+        "重大案件",
+        "違法肇事",
+        "單純財損",
+        "保險阻斷",
+        "戰略分流"
+      ],
+      "trigger_major_type": [
+        "本局司機酒駕",
+        "本局司機無照駕駛",
+        "本局司機故意行為"
+      ],
+      "trigger_opponent_damage": [
+        "一般財損",
+        "重大財損(逾50萬元)"
+      ],
+      "trigger_opponent_property_identity": [
+        "外部私有財物"
+      ]
+    },
+    "ui_content": "1. 保險絕對阻斷：本案屬第三人責任險之「絕對不保事項」，且無涉體傷，故亦無強制險適用之餘地。本案對造之一切民事財損賠償，應由肇事駕駛【全額自行負擔】。\n2. 民事和解戰略分流 (依違法情節判定)：\n   - 【涉及刑事責任（故意毀損罪 / 酒駕達0.25公共危險罪）】：因本類案件駕駛必遭檢察官偵辦起訴。強烈建議區隊規勸肇事駕駛展現誠意，自行賠償與對造達成和解，避免不利之刑事判決。\n   - 【純屬行政違規（無照駕駛 / 酒駕未達 0.25）】：因本類案件無刑事責任之壓力，若肇事駕駛無意願或無能力賠償，可請對造循國家賠償程序處理。\n3. 國賠防線與終局求償：如肇事駕駛未能自行賠償對造，對造得依法循「國家賠償程序」向本局請求。惟請向肇事駕駛聲明，待國家賠償程序終結，必將針對其重大違失啟動內部求償。"
+  },
+  {
+    "card_name": "52_理賠說明-ROT廠區設施損壞",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "廠區事故",
+        "ROT理賠防禦",
+        "契約舉證"
+      ],
+      "trigger_terrain": [
+        "本局ROT之焚化廠/資收場"
+      ],
+      "trigger_opponent_type": [
+        "平面固定物",
+        "空域固定物"
+      ]
+    },
+    "ui_content": "1. 廠區設施財損之理賠主張 (突破拒賠盲區)：本局焚化廠/資收場係採 ROT（整建-營運-移轉）模式委外營運。營運期間廠區設施之維護、更新與重建費用均由委外廠商負責，該設備之所有權於營運期滿點交前非逕屬本局。因此，本局車輛撞毀廠區設施，**非屬「被保險人自有財物受損」之不保事項**。\n2. 契約舉證與核保交涉：若保險公司理賠員企圖以財產自損為由拒賠，請與業務科承辦取得該廠區之「委外營運採購契約」影本提供予保險公司，據此強烈主張權利義務關係，要求其依據任意第三人責任險啟動理賠，以免委外廠商另向本局求償維修費用。"
+  },
+  {
+    "card_name": "52_理賠說明-同仁靜態財損",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "廠區事故",
+        "同仁財損",
+        "理賠防禦",
+        "靜態停放"
+      ],
+      "trigger_opponent_damage": [
+        "一般財損",
+        "重大財損(逾50萬元)"
+      ],
+      "trigger_opponent_property_identity": [
+        "車外同仁私有財物"
+      ],
+      "trigger_opponent_property_state": [
+        "靜止停放"
+      ]
+    },
+    "ui_content": "1. 財損樣態與勤務關聯性釐清：本案受損客體為停放於廠區之同仁私有財物（如車輛），事發當下該財物未直接用於執行公務。\n2. 阻絕「受僱人除外條款」之理賠攻防：依據法理，此情境下該受損財物應視為一般第三人財物，不適用第三人責任險之「不保條款」。請區隊備妥該同仁事發當下之「出勤證明或工作指派紀錄」作為附件。若保險公司理賠員企圖以受僱人身分拒賠，請以此事證強烈主張該財損與當下勤務無涉，要求正常核保理賠。"
+  },
+  {
+    "card_name": "52_理賠說明-非屬同一區隊之本局財損理賠",
+    "trigger_rules": {
+      "tags": [
+        "財產自損",
+        "理賠阻斷"
+      ],
+      "trigger_opponent_damage": [
+        "一般財損",
+        "重大財損(逾50萬元)"
+      ],
+      "trigger_opponent_property_identity": [
+        "他區隊公有財物"
+      ]
+    },
+    "ui_content": "1. 理賠疑義：本案肇事與受損客體皆為本局財產，理論上固非屬任意第三人責任保險之承保範圍。惟本局各區清潔隊互不隸屬，或可提供車輛所屬財產清單供保險公司確認，肇事車輛與財物受損非屬同一單位，以爭取理賠。 \n2. 本案如未獲理賠，請逕循本局內部財產管理（報廢/修復）程序辦理。\n3. 行政究責與內部求償：請區隊詳查肇事駕駛或操作人員之過失責任，並務必於後續聯單中具體陳報針對該員之行政懲處，以及內部損害賠償（求償）之辦理情形。"
+  },
+  {
+    "card_name": "60_嚴重違規懲處",
+    "trigger_rules": {
+      "tags": [
+        "紀律管理",
+        "嚴重違規",
+        "行政懲處"
+      ],
+      "trigger_osh_fault": [
+        "本局司機嚴重違規"
+      ]
+    },
+    "ui_content": "本案駕駛經確認有【嚴重違反交通法規】之行為，參照《刑法》第 13 條之法理，此係明知違規事實並有意使其發生之故意行為，請區隊確實依工作規則對該駕駛進行懲處。"
+  },
+  {
+    "card_name": "60_未報警備案(無體傷)",
+    "trigger_rules": {
+      "tags": [
+        "肇逃風險",
+        "報警異常",
+        "程序違規"
+      ],
+      "trigger_police_report": [
+        "未立即報警"
+      ],
+      "trigger_opponent_injury": [
+        "無體傷"
+      ],
+      "trigger_our_injury": [
+        "無體傷"
+      ]
+    },
+    "ui_content": "1. 請區隊指派幹部立即陪同該駕駛至轄區交通分隊補行製作筆錄。\n2. 另請調閱事故車輛行車影像，重點檢視事故發生後，是否有「減速、停車查看」之動作，以釐清是否具備肇事逃逸之主觀犯意。駕駛於肇事後如未停留現場即接續收運，亦違反道路交通管理處罰條例第62條規定。若經查證駕駛確知肇事卻未立即報警，請區隊依工作規則逕予懲處。"
+  },
+  {
+    "card_name": "61_行車影像異常-未儲存",
+    "trigger_rules": {
+      "tags": [
+        "影像異常",
+        "儲存異常",
+        "設備查核"
+      ],
+      "trigger_video_status": [
+        "設備故障未儲存"
+      ]
+    },
+    "ui_content": "1.  本案因無行車影像佐證，舉證責任將完全依賴警方蒐證。請區隊於事故發生滿 7 日後，向警方申請「現場圖」與「現場照片」並於後續聯單檢附。若雙方對肇事經過有疑義，區隊應主動聯繫承辦員警，請其協助調閱周邊路口監視器以釐清案情。\n2.  經查本案係因設備故障未儲存致影像滅失。請區隊務必定期檢查行車影像，確認設備儲存運作正常，以免遺失重要證據。另請盡速進行設備維修，並於後續聯單說明修復狀況。"
+  },
+  {
+    "card_name": "61_行車影像異常-被覆蓋",
+    "trigger_rules": {
+      "tags": [
+        "影像異常",
+        "程序疏失",
+        "證據滅失"
+      ],
+      "trigger_video_status": [
+        "影像遭覆蓋"
+      ]
+    },
+    "ui_content": "1.  本案因無行車影像佐證，舉證責任將完全依賴警方蒐證。請區隊於事故發生滿 7 日後，向警方申請「現場圖」與「現場照片」並於後續聯單檢附。若雙方對肇事經過有疑義，區隊應主動聯繫承辦員警，請其協助調閱周邊路口監視器以釐清案情。\n2. 經查本案係因影像遭覆蓋致證據滅失。請區隊嚴格注意肇事後之影像擷取時效，避免再次遺失關鍵證據。"
+  },
+  {
+    "card_name": "61_行車影像異常-鏡頭故障",
+    "trigger_rules": {
+      "tags": [
+        "影像異常",
+        "硬體故障",
+        "檢查疏失"
+      ],
+      "trigger_video_status": [
+        "鏡頭故障"
+      ]
+    },
+    "ui_content": "1. 本案因無行車影像佐證，舉證責任將完全依賴警方蒐證。請區隊於事故發生滿 7 日後，向警方申請「現場圖」與「現場照片」並於後續聯單檢附。若雙方對肇事經過有疑義，區隊應主動聯繫承辦員警，請其協助調閱周邊路口監視器以釐清案情。\n2. 設備查核與行政宣導防堵：\n   經查本案係因鏡頭故障致影像缺失。駕駛出車前未落實行車檢查，已違反作業規定，請區隊進行書面宣導。另請盡速進行設備維修，並於後續聯單說明修復狀況。"
+  },
+  {
+    "card_name": "62_車速紀錄異常- 8 噸以上車輛未裝紙卡 (法規違規懲處)",
+    "trigger_rules": {
+      "tags": [
+        "程序違規",
+        "設備異常",
+        "逾8噸車輛未裝紙卡"
+      ],
+      "trigger_tachograph": [
+        "逾8噸車輛未裝紙卡"
+      ]
+    },
+    "ui_content": "經查本案車輛（總重量 8 噸以上）未依規定使用大餅圖紙卡，已違反《道路交通管理處罰條例》第 18-1 條第 3 項之規範。請區隊依據工作規則懲處。"
+  },
+  {
+    "card_name": "62_車速紀錄異常-小車未裝紙卡",
+    "trigger_rules": {
+      "tags": [
+        "設備管理",
+        "設備查核",
+        "8噸以下未裝"
+      ],
+      "trigger_tachograph": [
+        "8噸以下車輛未裝紙卡"
+      ]
+    },
+    "ui_content": "本案肇事車輛總重量雖不足 8 噸，未達法定強制裝配標準，但該車輛既已由機關安裝車速紀錄器，即應發揮其安全管理效用。請區隊加強內部管理，嚴格落實駕駛人於出車時皆須置入紙卡紀錄之規範。"
+  },
+  {
+    "card_name": "62_車速紀錄異常-時間軸偏離 (程序宣導)",
+    "trigger_rules": {
+      "tags": [
+        "設備查核",
+        "紙卡異常",
+        "時間軸偏離"
+      ],
+      "trigger_tachograph": [
+        "紙卡時間軸偏離"
+      ]
+    },
+    "ui_content": "1. 設備查核與行政防堵：本案行車紀錄紙卡時間軸偏離，無法精準還原肇事當下之車速與動態。請區隊針對駕駛未正確安裝紙卡，進行書面宣導及教育訓練。"
+  },
+  {
+    "card_name": "62_車速紀錄異常-車速記錄器故障",
+    "trigger_rules": {
+      "tags": [
+        "硬體故障",
+        "設備異常",
+        "記錄器故障"
+      ],
+      "trigger_tachograph": [
+        "車速記錄器故障"
+      ]
+    },
+    "ui_content": "1. 本案車速記錄器故障。請區隊落實車輛設備之日常檢查與管理，針對故障設備請盡速安排進廠報修，並務必於後續聯單中陳報維修狀況。如係8頓以上車輛，車速記錄器故障仍行駛於道路，將因違反《道路交通管理處罰條例》第 18-1 條第 3 項規定而遭處最高18,000元罰鍰。"
+  },
+  {
+    "card_name": "71_安全指引-一般垃圾壓縮與防噴濺作業",
+    "trigger_rules": {
+      "tags": [
+        "壓縮作業",
+        "淨空檢查",
+        "防護噴濺"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車"
+      ],
+      "trigger_action_phase": [
+        "道路作業中"
+      ],
+      "trigger_factor": [
+        "壓縮噴濺"
+      ]
+    },
+    "ui_content": "1. 作業區域淨空：\n   啟動壓縮尾斗前，操作人員應確實巡視並確保車輛後方完全淨空，嚴禁民眾靠近作業機具。\n2. 噴濺防禦引導：\n   執行壓縮作業時，隨車人員應以手勢警示民眾向後退至安全距離，嚴防垃圾破袋導致液體噴濺，造成民眾受傷或污損周邊車輛。\n3. 責任釐清：  \n   本案如涉及刑事責任，應由實際進行壓縮作業之人員應訴。"
+  },
+  {
+    "card_name": "71_安全指引-倒車作業防護(交岔路口)",
+    "trigger_rules": {
+      "tags": [
+        "路口肇事"
+      ],
+      "trigger_terrain": [
+        "交岔路口(無號誌/閃光號誌)",
+        "交岔路口(有號誌)"
+      ],
+      "trigger_action": [
+        "倒車"
+      ]
+    },
+    "ui_content": "1. 風險預警：交岔路口倒車為超高風險行為，若為單人駕駛，嚴禁於路口倒車，並請區隊檢討收運路線規劃。\n2. 雙人作業與強制指揮指引：若因巷弄狹窄無迴轉空間，導致車輛「必須」以倒車方式駛出路口，此屬超高風險行為。隨車人員【絕對必須】下車，站立於路口安全處進行實體視線確認與交通指揮，確認雙向無來車後方可引導車輛倒出。\n3. 專屬調查表填寫： 肇事發生後，區隊必須立即完成「倒車肇事案件分析調查表」之詳實填報。\n4. 缺失改善：經調查確認屬「雙人作業且可進行指揮卻未落實」之案件（包含駕駛未要求同仁下車，或隨車人員經要求仍未下車），請區隊加強督導，責令同仁配合相關規定。"
+  },
+  {
+    "card_name": "71_安全指引-倒車作業防護",
+    "trigger_rules": {
+      "tags": [
+        "行政調查",
+        "紀律督導",
+        "倒車規範"
+      ],
+      "trigger_terrain_exclude": [
+        "交岔路口(有號誌)",
+        "交岔路口(無號誌/閃光號誌)"
+      ],
+      "trigger_action": [
+        "倒車"
+      ],
+      "trigger_factor": [
+        "未注意後方/未派員指揮"
+      ]
+    },
+    "ui_content": "1. 專屬調查表填寫： 肇事發生後，區隊必須立即完成「倒車肇事案件分析調查表」之詳實填報。\n2. 教育宣導：善用視野輔助系統並落實倒車派員下車指揮。\n3.  缺失改善：經調查確認屬「雙人作業且可進行指揮卻未落實」之案件（包含駕駛未要求同仁下車，或隨車人員經要求仍未下車），請區隊加強督導，責令同仁配合相關規定。"
+  },
+  {
+    "card_name": "71_安全指引-側向間隔與車體寬度動態防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "空間防禦",
+        "側向間隔"
+      ],
+      "trigger_factor": [
+        "未保持安全間隔"
+      ],
+      "trigger_opponent_property_state_exclude": [
+        "靜止停放"
+      ]
+    },
+    "ui_content": "【破除輪胎對齊迷思與實體邊界認知】\n大型車輛之車體與照後鏡寬度均大幅超出輪胎軸距。駕駛同仁應建立「輪胎壓線即等同車體越線」之空間認知，行駛時必須以車身最寬處（而非輪胎）作為評估車道邊界的基準，防範側向車身侵入鄰車道。\n\n【落實車道置中與外突物防禦】\n一般直行時應隨時確認車身穩當置中於車道內，切勿長期偏靠單一側車道線行駛。遇路幅狹窄或與其他大型車輛併行、會車時，應特別防範雙方外突之照後鏡發生對撞，必要時應主動微幅減速交錯通過。\n\n【彎道與相鄰車道之側向緩衝】\n行經多車道之彎道處，因大型車易發生內輪差或車尾外掃，側向空間將被大幅壓縮。此時應主動微調預留更大之側向緩衝間距，不與鄰車強求齊頭並行，避免因車體動態偏移造成擦撞。"
+  },
+  {
+    "card_name": "71_安全指引-側向間隔與靜態障礙物防護",
+    "trigger_rules": {
+      "tags": [
+        "空間認知",
+        "側向間隔",
+        "盲點防護",
+        "閃避原則"
+      ],
+      "trigger_terrain_exclude": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場",
+        "窄巷(僅容清潔車單向通行)"
+      ],
+      "trigger_opponent_property_state": [
+        "靜止停放"
+      ],
+      "trigger_factor": [
+        "未保持安全間隔"
+      ],
+      "trigger_action_exclude": [
+        "開啟車門"
+      ]
+    },
+    "ui_content": "1. 破除空間錯覺與實體邊界認知：\n   大型車輛之照後鏡及車斗寬度均大幅超出輪胎軸距。請區隊加強宣導，駕駛於寬敞道路行駛時，極易因車道空間充足而將視線過度集中於正前方；於窄巷或彎道時，亦常低估車體外突部分所需之實體空間。務必隨時保持車體於車道線範圍內，並對兩側盲區與外突物之空間監控，嚴禁放鬆警戒。\n2. 確立次級閃避最高原則：\n   針對突發動態車流（如機車突然鑽縫逼近）之防禦駕駛，應確立以「減速煞停」為第一優先處置。嚴禁駕駛員在未確認兩側安全緩衝空間之情況下，僅憑防衛本能盲目向外側偏移方向盤，以防免「閃過了動態危機，卻撞上路側靜止停放之車輛或固定設施」之次級肇事。\n3. 空間感校準：\n   針對發生此類空間誤判事故之駕駛員，建議重新實施車體寬度與側向間隔之校準訓練。"
+  },
+  {
+    "card_name": "71_安全指引-動物與幼童防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "突發狀況",
+        "動物防禦",
+        "幼童防禦"
+      ],
+      "trigger_factor": [
+        "動物竄出",
+        "幼童竄出"
+      ]
+    },
+    "ui_content": "【高風險路段預防性降速】\n行經學區、公園或兩側停滿車輛之窄巷，應主動降低車速並預作煞車準備。以物理降速換取反應時間，防範目標自視線死角突然衝出。\n\n【發現徘徊目標主動停等】\n若提前目視前方路側有幼童嬉戲或動物徘徊，應主動減速或暫停，切勿強行駛過。必要時以短聲喇叭示警，確認動線完全淨空後再行通過。\n\n【突發竄出之直線煞停防禦】\n若遇目標極近距離無預警竄出，唯一應變動作為「直線煞車減速」。大型車嚴禁急打方向盤閃避，避免車身失控翻覆或波及旁人，釀成更大規模傷亡。"
+  },
+  {
+    "card_name": "71_安全指引-反手兩段式開車門",
+    "trigger_rules": {
+      "tags": [
+        "兩段式開門",
+        "反手開門",
+        "駕駛規範"
+      ],
+      "trigger_action": [
+        "開啟車門"
+      ],
+      "trigger_factor": [
+        "未注意後方來車"
+      ]
+    },
+    "ui_content": "1. 視角確認：\n   開啟車門前，應先查看車內與車側照後鏡，並確實轉身向後查看，確認後方無來車與行人。\n\n2. 反手微開：\n   確認安全後，應使用「遠離車門的手」（反手）拉開車門把手，強迫身體扭轉，先將車門微開約 15 公分之適當縫隙。\n\n3. 縫隙檢視與下車：\n   透過車門縫隙再次確認後方安全無虞，方可將車門推開，並儘速下車關上車門。\n\n4. 實體宣導與備查：\n   區隊幹部應依據上述交通部標準開門程序，加強全體車組人員之實體動作訓練，並落實製作書面宣導紀錄留存備查。"
+  },
+  {
+    "card_name": "71_安全指引-吊臂收納防護",
+    "trigger_rules": {
+      "tags": [
+        "抓斗車作業",
+        "高度防禦",
+        "一般道路"
+      ],
+      "trigger_vehicle_type": [
+        "抓斗車"
+      ],
+      "trigger_action_phase": [
+        "結束作業駛離"
+      ],
+      "trigger_terrain_exclude": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場",
+        "其他非道路場域"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ]
+    },
+    "ui_content": "【落實標準收折作業】\n勤務結束後駕駛應確實操作機具，將吊臂完整收入車斗內部，避免因個人操作疏漏或未落實確認，導致吊臂未能確實就位。\n\n【控管裝載容留空間】\n作業時應隨時評估車斗裝載容量，必須預先保留吊臂收納所需之實體空間，避免因過度滿載導致吊臂無法降下收妥。\n\n【駛離前確認車高】\n車輛駛離作業現場前，駕駛同仁應確實檢視吊臂與抓斗之收合狀態，確認車身總高符合安全規範，以防範於一般道路行駛中勾扯電線、路燈、招牌或號誌等空域設施。"
+  },
+  {
+    "card_name": "71_安全指引-垃圾車鎖固機件巡檢與故障防護",
+    "trigger_rules": {
+      "tags": [
+        "安全指引",
+        "設備故障",
+        "行車前檢查",
+        "車斗固定"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車"
+      ],
+      "trigger_factor": [
+        "車斗脫鉤"
+      ]
+    },
+    "ui_content": "【落實行車前檢視與清洗保養】\n駕駛於每日出車前，應將「車斗下方鎖固掛鉤」列為巡檢項目，檢查金屬構件是否有嚴重鏽蝕或裂痕，嚴防作業中因作動不良而鬆脫彈開，並於結束勤務時注意清洗避免構件鏽蝕。\n\n【機件異常之強制停用與通報】\n若發現掛鉤結構受損或閉鎖咬合不確實，應立即停止該車輛出勤並通報檢修。嚴禁以非正規方式臨時綑綁後勉強作業，及早進行預防性更換。"
+  },
+  {
+    "card_name": "71_安全指引-大型傢俱壓縮與彈射防護",
+    "trigger_rules": {
+      "tags": [
+        "傢俱清運",
+        "破片防護",
+        "車輛調度"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車"
+      ],
+      "trigger_action_phase": [
+        "道路作業中"
+      ],
+      "trigger_factor": [
+        "壓縮彈射"
+      ]
+    },
+    "ui_content": "1. 實體安全界線：\n   執行大型傢俱壓縮作業前，應確實界定並淨空周邊工作區域，嚴防壓縮瞬間木材折斷或尖銳破片彈射，傷及路過人車。\n2. 個人防護裝備：\n   隨車操作人員於壓斷或破壞傢俱結構時，應落實佩戴護目鏡，防範碎裂物高速飛濺傷及臉部與眼部。\n3. 源頭車輛調度：\n   區隊應落實清運車輛分流機制，大型傢俱應優先派遣資源回收車或抓斗車執行收運。避免交由一般垃圾壓縮車處理，從源頭消除擠壓彈射之作業風險。\n4. 責任釐清：  \n   本案如涉及刑事責任，應由實際進行壓縮作業之人員應訴。"
+  },
+  {
+    "card_name": "71_安全指引-打滑失控防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "天候應變",
+        "路面狀況",
+        "速度管理"
+      ],
+      "trigger_factor": [
+        "打滑失控"
+      ],
+      "trigger_terrain": [
+        "一般道路",
+        "快速道路"
+      ]
+    },
+    "ui_content": "【輪胎狀態巡檢】\n落實出車前檢查，確認輪胎胎紋深度及胎壓符合安全標準，避免「水漂現象」發生。\n\n【預防性減速與避開路面低摩擦區】\n遇天候不佳（降雨）、路面積水或發現前方路面有異常油光時，應立即採取預防性減速，嚴禁於濕滑路面進行急加速或緊急煞車，防範輪胎因瞬間失去抓地力而造成失控。\n\n【轉彎處之速度管理與慣性防禦】\n大型車輛重心高、慣性大，進入彎道前務必落實「彎前減速」，嚴禁在彎道中進行大幅度煞車或劇烈轉向。若車身發生輕微側滑，應保持冷靜，鬆開油門並順著打滑方向微調方向盤以試圖找回抓地力，切勿因驚慌而一腳踩死煞車，導致車輛失控加劇。"
+  },
+  {
+    "card_name": "71_安全指引-抓斗作業區界定與立體空間防護",
+    "trigger_rules": {
+      "tags": [
+        "操作安全",
+        "空間防禦",
+        "抓斗車作業"
+      ],
+      "trigger_vehicle_type": [
+        "抓斗車"
+      ],
+      "trigger_action_phase": [
+        "道路作業中"
+      ],
+      "trigger_action": [
+        "靜止"
+      ]
+    },
+    "ui_content": "【界定工作區域與交通導引】\n於道路執行抓夾作業時，應明確界定工作區域，必要時應派員協助指揮交通，嚴防無關人車進入機具作業半徑，以避免因抓夾物掉落或傢俱碎裂彈射所造成之危害。\n\n【強化立體操作空間檢視】\n操作抓斗與吊桿本體前，應確實檢視周邊平面人車動態，同時必須確認空域設施狀態，確保機具展開與移動之軌跡安全無虞。\n\n【落實收運地點之風險評估與調整】\n作業過程中若評估周遭實體空間過於狹隘或空域障礙物密集，或現場人車動線經評估無法有效進行安全管制時，應主動暫停作業。若評估案址不宜進行抓夾作業，區隊應主動調整收運地點以策安全。"
+  },
+  {
+    "card_name": "71_安全指引-油管爆裂防護與應變處置",
+    "trigger_rules": {
+      "tags": [
+        "安全指引",
+        "設備故障",
+        "油水滲漏",
+        "監理機關稽查"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車",
+        "抓斗車",
+        "資源回收車"
+      ],
+      "trigger_factor": [
+        "油水滲漏(路面)"
+      ]
+    },
+    "ui_content": "1. 落實車輛定期養護：平時應加強檢視油管、液壓系統等高壓管路，針對老化或脆化之管線及早進行預防性更換。\n2. 執行緊急停駛與通報：駕駛於行駛中察覺車輛異常或有滲漏跡象時，應立即安全靠邊停駛，並通報區隊協助呼叫救援。\n3. 落實現場防護與污染清除：針對路面遺留之大面積油污，應立即通報管轄路段之清潔隊派員前往撒佈木屑進行除污，防範後方車輛打滑發生二次事故。\n4. 辦理教育訓練與專案備查：肇因於掉落物或油水滲漏之案件，區隊應安排相關責任人員完成監理機關規定之線上課程宣導。人員完訓後，區隊應落實彙整完訓相關資料，並提送本局職安科備查。"
+  },
+  {
+    "card_name": "71_安全指引-移動式道路作業防護",
+    "trigger_rules": {
+      "tags": [
+        "道路作業",
+        "緩速警戒",
+        "車外人員防護"
+      ],
+      "trigger_vehicle_type": [
+        "掃街車",
+        "灑水車",
+        "資源回收車",
+        "垃圾車"
+      ],
+      "trigger_action": [
+        "一般直行",
+        "右轉彎",
+        "左轉彎",
+        "靜止"
+      ],
+      "trigger_factor": [
+        "緩速移動作業"
+      ]
+    },
+    "ui_content": "【警示燈號全時開啟與引導】\n執行持續緩速推進之作業時，因無法佈設固定式交通錐，務必全程開啟車身警示燈、爆閃燈或方向指示光柵。以最大化視覺辨識度引導後方車流向寬闊側避讓，嚴防後車誤判動線。\n\n【緊貼路緣與縫隙最小化】\n在維持車體平順行駛之前提下，應盡量緊貼作業側路緣（或分隔島），將該側縫隙壓縮至最小，避免機車強行穿越狹縫造成事故。"
+  },
+  {
+    "card_name": "71_安全指引-立體空障防護",
+    "trigger_rules": {
+      "tags": [
+        "障礙排除",
+        "違建查報",
+        "立體空障"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_terrain_exclude": [
+        "其他非道路場域",
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場"
+      ],
+      "trigger_factor_exclude": [
+        "未注意限高"
+      ]
+    },
+    "ui_content": "1. 上方空間障礙排除與行政處置：本案涉與上方結構物（如屋簷/雨棚/招牌）發生碰撞。請區隊依其構造類型落實以下防堵機制：\n   - 活動式雨棚：請與該址住戶溝通，協調於本局執行收運作業期間務必將雨棚收起，以維作業空間。\n   - 空域固定物：若該固定結構已實質妨礙法定道路之通行空間，建請蒐集相關現場事證，移送權責機關進行違章建築查報與拆除。\n2. 如該空域固定物未影響行車空間，則屬我車過於貼近建物而肇事，請加強宣導應行駛於車道內並與建物保持適當間隔。\n3. 路線安全性評估：請提醒同仁行經案址應注意保持安全間隔。若該路段此類立體障礙物密集且難以改善，請區隊重新評估並規劃該區之替代收運路線。"
+  },
+  {
+    "card_name": "71_安全指引-行人防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "路口防禦",
+        "行人路權",
+        "A柱死角"
+      ],
+      "trigger_terrain": [
+        "交岔路口(有號誌)",
+        "交岔路口(無號誌/閃光號誌)"
+      ],
+      "trigger_opponent_type": [
+        "行人"
+      ],
+      "trigger_factor_exclude": [
+        "尾門鬆脫",
+        "車斗脫鉤",
+        "壓縮噴濺",
+        "壓縮彈射",
+        "裝載物飛落",
+        "資收物交付事故"
+      ]
+    },
+    "ui_content": "【行穿線絕對停讓與指差確認】\n交岔路口行人穿越道（斑馬線）為行人絕對路權區域。駕駛行經路口時，務必落實「車輛完全停止」，並採行指差確認以標注行人動態。發現行人通過時，應保持約 3 公尺（約一個車道寬）之安全距離。嚴禁以滑行方式逼近或從行人前方搶快切過。\n\n【破除 A 柱與後視鏡物理盲區】\n大型車輛之 A 柱及外擴後視鏡極易在轉彎時，將斑馬線上的行人完全遮蔽（視線盲區）。轉彎行近行穿線前，駕駛務必配合車輛轉向角度，主動「前後挪動上半身」並「大幅度左右擺頭」，以物理動作繞開 A 柱死角，徹底確認行穿線淨空。\n\n【提防視線遮蔽與行人突發折返】\n於多車道或雙向路口，應高度警覺相鄰車道停等車輛所產生之視線遮蔽（如：旁車已停讓，但本車視線遭擋而直接穿越）。此外，應隨時注意行人（尤其幼童或高齡者）在斑馬線上可能發生之折返、掉落物品撿拾等不可預測之突發行為，確認其完全通過後再行起步。"
+  },
+  {
+    "card_name": "71_安全指引-裝載物掉落防護",
+    "trigger_rules": {
+      "tags": [
+        "裝載防護",
+        "覆網作業",
+        "監理機關稽查"
+      ],
+      "trigger_factor": [
+        "裝載物飛落"
+      ],
+      "trigger_action_phase": [
+        "一般行駛"
+      ]
+    },
+    "ui_content": "【資收物裝載注意事項】\n- 裝載界線與覆蓋防護：\n   資源回收物裝載高度應維持在車身框體內。裝載完畢後，應落實使用防護覆網妥善罩蓋，並確認網繩緊密勾扣於車體扣環。\n-  物理堆疊與固定規範：\n   堆疊資收物應落實「重物壓輕物」原則，避免輕型資收物（如保麗龍、紙箱）飛落。收運大型傢俱時，針對易鬆脫之部件應落實以繩索綑紮固定。\n-  載量控管與調度支援：\n   於高負荷收運時段，區隊應視現場狀況安排接駁車輛支援，避免資收物因超出車斗負荷導致裝載不穩或意外飛落。\n【其他裝載物注意事項】\n- 掃具、交通椎或其他車載物品，應於起駛前確認是否妥善固定，以免於行駛中掉落。\n- 小型物品應置於可鎖定閉合之容器內，禁用開放式置物籃或置物箱，以免物品因無固定之上蓋而掉落。\n【專案教育訓練與改善報告】\n  車載貨物掉落屬監理機關重點稽查項目，區隊應針對相關責任人員，確實辦理並完成監理所規定之線上宣導課程；人員完訓後，應落實彙整相關參訓紀錄與資料，連同本案之【具體改善報告】提送本局職安科備查。\n【 責任釐清】  \n   請區隊釐清實際事故責任人，而非逕歸責於駕駛人。如涉及刑事責任，應由實際應負過失責任之人員應訴。\n【落實駕照查核】\n   如事故係因駕駛過失所致，依據《道路交通管理處罰條例》第30條第3項規定，造成體傷者，吊扣駕駛執照1年；致重傷或死亡者，吊銷駕駛執照。駕照因本案遭吊扣或吊銷者，應即調離駕駛職務。"
+  },
+  {
+    "card_name": "71_安全指引-變換車道防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "安全指引"
+      ],
+      "trigger_terrain": [
+        "一般道路",
+        "快速道路",
+        "交岔路口(有號誌)"
+      ],
+      "trigger_action": [
+        "變換車道"
+      ],
+      "trigger_factor": [
+        "未注意車前狀況",
+        "視線死角未確認",
+        "未注意後方來車"
+      ]
+    },
+    "ui_content": "【落實視野確認與擺頭機制】：駕駛同仁於變換車道或繞行前方障礙物前，應確實察看兩側照後鏡，並輔以擺頭動作確認車身周遭及後方之視線死角，確保無後方來車或並行車輛靠近。\n\n【提早警示與漸進切入】：執行車道變換前，應提早使用方向燈警示周遭來車，並以漸進方式平順切換，避免急打方向盤；須確認目標車道具備足夠之安全距離與空間後，始得駛入。\n\n【強化障礙物預判與動線規劃】：行駛中應保持對前方路況之遠瞻性，若及早發現前方有違停車輛或佔用車道之情形，應提早評估並規劃閃避動線，避免迫近障礙物時才倉促變換車道，徒增與後方來車發生交車衝突之風險。"
+  },
+  {
+    "card_name": "71_安全指引-資收物交付防護",
+    "trigger_rules": {
+      "tags": [
+        "安全指引",
+        "資收作業",
+        "民眾防護",
+        "動態警戒"
+      ],
+      "trigger_vehicle_type": [
+        "資源回收車",
+        "垃圾車"
+      ],
+      "trigger_factor": [
+        "資收物交付事故"
+      ]
+    },
+    "ui_content": "【落實車體周邊動態檢視】：車輛起步或緩步駛離前，駕駛與隨車人員應確實檢視後方與兩側照後鏡，確認已無民眾交付資收物或垃圾包，且後方無民眾奔跑追趕。若遇民眾追車，應主動暫停駛離或以手勢或哨音警示不要追趕，避免民眾因追車而不慎跌倒受傷。\n\n【收運交接之防護與確認】：隨車人員與民眾接手資收物或垃圾包時，應確認物品已穩妥轉交，方可示意駕駛接續移動車輛。若車輛正處於移動狀態，隨車同仁應請駕駛停車以接收資收物，或以手勢勸阻民眾前往收運點交付，防範因雙方未及時放手而將民眾拖拽跌倒。"
+  },
+  {
+    "card_name": "71_安全指引-起步安全防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "起步防禦"
+      ],
+      "trigger_action": [
+        "起步"
+      ],
+      "trigger_factor": [
+        "視線死角未確認",
+        "未注意後方來車"
+      ]
+    },
+    "ui_content": "【車周死角實體確認】\n起步前應重新檢視車頭正前方之視線死角，並善用前照地鏡確認淨空；若停放期間曾脫離視線，應防止有行人或障礙物貼近車身，確認無誤後始得放開煞車。近年已發生行人緊貼車頭行走，遭起步垃圾車撞倒碾斃之案例。\n\n【視野全周檢視與擺頭】\n除察看前方外，應確實檢視兩側照後鏡並輔以擺頭動作，確認 B 柱與車斗旁之視覺死角是否有機慢車緊貼。環境複雜時，應由隨車同仁下車協助引導。\n\n【預告警示與禮讓直行】\n由路側匯入車道前應提早開啟方向燈，並透過照後鏡確認後方來車之速度與距離。起步應以禮讓車道行進中車輛為原則，確認具備足夠安全空間後再平順切入。"
+  },
+  {
+    "card_name": "71_安全指引-車斗尾門固定與裝載安全",
+    "trigger_rules": {
+      "tags": [
+        "尾門固定",
+        "裝載規範",
+        "行車前檢查"
+      ],
+      "trigger_vehicle_type": [
+        "資源回收車"
+      ],
+      "trigger_factor": [
+        "尾門鬆脫"
+      ]
+    },
+    "ui_content": "1. 啟閉固定與行車前檢查：\n   車組人員於開啟或關閉尾門後，應確實將插銷或卡榫固定到位。車輛起步駛離前，駕駛與隨車同仁應落實雙重目視檢查，確認尾門已穩固鎖定，嚴防行進間或轉彎時鬆脫彈開。\n\n2. 乘載量與負荷控管：\n   於高負荷收運期間，應嚴格控管車斗裝載量，避免過度滿載。防範尾門因內部擠壓超過機械負荷範圍，導致卡榫無法妥善固定或於行駛中異常鬆脫。"
+  },
+  {
+    "card_name": "71_安全指引-車輛油水滲漏預防與現場處置",
+    "trigger_rules": {
+      "tags": [
+        "垃圾車",
+        "油水滲漏",
+        "監理機關稽查"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車",
+        "密封廚餘回收車",
+        "水肥車",
+        "灑水車"
+      ],
+      "trigger_factor": [
+        "油水滲漏(路面)"
+      ],
+      "trigger_action_phase": [
+        "一般行駛",
+        "道路作業中"
+      ]
+    },
+    "ui_content": "1. 滲漏阻斷與現場應變：\n   駕駛同仁若於行進間發現車輛發生滲漏狀況，應停止行駛並停靠安全路側，主動通報呼叫救援；若路面已有明顯油污或污水，應通報轄段區隊派員攜帶木屑前往鋪撒清理，以防範後方車輛打滑衍生二次事故。\n2. 污水滿溢防範：\n   針對含水量較高之廢棄物（如廚餘）收運勤務，若條件允許，建議於車斗內預先鋪設木屑等具吸水性之物資，以降低污水因車輛轉彎或煞車而波濺溢出之風險。\n3. 車體鏽蝕防範：\n   區隊應落實垃圾車之定期保養與二級保養檢查，並加強車斗與蓄水槽之日常清潔，及早發現並修繕車體鏽蝕或破損處。\n4. 專案教育訓練與改善報告：\n   車輛滲漏屬監理機關重點稽查項目，區隊應針對相關責任人員，確實辦理並完成監理所規定之線上宣導課程；人員完訓後，應落實彙整相關參訓紀錄與資料，連同本案之【具體改善報告】提送本局職安科備查。\n5. 責任釐清：  \n   請區隊釐清實際事故責任人，而非逕歸責於駕駛人。如涉及刑事責任，應由實際應負過失責任之人員應訴。\n6. 落實駕照查核：\n   如事故係因駕駛過失所致，依據《道路交通管理處罰條例》第30條第3項規定，造成體傷者，吊扣駕駛執照1年；致重傷或死亡者，吊銷駕駛執照。駕照因本案遭吊扣或吊銷者，應即調離駕駛職務。"
+  },
+  {
+    "card_name": "71_安全指引-迴車作業防護",
+    "trigger_rules": {
+      "tags": [
+        "駕駛行為",
+        "迴轉防禦",
+        "動線確認"
+      ],
+      "trigger_action": [
+        "迴車"
+      ]
+    },
+    "ui_content": "【迴轉空間評估與絕對禮讓】\n大型車輛迴轉半徑大且起步緩慢，駕駛迴轉前應確認該處無禁止標誌，並評估車道寬度是否足以一次完成轉向。操作前必須絕對禮讓同向後方及對向之直行車（含機慢車）先行，確認雙向皆具備足夠之安全距離與時間差後再行駛出，嚴禁強行橫切阻斷直行車流。\n\n【全周視野檢視與輪差防禦】\n迴轉過程中車身橫擺，將產生極大之動態死角。駕駛除提早顯示方向燈外，應確實透過各側照後鏡與照地鏡，並輔以大幅度擺頭，嚴密監控A、B柱盲區是否有車輛鑽縫竄出。同時應注意內外輪差軌跡，避免車頭或車尾外掃碰撞路側設施與停放車輛。\n\n【高風險路況之替代繞行】\n若遇雙向車流量大、路幅狹窄，或視線受限（如彎道、坡道、大型違停遮蔽）之路段，切勿勉強進行原地迴轉。應以防禦駕駛為最高原則，選擇繼續直行至前方具備號誌之寬闊路口迴轉，或以繞行街廓（右轉繞圈）之方式替代，從源頭阻斷高風險之迴轉碰撞。"
+  },
+  {
+    "card_name": "71_安全指引-追撞事故防護",
+    "trigger_rules": {
+      "tags": [
+        "安全指引",
+        "追撞防禦",
+        "駕駛行為"
+      ],
+      "trigger_action": [
+        "一般直行"
+      ],
+      "trigger_factor": [
+        "未注意車前狀況",
+        "未保持安全距離"
+      ]
+    },
+    "ui_content": "1. 落實安全車距保持：駕駛應依當下行車速度、載重狀況與天候地形，隨時保持遇突發狀況可安全煞停之距離。\n\n2. 強化車前狀況動態預判：行駛中應全程專注前方路況，主動預判前方車輛因號誌切換、壅塞或其他突發狀況而緊急煞停之可能性。\n\n3. 消除駕駛分心危險因素：執勤期間應專注駕駛任務，避免使用行動裝置或其他可能導致注意力分散之行為。\n\n4. 加強防禦性駕駛觀念：接近交岔路口或車多壅塞路段時，應主動提早收油門減速，確保具備足夠之反應時間與煞車距離。"
+  },
+  {
+    "card_name": "71_安全指引-靜態道路作業防護與空間界定",
+    "trigger_rules": {
+      "tags": [
+        "道路作業",
+        "空間防禦",
+        "警戒設施",
+        "特殊車種"
+      ],
+      "trigger_vehicle_type": [
+        "高空作業車",
+        "水肥車",
+        "清溝車",
+        "密封廚餘回收車"
+      ],
+      "trigger_action_phase": [
+        "道路作業中"
+      ],
+      "trigger_action": [
+        "靜止"
+      ]
+    },
+    "ui_content": "【嚴格界定實體工作區域】\n特殊車種道路執行定點作業，因長時間佔用車道，應利用三角錐及連桿，將車體周邊之「機具作動半徑」與「人員活動範圍」明確圍設出實體工作區域，並應全面開啟車身警示燈與爆閃燈，提前引導後方車流變換車道。\n\n【指派專人實施交通與動態戒護】\n若作業地點位於車流量大、路幅狹小或視線不良（如彎道、坡道）之路段，除設立靜態警示設施外，應指派專人（或隨車同仁）穿著反光背心，持指揮棒於作業區外圍面向來車方向進行交通疏導與警戒，確保車外作業同仁之絕對安全。"
+  },
+  {
+    "card_name": "72_地形防護-ROT廠區-立體空障防護(作業中)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "空間限制",
+        "空域防護",
+        "非道路場域"
+      ],
+      "trigger_terrain": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_action_phase": [
+        "道路作業中"
+      ],
+      "trigger_factor": [
+        "未注意限高"
+      ]
+    },
+    "ui_content": "1. **舉升作業之「空域限高與立體軌跡評估」**\n   大型車輛之防禦駕駛不僅限於平面間隔，更應涵蓋「立體空域（Z軸）」。車斗舉升作業前，駕駛必須嚴格確認「該舉升點之絕對限高」。不僅需評估車體靜止舉升時的最高點，更應將傾倒過程中的車斗揚起角度與空間餘裕一併納入防護考量。\n2. **破解空間困境：絕對落實「降斗再移動」鐵則**\n   針對作業現場空間不足（如廠區滿載無法深入、路幅狹窄等）之窘境，**嚴禁以「維持車斗舉升狀態下移動車輛」的方式來尋找傾倒空間或推擠資收物**。唯一規範之安全程序為：「完全降下車斗 ➔ 移動車輛就定位 ➔確認限高與立體軌跡 ➔重新舉升」。若現場已無安全空間，應立即暫停作業並回報，切勿勉強操作。\n3. **阻斷違規調度之「防禦性煞停」機制**\n   現場指揮人員常因視角受限或急於消化車流，而下達「舉升狀態下前進/後退」的危險指令。駕駛員必須確立「駕駛座為最終工安防線」之認知；面對此類高危險指令，應立即採取「防禦性煞停」並鳴按喇叭示警。嚴禁在車斗處於最高點且緊鄰上方障礙物之狀態下，盲目聽從指揮進行任何車輛位移。"
+  },
+  {
+    "card_name": "72_地形防護-ROT廠區-立體空障防護(進場前)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "空間限制",
+        "空域防護",
+        "非道路場域"
+      ],
+      "trigger_terrain": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_action_phase": [
+        "進入場域"
+      ],
+      "trigger_factor": [
+        "未注意限高"
+      ]
+    },
+    "ui_content": "進入封閉場域注意限高：車輛進入場域前應特別注意限高，資收車之裝載物品不得超過車體高度，抓斗車應將吊臂完全收妥，以免碰撞上方設施。"
+  },
+  {
+    "card_name": "72_地形防護-ROT廠區-立體空障防護(駛離時)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "空間限制",
+        "空域防護",
+        "非道路場域"
+      ],
+      "trigger_terrain": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_action_phase": [
+        "結束作業駛離"
+      ],
+      "trigger_factor": [
+        "未注意限高"
+      ]
+    },
+    "ui_content": "嚴格落實SOP：結束傾卸作業後，應將車斗完全復位，抓斗車應注意將吊臂完全收妥，並與隨車人員確認無誤，方可駛離，以免碰撞上方設施。車斗如未經確認復位即駛離屬高風險行為，請製作書面宣導紀錄。"
+  },
+  {
+    "card_name": "72_地形防護-一般道路設施之立體空障防護",
+    "trigger_rules": {
+      "tags": [
+        "道路限高",
+        "空間評估",
+        "空域防護",
+        "路線檢視"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_factor": [
+        "未注意限高"
+      ],
+      "trigger_terrain_exclude": [
+        "清潔隊場區",
+        "本局ROT之焚化廠/資收場",
+        "其他非道路場域"
+      ]
+    },
+    "ui_content": "【行前實體車高確認】：\n駕駛於出車前及裝載完畢後，應明確掌握本車當下之實際最高點（包含資收物裝載高度、抓斗車吊臂收折狀態），建立準確的立體空間認知。\n\n【限高標誌辨識與動態預判】：\n行經涵洞、地下道或設有限高門架之路段，應提早減速並確實查看道路上方之限高標誌。若標示高度與車高相近，或因視覺落差無法確認是否能安全通過時，應主動停靠安全處評估，切勿心存僥倖勉強駛入。\n\n【替代路線規劃與通報】：\n若原定收運路線中，存在難以安全通過之低矮涵洞或限高設施，請區隊協助重新檢視並規劃替代動線，從源頭避開立體空障風險；若發現涵洞內燈具垂墜或設施異常影響行車空間，應通報道路主管機關進行修繕。"
+  },
+  {
+    "card_name": "72_地形防護-交岔路口(無號誌或閃光號誌)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "路口肇事",
+        "停讓規定",
+        "違規咎責"
+      ],
+      "trigger_terrain": [
+        "交岔路口(無號誌/閃光號誌)"
+      ],
+      "trigger_opponent_type_exclude": [
+        "空域固定物",
+        "平面固定物"
+      ],
+      "trigger_action_exclude": [
+        "倒車"
+      ],
+      "trigger_opponent_property_state": [
+        "一般行駛"
+      ]
+    },
+    "ui_content": "1. 停讓標誌/標線遵從性查核：無號誌路口為 A1 重大事故熱區，路權判定極度嚴格。請區隊加強宣導應依「慢」字或閃光黃燈「減速慢行」(速限30km/hr )；若遇「停」字標字或閃光紅燈時，駕駛應採行兩段式停車規範：「車輛於停止線前完全靜止，再緩行至路口邊緣或視野無死角處。若發現側向來車應第二次煞停，待無來車後再行起步」。\n2. 故意違規之從重懲處：查行車影像，若駕駛行經設有「停」字標字或閃光紅燈之路口，未依規定停車再開即逕行通過，已違反《道路交通管理處罰條例》第45條第1項第18款規定，不論有無因此肇事，參照《刑法》第 13 條之法理，此係明知違規事實並有意使其發生之故意行為，請區隊依工作規則對該駕駛進行懲處。\n3. 無標誌標線之絕對路權防禦 (Right of Way)：若肇事路口為完全無號誌、無標誌標線之死角路口，駕駛必須嚴格遵守絕對路權規範。依法理「轉彎車應讓直行車先行」、「左方車應讓右方車先行」、「支線道應讓幹線道先行」。若我方為轉彎車或左方車，發生碰撞必承擔主要肇責，請區隊加強宣導行經此類盲區路口，應視同「停」字路口，落實減速甚至暫停確認。"
+  },
+  {
+    "card_name": "72_地形防護-停車定點收運處",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "定點收運",
+        "法規豁免",
+        "警示防護"
+      ],
+      "trigger_terrain": [
+        "停車定點收運處"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車",
+        "資源回收車"
+      ],
+      "trigger_action": [
+        "靜止"
+      ],
+      "trigger_opponent_type": [
+        "一般車輛"
+      ]
+    },
+    "ui_content": "1. 肇責防禦：依據《道路交通安全規則》第 113 條之規定，「垃圾車」或「資源回收車」於執行任務時，其臨時停車及停車地點不受各項標誌/標線限制。請區隊務必提醒駕駛於警詢（或製作筆錄）時，明確向警方聲明本局車輛當下正處於執行勤務狀態，主張適用該條款之豁免權，避免遭警方誤判為「違規停車」而承擔不當肇事責任。\n2. 請區隊加強宣導，以道路為作業場所之事故防免義務：\n   - 車輛於定點停車收運時，確實開啟警示燈（或閃光燈）。\n   - 若該處為停等時間較長之收運點，應擺放交通錐以界定工作區域。\n   - 視該路段交通車流狀況，必要時派員協助指揮交通。"
+  },
+  {
+    "card_name": "72_地形防護-其他非道路場域",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "非道路場域",
+        "證據保全"
+      ],
+      "trigger_terrain": [
+        "其他非道路場域"
+      ]
+    },
+    "ui_content": "1. 報警程序與替代文書：本案肇事地點非屬法定道路範圍，警方依法不予開立「道路交通事故當事人登記聯單」及後續之初判表。若事故涉有人員體傷，請區隊務必請警方開立「受(處)理案件證明單」以保全報案紀錄，防範肇逃風險。\n2. 影像與證據保全：因本案缺乏警方常規之現場測繪與肇責研判，請區隊盡速取得本車行車影像及現場照片；若本車影像缺失，請積極向該場地管理人調閱場地監視器影像，以供本局保險承商作為核保與理賠查勘之關鍵參考。"
+  },
+  {
+    "card_name": "72_地形防護-其他非道路場域之立體空障防護",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "空間限制",
+        "空域防護",
+        "非道路場域"
+      ],
+      "trigger_terrain": [
+        "其他非道路場域"
+      ],
+      "trigger_opponent_type": [
+        "空域固定物"
+      ],
+      "trigger_action_phase": [
+        "結束作業駛離",
+        "進入場域"
+      ]
+    },
+    "ui_content": "1. 進出封閉場域，抓斗車應將吊臂完全收妥，資收車之裝載物品不得超過車體高度，以免碰撞上方設施。"
+  },
+  {
+    "card_name": "72_地形防護-快速道路",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "快速道路",
+        "速限查核",
+        "故意違規"
+      ],
+      "trigger_terrain": [
+        "快速道路"
+      ]
+    },
+    "ui_content": "車速查核：快速道路事故致死率極高，車速管控為防護核心。請區隊確實查核肇事車輛之車速紀錄。\n ⬜未逾道路速限10公里以上。\n ⬜ 肇事前之行車速度逾越該道路速限達 10 公里以上，參照《刑法》第 13 條之法理，此係明知超速違規事實並有意使其發生之故意行為，請區隊據此違規事實，依工作規則對該駕駛人進行懲處。"
+  },
+  {
+    "card_name": "72_地形防護-我車滑坡肇事(路側停駐)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "斜坡防溜",
+        "熄火停車",
+        "輪擋查核"
+      ],
+      "trigger_terrain": [
+        "我車滑坡肇事(路側停駐)"
+      ]
+    },
+    "ui_content": "1. 煞車與防溜操作：本案屬斜坡停等狀態下滑動肇事。請區隊加強宣導停等時應確實拉緊手煞車，並依停車方向及地形坡度，反向打低速檔或倒車檔，以降低滑坡機率。\n2. 車輛於斜坡熄火停車或駕駛離開座艙，應確實使用輪擋（Chock Block）固定車輪，並將車輪打斜向傾向路緣石，以確保即使車輛滑動也能阻斷移動距離。 \n3. 載重評估：長時間停駐務必確認否過載，以避免因載重過大導致駐車系統負擔超限而失效。\n4. 高風險地形：如於雨後山區陡坡停駐，務必提高警覺，已有駕駛輔下車即出現滑坡而造成重大損傷之前例。"
+  },
+  {
+    "card_name": "72_地形防護-我車滑坡肇事(車道停等)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "斜坡防溜",
+        "停等滑行"
+      ],
+      "trigger_terrain": [
+        "我車滑坡肇事(車道停等)"
+      ]
+    },
+    "ui_content": "1. 煞車與防溜操作：本案屬斜坡停等狀態下滑動肇事。請區隊加強宣導停等時應確實拉緊手煞車，並依停車方向及地形坡度，反向打低速檔或倒車檔，以降低滑坡機率。\n2. 載重與安全間隔：注意避免車輛過載導致煞車制動力衰退。同時加強宣導，駕駛行經陡坡遇停等號誌時，應保持較長之安全距離。"
+  },
+  {
+    "card_name": "72_地形防護-有號誌路口(右轉彎行為指導)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "路口行為",
+        "右轉防護",
+        "A1預警"
+      ],
+      "trigger_terrain": [
+        "交岔路口(有號誌)"
+      ],
+      "trigger_action": [
+        "右轉彎"
+      ],
+      "trigger_opponent_type_exclude": [
+        "空域固定物",
+        "平面固定物"
+      ]
+    },
+    "ui_content": "1. 核心警示：本局歷年 A1 事故均發生於交岔路口，請區隊務必落實「慢、看、停」宣導，強化駕駛路口轉彎之安全意識。\n2. 右轉彎標準作業程序：\n   - 提前預備：於路口前 30 公尺即應準備，並提前換入外側右轉車道。\n   - 燈號信號：轉彎前務必先行開啟右向方向燈，明確告知周邊機慢車。\n   - 轉彎軌跡：右轉時應儘可能靠近路緣，避免右側留有過大縫隙，防止直行機車由右側強行通過而發生捲入或擦撞事故。\n   - 盲區確認：轉彎前應再次透過後視鏡或環景影像確認右側死角（內輪差區域）是否有行人或機慢車停等。"
+  },
+  {
+    "card_name": "72_地形防護-有號誌路口(左轉彎行為指導)",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "路口行為",
+        "左轉防護",
+        "A1預警"
+      ],
+      "trigger_terrain": [
+        "交岔路口(有號誌)"
+      ],
+      "trigger_action": [
+        "左轉彎"
+      ],
+      "trigger_opponent_type_exclude": [
+        "空域固定物",
+        "平面固定物"
+      ]
+    },
+    "ui_content": "1. 核心警示：本局歷年 A1 事故均發生於交岔路口，請區隊務必落實「慢、看、停」宣導，強化駕駛路口轉彎之安全意識。\n2. 左轉彎標準作業程序：\n   - 提前預備：於路口前 30 公尺即應準備，並確實換入內側左轉車道。\n   - 燈號信號：轉彎前務必先行開啟左向方向燈，提醒後方及對向來車。\n   - 轉彎軌跡：應行至交岔路口中心處方可左轉，嚴禁為搶快而占用來車道「切西瓜」搶先左轉。\n   - 視線防護：左轉時應注意右方對向直行車輛，並高度警覺內側車道大型車輛遮蔽視線所產生之盲區。"
+  },
+  {
+    "card_name": "72_地形防護-無分向線之道路",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "速限查核",
+        "安全間隔",
+        "無分向線"
+      ],
+      "trigger_terrain": [
+        "無分向線之道路"
+      ]
+    },
+    "ui_content": "1. 車速查核與違規懲處：依道路交通安全規則第93條第1項第1款，未劃設分向線之道路速限為30 公里。請區隊務必調閱車速紀錄，若肇事時之車速超過 40 公里，請依工作規則對該駕駛人進行懲處。\n2. 行駛動態與會車安全：此類路段因無明確標線分隔對向車道，車輛依法應緊靠右側行駛。另會車時應注意安全間隔，若難以通行則不得貿然通過，以免發生事故承擔主要肇事責任。"
+  },
+  {
+    "card_name": "72_地形防護-窄巷",
+    "trigger_rules": {
+      "tags": [
+        "地形檢核",
+        "空間限制",
+        "路線評估"
+      ],
+      "trigger_terrain": [
+        "窄巷(僅容清潔車單向通行)"
+      ],
+      "trigger_opponent_property_state": [
+        "靜止停放"
+      ],
+      "trigger_opponent_type_exclude": [
+        "行人",
+        "空域固定物"
+      ]
+    },
+    "ui_content": "【落實隨車人員引導與障礙排除】\n行經窄巷首重兩側安全間隔。若遇機車違停等平面障礙物妨礙通行，駕駛切勿心存僥倖貿然強行通過；務必請隨車人員下車協助移車，或於車外進行視線引導，確保兩側間隔安全無虞。\n\n【高風險窄巷之收運路線重評】\n若肇事路段因物理條件確實狹窄難以安全通行，或常態性遭違停佔用導致擦撞風險過高，請區隊主動重新評估並規劃該區之替代收運路線或定點收運，從源頭杜絕大型公務車輛駛入之風險。"
+  },
+  {
+    "card_name": "81_職業安全防護-普通駕照",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "普通駕照"
+      ]
+    },
+    "ui_content": "1. 依據本局清潔隊安全衛生工作守則第5條第4款第12目規定，各區隊司機應持有與駕駛車輛等級相符或更高等級之職業駕駛執照。\n2. 請區隊督促駕駛請領職業駕駛執照，以符合前揭規定，或評估工作調整。"
+  },
+  {
+    "card_name": "81_職業安全防護-未使用安全護欄",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "垃圾車防墜",
+        "機械操作"
+      ],
+      "trigger_vehicle_type": [
+        "垃圾車"
+      ],
+      "trigger_osh_fault": [
+        "未使用安全護欄"
+      ]
+    },
+    "ui_content": "1. 機械防墜操作規範：隨車人員立於垃圾車後方踏板時，必須確實將安全護欄關閉並鎖固，防範車輛行進間因路面顛簸、突發煞車或轉彎離心力導致人員失足墜落路面。嚴禁車輛行駛途中提早解鎖或開啟護欄。\n2. 駕駛防禦與平穩操作：駕駛員於隨車人員站立於後方踏板時，應保持平穩行駛，行經坑洞路面應減速慢行，嚴禁無預警急轉彎與緊急煞車。\n3. 違紀懲處：未使用安全護欄係違反標準作業程序，請區隊依工作規則懲處。"
+  },
+  {
+    "card_name": "81_職業安全防護-未正確使用護具",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "未戴安全帽",
+        "未繫妥頤帶",
+        "未穿反光背心"
+      ]
+    },
+    "ui_content": "1. 防護具落實與出勤查核：請區隊嚴格落實出勤前之職安防護具（P.P.E.）檢查機制，逐一確認安全帽、頤帶與反光背心穿戴確實，裝備不全者嚴禁出勤執行職務。\n2. 督導與教育訓練：針對發生違規之人員與車組，應辦理專案教育訓練與職安紀律宣導，並將該路段或特定車組列為後續重點督導與隨車抽查對象。"
+  },
+  {
+    "card_name": "81_職業安全防護-未繫妥防墜掛勾",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "資收車防墜",
+        "高處作業"
+      ],
+      "trigger_vehicle_type": [
+        "資源回收車"
+      ],
+      "trigger_osh_fault": [
+        "未繫妥防墜掛勾"
+      ]
+    },
+    "ui_content": "1. 高處防墜與掛勾繫掛：人員於資源回收車車斗高處作業時，屬高風險墜落危害範疇。作業前必須嚴格落實全身式安全帶之穿戴，並將防墜掛勾確實繫掛於穩固之鋼索、母索或固定點，確保因重心不穩滑落時能有效阻斷垂直墜落距離。\n2. 環境危害評估：於雨後天候、清晨視線不佳時，車斗頂部極易因積水濕滑而增加滑落風險，作業前應加強檢視防滑措施，必要時應調整作業動態。\n3. 違紀懲處：未繫妥防墜掛勾係違反標準作業程序，請區隊依工作規則懲處。"
+  },
+  {
+    "card_name": "81_職業安全防護-駕照審驗",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "駕照審驗異常"
+      ]
+    },
+    "ui_content": "1. 依據本局清潔隊安全衛生工作守則第5條第4款第12目規定，各區隊司機應持有與駕駛車輛等級相符或更高等級之職業駕駛執照，並依法定期審驗。請區隊督促駕駛盡速完成審驗。\n2. 依據道路交通管理處罰條例第26條規定，職業駕照未依限審驗者，處300元～600元罰鍰；逾期1年以上者，監理機關可逕行註銷其駕駛執照。駕駛執照因未依限審驗註銷者，固得申請換發同等車類之普通駕駛執照，惟未換發普通駕駛執照前，即為無照駕駛。"
+  },
+  {
+    "card_name": "91_其他注意事項-影像輕微異常",
+    "trigger_rules": {
+      "tags": [
+        "影像異常",
+        "硬體故障",
+        "檢查疏失"
+      ],
+      "trigger_osh_fault": [
+        "影像輕微異常"
+      ]
+    },
+    "ui_content": "行車影像有⬜影像模糊⬜鏡頭污損⬜鏡頭被遮蔽⬜角度設置不當  ⬜其他影響辨識:____________之輕微異常狀況，請進行調修或排除異常，以利設備正常運作，妥善保存證據資料。"
+  },
+  {
+    "card_name": "91_其他注意事項-新手駕駛",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "新手駕駛"
+      ]
+    },
+    "ui_content": "1. 請區隊加強新進駕駛人員教育訓練，並避免行駛高風險路段，以以降低肇事機率。"
+  },
+  {
+    "card_name": "91_其他注意事項-累犯肇事",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "累犯肇事"
+      ]
+    },
+    "ui_content": "1. 經查駕駛於1年內發生2起以上有責事故，請區隊製作關懷紀錄或評估工作調整。"
+  },
+  {
+    "card_name": "91_其他注意事項-裝載物超出車身",
+    "trigger_rules": {
+      "tags": [
+        "裝載安全",
+        "尺寸防護",
+        "空間評估"
+      ],
+      "trigger_vehicle_type": [
+        "資源回收車",
+        "抓斗車"
+      ],
+      "trigger_osh_fault": [
+        "裝載物超出車身"
+      ]
+    },
+    "ui_content": "【收運點動態裝載檢視與法規遵循】\n資源回收車於各收運點作業時，常面臨裝載物形態與體積不確定之風險（如收運大型木櫃）。車輛起步駛離前，駕駛與隨車同仁應共同檢視車斗裝載物之長、寬、高，避免物件突出車身。依《道路交通管理處罰條例》第29條規定，裝載貨物超過規定之長度、寬度、高度，將面臨新臺幣3,000元以上18,000元以下之罰鍰。請落實尺寸檢視以確保符合法規。\n\n【立體空間與上方空障防禦】\n因不規則資收物堆疊後極易超出車體限高，駕駛行駛時應主動將突出之裝載物納入車輛實體邊界評估。行經市區巷弄時，應特別注意上方立體淨空，主動預留足夠之側向與上方安全間距，防範超高之裝載物勾扯電線，或擦撞路側招牌與住戶屋簷。\n\n【風險物件之初步拆解與調度】\n若於現場發現民眾交付之物件體積過大（如完整未拆解之木櫃）恐致超高或超寬，應請隨車同仁協助進行初步破壞或適當調整擺放角度。若經評估確實無法安全裝載，應委婉向民眾說明並協調後續專車清運，避免勉強堆疊裝載，從源頭阻斷空障碰撞風險。"
+  },
+  {
+    "card_name": "91_其他注意事項-車輛定檢",
+    "trigger_rules": {
+      "tags": [
+        "職安檢核",
+        "個人防護具",
+        "督導紀律"
+      ],
+      "trigger_osh_fault": [
+        "車輛定檢異常"
+      ]
+    },
+    "ui_content": "1. 法定罰鍰與牌照處置：\n 依《道路交通管理處罰條例》第 17 條規定，汽車不依限期參加定期檢驗或臨時檢驗者，處汽車所有人新臺幣 900 元以上 1,800 元以下罰鍰。逾期 1 個月以上者，吊扣其牌照至檢驗合格後發還；逾期 6 個月以上者，直接註銷其牌照。經檢驗不合格之汽車，於1個月內仍未修復並申請覆驗，或覆驗仍不合格者，吊扣其牌照。\n2.  行政究責：\n公務車輛逾期未檢屬極度嚴重之基本管理疏失。因逾期定檢所衍生之行政罰鍰、牌照遭吊扣/註銷期間無法出勤之營運損失，區隊應立即釐清該車輛之管理責任並依法究責。"
+  }
+]
+
+`;
 </script>
 
 </body>
