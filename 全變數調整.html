@@ -435,8 +435,9 @@
     // =========================================================================
     // 1. 雲端法理卡片庫單一真實來源 (Online Single Source of Truth)
     // =========================================================================
-    const GIST_RAW_URL = "[https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/legal_cards.json](https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/legal_cards.json)";
-    let ONLINE_LEGAL_CARDS = null;
+    const GIST_RAW_URL = "[https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/2e70bcdaea39a5ec03d0485d843b9781c47d8366/legal_cards.json)";
+    
+	let ONLINE_LEGAL_CARDS = null;
 
     async function fetchOnlineCards() {
         const statusEl = document.getElementById('cloud-status');
@@ -448,8 +449,9 @@
         reportBtn.disabled = true;
 
         try {
-            // 附加時間戳記與 no-store 確保絕不讀取瀏覽器舊快取
-            const response = await fetch(GIST_RAW_URL, { cache: "no-store" });
+            // 👇 拿掉原有的時間戳記 (?t=...) 與 no-store 限制，避免觸發 GitHub 伺服器的跨來源阻擋
+            const response = await fetch(GIST_RAW_URL);
+            
             if (!response.ok) throw new Error(`HTTP 狀態碼 ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data) || data.length === 0) throw new Error("卡片庫格式異常或為空");
