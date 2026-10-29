@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>清潔隊交通事故法理變數編修與報告產製系統</title>
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --primary-hover: #218838;
+            --blue-color: #0056b3;
+            --blue-hover: #004085;
+            --secondary-color: #6c757d;
+            --secondary-hover: #5a6268;
+            --error-color: #dc3545;
+            --warning-bg: #fff3cd;
+            --warning-border: #ffc107;
+            --info-color: #0c5460;
+            --info-bg: #d1ecf1;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --border-color: #ced4da;
+            --highlight-bg: #e8f5e9;
+            --highlight-border: #28a745;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        /* 雲端卡片庫連線狀態列 */
+        .cloud-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background-color: #e9ecef;
+            border-left: 5px solid var(--secondary-color);
+        }
+        .cloud-status-bar.online {
+            background-color: #d4edda;
+            color: #155724;
+            border-left-color: var(--primary-color);
+        }
+        .cloud-status-bar.offline {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left-color: var(--error-color);
+        }
+        .btn-sync {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-sync:hover { background: #f1f1f1; }
+
+        /* 區塊標題 */
+        .section-header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 28px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header:first-of-type { margin-top: 0; }
+        .section-subtitle {
+            font-size: 12px;
+            font-weight: normal;
+            color: #d1d8e0;
+        }
+
+        /* 貼上解析區 */
+        .paste-box {
+            background: #f8f9fa;
+            border: 1px dashed #adb5bd;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .paste-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .demo-btns button {
+            background: #e2e6ea;
+            border: 1px solid #cbd3da;
+            border-radius: 5px;
+            padding: 4px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #495057;
+        }
+        .demo-btns button:hover { background: #dae0e5; }
+
+        /* 表單欄位設計 */
+        .form-group {
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #edf0f2;
+            background-color: #fafbfc;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .form-group.active-val {
+            background-color: var(--highlight-bg);
+            border-color: var(--highlight-border);
+        }
+
+        .field-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        label {
+            font-weight: 700;
+            font-size: 15px;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .var-key-code {
+            font-family: monospace;
+            font-size: 12px;
+            color: #6c757d;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: normal;
+        }
+        .badge-rule {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .badge-severity {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .badge-multi {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* 3 欄並列下拉選單 */
+        .multi-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 640px) {
+            .multi-select-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        select, textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            background-color: #fff;
+            transition: border-color 0.2s;
+        }
+        select:focus, textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.18);
+        }
+        select:disabled, input[type="text"]:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+            color: #6c757d;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 130px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .helper-text {
+            display: none;
+            font-size: 13px;
+            margin-top: 6px;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+        .helper-text.show.info {
+            display: block;
+            background-color: var(--info-bg);
+            color: var(--info-color);
+            border-left: 4px solid #17a2b8;
+        }
+        .helper-text.show.warn {
+            display: block;
+            background-color: var(--warning-bg);
+            color: #856404;
+            border-left: 4px solid var(--warning-border);
+        }
+
+        /* 按鈕群組 */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 14px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover:not(:disabled) { background-color: var(--primary-hover); }
+        .btn-blue { background-color: var(--blue-color); color: white; }
+        .btn-blue:hover:not(:disabled) { background-color: var(--blue-hover); }
+        .btn-secondary { background-color: var(--secondary-color); color: white; }
+        .btn-secondary:hover:not(:disabled) { background-color: var(--secondary-hover); }
+
+        /* 即時預覽卡片區 */
+        .preview-box {
+            margin-top: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 16px;
+            background-color: #fff;
+        }
+        .preview-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        .card-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .card-pill {
+            background: #e8f4fd;
+            color: #004085;
+            border: 1px solid #b8daff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .card-pill.blocking {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .output-section {
+            margin-top: 20px;
+            display: none;
+        }
+        .output-textarea {
+            background-color: #f8f9fa;
+            font-family: monospace;
+            font-size: 13px;
+            color: #212529;
+            min-height: 280px;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 260px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 14px 20px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>清潔隊交通事故法理變數編修與報告產製系統</h1>
+
+    <!-- 雲端卡片庫單一真實來源狀態列 -->
+    <div id="cloud-status" class="cloud-status-bar">
+        <span id="cloud-status-text">⏳ 正在連線讀取雲端最新法理卡片庫...</span>
+        <button type="button" class="btn-sync" onclick="fetchOnlineCards()">🔄 重新同步雲端卡片</button>
+    </div>
+
+    <!-- 區塊一：智慧貼上解析區 -->
+    <div class="section-header">
+        <span>步驟一：貼上 Gemini 萃取之 JSON 變數</span>
+        <span class="section-subtitle">自動過濾 ```json、--- 與標題雜訊</span>
+    </div>
+    <div class="paste-box">
+        <div class="paste-toolbar">
+            <span style="font-size: 14px; font-weight: 600; color: #495057;">請將單筆案件之 JSON 貼於下方：</span>
+            <div class="demo-btns">
+                <button type="button" onclick="loadSample(1)">載入測試範例 1 (單一變數)</button>
+                <button type="button" onclick="loadSample(2)">載入測試範例 2 (多變數自動擇重/去重)</button>
+                <button type="button" onclick="clearPasteInput()">清空貼上區</button>
+            </div>
+        </div>
+        <textarea id="raw-json-input" placeholder='請貼上 Gemini 產出的 JSON（例如：{ "llm_json": { ... } }），包含 ```json 或 --- 分隔線皆可自動解析...'></textarea>
+        <div id="parse-log" class="helper-text"></div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="parseAndPopulate()">⚡ 解析 JSON 並載入下方選單</button>
+        </div>
+    </div>
+
+    <!-- 區塊二：25 項法理變數選單編輯區 -->
+    <form id="variables-form" onsubmit="return false;">
+        <div class="section-header">
+            <span>步驟二：檢視與微調法理變數 (Module B 顯性變數)</span>
+            <span class="section-subtitle">綠框代表目前具有生效變數</span>
+        </div>
+        <div id="module-b-container"></div>
+
+        <div class="section-header">
+            <span>步驟三：檢視與微調隱性變數 (Module C 隱性與職安變數)</span>
+            <span class="section-subtitle">未選擇之欄位將自動輸出為純 null</span>
+        </div>
+        <div id="module-c-container"></div>
+    </form>
+
+    <!-- 區塊三：即時命中卡片預覽與雙軌輸出 -->
+    <div class="section-header">
+        <span>步驟四：即時卡片預覽與報告產製</span>
+        <span class="section-subtitle">可免過 Make 直接產出 PDF 報告，或複製 JSON 貼回 LINE</span>
+    </div>
+
+    <div class="preview-box">
+        <div class="preview-header">
+            <span id="matched-title">🎯 目前變數命中卡片預覽</span>
+            <span id="matched-count-badge" style="font-size: 14px; color: #0056b3;">計算中...</span>
+        </div>
+        <div id="matched-cards-list" class="card-tag-list"></div>
+    </div>
+
+    <div class="btn-group" style="margin-top: 20px;">
+        <button type="button" id="btn-generate-report" class="btn btn-blue" onclick="openReportWindow()" disabled>🖨️ 直接產製正式報告 (另存 PDF)</button>
+        <button type="button" class="btn btn-primary" onclick="exportAndCopyJSON()">📋 產出並複製 JSON (貼至 LINE)</button>
+        <button type="button" class="btn btn-secondary" style="flex: 0.5;" onclick="resetAll()">重置全表</button>
+    </div>
+
+    <div id="output-section" class="output-section">
+        <label style="margin-bottom: 8px; display: block;">產出之標準 JSON 結果 (已自動複製至剪貼簿)：</label>
+        <textarea id="output-json" class="output-textarea" readonly></textarea>
+    </div>
+</div>
+
+<div id="toast">✅ 操作成功！</div>
+
+<script>
+    // =========================================================================
+    // 1. 雲端法理卡片庫單一真實來源 (Online Single Source of Truth)
+    // =========================================================================
+    const GIST_RAW_URL = "[https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/legal_cards.json](https://gist.githubusercontent.com/bluesakura2023nov-tech/811fc7b1d11ffab2a8ba041a6d5be979/raw/legal_cards.json)";
+    let ONLINE_LEGAL_CARDS = null;
+
+    async function fetchOnlineCards() {
+        const statusEl = document.getElementById('cloud-status');
+        const textEl = document.getElementById('cloud-status-text');
+        const reportBtn = document.getElementById('btn-generate-report');
+
+        statusEl.className = "cloud-status-bar";
+        textEl.textContent = "⏳ 正在從 GitHub Gist 同步最新法理卡片庫...";
+        reportBtn.disabled = true;
+
+        try {
+            // 附加時間戳記與 no-store 確保絕不讀取瀏覽器舊快取
+            const response = await fetch(`${GIST_RAW_URL}?t=${Date.now()}`, { cache: "no-store" });
+            if (!response.ok) throw new Error(`HTTP 狀態碼 ${response.status}`);
+            const data = await response.json();
+            if (!Array.isArray(data) || data.length === 0) throw new Error("卡片庫格式異常或為空");
+
+            ONLINE_LEGAL_CARDS = data;
+            statusEl.className = "cloud-status-bar online";
+            textEl.textContent = `✅ 已連線雲端最新卡片庫（共載入 ${data.length} 張法理卡片，確保零舊版誤差）`;
+            reportBtn.disabled = false;
+            updateLivePreview();
+        } catch (err) {
+            ONLINE_LEGAL_CARDS = null;
+            statusEl.className = "cloud-status-bar offline";
+            textEl.textContent = `❌ 無法取得雲端卡片庫 (${err.message})。為避免以舊版資料產製報告，已暫停報告產製功能。`;
+            reportBtn.disabled = true;
+            document.getElementById('matched-cards-list').innerHTML = `<span style="color:#dc3545; font-weight:bold;">⚠️ 請確認網路連線並點擊右上角「重新同步雲端卡片」。</span>`;
+        }
+    }
+
+    // =========================================================================
+    // 2. 25項法理變數完整辭典與欄位規格定義 (已全面統一最新辭典)
+    // =========================================================================
+    // mode:
+    // - 'single': 單一下拉選單 (輸出為單一元素陣列 ["值"] 或 null)
+    // - 'text_null': 文字輸入框 (無異常時鎖定為 null)
+    // - 'severity': 程度型變數 (介面保留 3 個並列選單，但解析時自動依嚴重度排序，僅帶入最嚴重之單一變數至選單 1)
+    // - 'multi': 多變數屬性欄位 (介面固定並列 3 個選單，自動去重)
+    const FIELD_SCHEMA = [
+        // --- Module B: 顯性變數与零階阻斷 ---
+        {
+            key: "trigger_exception", label: "【零階阻斷異常】", group: "B", mode: "single", requiredDefault: "無異常",
+            options: ["無異常", "隱性重大案件", "致命撞擊來源不明", "財損歸屬不明", "同仁身分與狀態不明", "酒駕關鍵資訊缺失"]
+        },
+        {
+            key: "trigger_exception_detail", label: "【異常具體說明】", group: "B", mode: "text_null"
+        },
+        {
+            key: "trigger_vehicle_type", label: "【本局車種】", group: "B", mode: "single",
+            options: ["垃圾車", "資源回收車", "抓斗車", "掃街車", "公務小客車", "公務機車", "鏟裝機", "挖掘機", "堆高機", "清溝車", "灑水車", "高空作業車", "水肥車", "密封廚餘回收車"]
+        },
+        {
+            key: "trigger_opponent_type", label: "【對造類型】", group: "B", mode: "multi",
+            options: ["一般車輛", "行人", "空域固定物", "平面固定物"]
+        },
+        {
+            key: "trigger_severity", label: "【案件層級】", group: "B", mode: "single", requiredDefault: "一般案件",
+            options: ["一般案件", "重大案件"]
+        },
+        {
+            key: "trigger_major_type", label: "【重大類型】", group: "B", mode: "multi", requiredDefault: "無",
+            options: ["無", "本局司機故意行為", "外部故意行為", "本局司機重大過失", "本局司機酒駕", "本局司機無照駕駛", "人員死亡", "人員重傷(刑§10Ⅳ)", "人員體傷嚴重住院", "對造財損預估超過理賠額度50萬元", "本局車損預估超過10萬元", "媒體報導"]
+        },
+        {
+            key: "trigger_terrain", label: "【事故地形】", group: "B", mode: "single",
+            options: ["清潔隊場區", "本局ROT之焚化廠/資收場", "我車滑坡肇事(車道停等)", "我車滑坡肇事(路側停駐)", "停車定點收運處", "交岔路口(有號誌)", "交岔路口(無號誌/閃光號誌)", "窄巷(僅容清潔車單向通行)", "無分向線之道路", "一般道路", "快速道路", "其他非道路場域"]
+        },
+        {
+            key: "trigger_video_status", label: "【行車影像】", group: "B", mode: "single", requiredDefault: "影像正常已擷取",
+            options: ["影像正常已擷取", "設備故障未儲存", "鏡頭故障", "影像遭覆蓋"]
+        },
+        {
+            key: "trigger_tachograph", label: "【車速紀錄】", group: "B", mode: "single", requiredDefault: "記錄器正常",
+            options: ["記錄器正常", "紙卡時間軸偏離", "逾8噸車輛未裝紙卡", "尚未安裝記錄器", "8噸以下車輛未裝紙卡", "車速記錄器故障"]
+        },
+        {
+            key: "trigger_police_report", label: "【報警備案】", group: "B", mode: "single", requiredDefault: "已依規定報案",
+            options: ["已依規定報案", "未立即報警"]
+        },
+        {
+            key: "trigger_our_injury", label: "【車組體傷】", group: "B", mode: "severity", requiredDefault: "無體傷",
+            options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"],
+            severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 }
+        },
+        {
+            key: "trigger_our_damage", label: "【車組財損】", group: "B", mode: "severity", requiredDefault: "無財損",
+            options: ["無財損", "財損輕微不處理", "一般財損", "重大財損(逾10萬元)"],
+            severityRank: { "重大財損(逾10萬元)": 4, "一般財損": 3, "財損輕微不處理": 2, "無財損": 1 }
+        },
+        {
+            key: "trigger_opponent_injury", label: "【對造體傷】", group: "B", mode: "severity", requiredDefault: "無體傷",
+            options: ["無體傷", "輕微體傷", "嚴重體傷", "死亡"],
+            severityRank: { "死亡": 4, "嚴重體傷": 3, "輕微體傷": 2, "無體傷": 1 }
+        },
+        {
+            key: "trigger_opponent_damage", label: "【對造財損】", group: "B", mode: "severity", requiredDefault: "無財損",
+            options: ["無財損", "一般財損", "重大財損(逾50萬元)"],
+            severityRank: { "重大財損(逾50萬元)": 3, "一般財損": 2, "無財損": 1 }
+        },
+
+        // --- Module C: 第二軌隱性變數 (無則填 null) ---
+        {
+            key: "trigger_crew_identity", label: "【車組人員身分 (限本車車內)】", group: "C", mode: "multi", nullable: true,
+            options: ["本局駕駛", "隨車同仁"]
+        },
+        {
+            key: "trigger_our_property_identity", label: "【我方財物歸屬】", group: "C", mode: "multi", nullable: true,
+            options: ["本區隊公有財物", "車組同仁私有財物"]
+        },
+        {
+            key: "trigger_opponent_person_identity", label: "【對造人員身分 (限車外第三人)】", group: "C", mode: "multi", nullable: true,
+            options: ["外部人員", "本局同仁"]
+        },
+        {
+            key: "trigger_opponent_duty_status", label: "【對造同仁勤務狀態 (僅對造為本局同仁時)】", group: "C", mode: "multi", nullable: true,
+            options: ["執行勤務中", "上下班途中", "休假中"]
+        },
+        {
+            key: "trigger_opponent_property_identity", label: "【對造財物歸屬】", group: "C", mode: "multi", nullable: true,
+            options: ["外部私有財物", "車外同仁私有財物", "本區隊公有財物", "他區隊公有財物"]
+        },
+        {
+            key: "trigger_opponent_property_state", label: "【對造財物狀態】", group: "C", mode: "multi", nullable: true,
+            options: ["一般行駛", "車道停等", "靜止停放", "勤務中攜帶與操作"]
+        },
+        {
+            key: "trigger_action_phase", label: "【作業階段】", group: "C", mode: "single", nullable: true,
+            options: ["一般行駛", "進入場域", "道路作業中", "結束作業駛離"]
+        },
+        {
+            key: "trigger_action", label: "【本車動作】", group: "C", mode: "single", nullable: true,
+            options: ["一般直行", "起步", "變換車道", "右轉彎", "左轉彎", "迴車", "倒車", "靜止", "開啟車門", "會車"]
+        },
+        {
+            key: "trigger_bac_state", label: "【酒測狀態】", group: "C", mode: "single", nullable: true,
+            options: ["未飲酒", "0.15~0.24", "0.25以上", "抗法行為"]
+        },
+        {
+            key: "trigger_factor", label: "【肇事防禦因素】", group: "C", mode: "multi", nullable: true,
+            options: ["未注意車前狀況", "未保持安全距離", "裝載物飛落", "油水滲漏(路面)", "壓縮噴濺", "壓縮彈射", "打滑失控", "未注意後方/未派員指揮", "未注意後方來車", "尾門鬆脫", "幼童竄出", "未保持安全間隔", "車斗脫鉤", "動物竄出", "視線死角未確認", "緩速移動作業", "資收物交付事故", "未依規定停讓", "未注意限高"]
+        },
+        {
+            key: "trigger_osh_fault", label: "【職安與管理缺失】", group: "C", mode: "multi", nullable: true,
+            options: ["未戴安全帽", "未繫妥頤帶", "未穿反光背心", "未使用安全護欄", "未繫妥防墜掛勾", "普通駕照", "新手駕駛", "累犯肇事", "影像輕微異常", "車輛定檢異常", "駕照審驗異常", "裝載物超出車身", "本局司機嚴重違規"]
+        }
+    ];
+
+    // 歷史同義詞防呆自動轉換表
+    const SYNONYM_MAP = {
+        "本局駕駛故意行為": "本局司機故意行為",
+        "交岔路口(無號誌或閃光號誌)": "交岔路口(無號誌/閃光號誌)",
+        "我車斜坡停等/停車滑動肇事": "我車滑坡肇事(車道停等)"
+    };
+
+    // =========================================================================
+    // 3. 動態建構表單 UI
+    // =========================================================================
+    function buildFormUI() {
+        const containerB = document.getElementById('module-b-container');
+        const containerC = document.getElementById('module-c-container');
+
+        FIELD_SCHEMA.forEach(field => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'form-group';
+            wrapper.id = `group-${field.key}`;
+
+            let badgeHTML = '';
+            if (field.mode === 'severity') {
+                badgeHTML = `<span class="badge-rule badge-severity">⚡ 自動擇重 (僅帶入最嚴重單一變數)</span>`;
+            } else if (field.mode === 'multi') {
+                badgeHTML = `<span class="badge-rule badge-multi">🔢 支援多變數 (自動去重)</span>`;
+            }
+
+            const emptyLabel = field.nullable ? "-- 無 (null) --" : "-- 請選擇 / 留空忽略 --";
+
+            let inputHTML = '';
+            if (field.mode === 'text_null') {
+                inputHTML = `<input type="text" id="input-${field.key}" placeholder="無異常時自動鎖定為 null" disabled oninput="onFieldChange('${field.key}')">`;
+            } else if (field.mode === 'single') {
+                const opts = field.options.map(o => `<option value="${o}">${o}</option>`).join('');
+                inputHTML = `
+                    <select id="select-${field.key}-0" onchange="onFieldChange('${field.key}')">
+                        <option value="">${emptyLabel}</option>
+                        ${opts}
+                    </select>
+                `;
+            } else if (field.mode === 'multi' || field.mode === 'severity') {
+                const opts = field.options.map(o => `<option value="${o}">${o}</option>`).join('');
+                let selects = '';
+                for (let i = 0; i < 3; i++) {
+                    const slotPlaceholder = i === 0 ? emptyLabel : `-- 選單 ${i + 1} (留空忽略) --`;
+                    selects += `
+                        <select id="select-${field.key}-${i}" onchange="onFieldChange('${field.key}')">
+                            <option value="">${slotPlaceholder}</option>
+                            ${opts}
+                        </select>
+                    `;
+                }
+                inputHTML = `<div class="multi-select-grid">${selects}</div>`;
+            }
+
+            wrapper.innerHTML = `
+                <div class="field-label-row">
+                    <label>${field.label}<span class="var-key-code">${field.key}</span></label>
+                    ${badgeHTML}
+                </div>
+                ${inputHTML}
+                <div id="helper-${field.key}" class="helper-text"></div>
+            `;
+
+            if (field.group === 'B') containerB.appendChild(wrapper);
+            else containerC.appendChild(wrapper);
+        });
+
+        applyDefaultValues();
+    }
+
+    function applyDefaultValues() {
+        FIELD_SCHEMA.forEach(field => {
+            if (field.mode === 'text_null') {
+                const el = document.getElementById(`input-${field.key}`);
+                el.value = '';
+                el.disabled = true;
+            } else if (field.mode === 'single') {
+                const el = document.getElementById(`select-${field.key}-0`);
+                el.value = field.requiredDefault || '';
+            } else {
+                for (let i = 0; i < 3; i++) {
+                    const el = document.getElementById(`select-${field.key}-${i}`);
+                    el.value = (i === 0 && field.requiredDefault) ? field.requiredDefault : '';
+                    el.disabled = false;
+                }
+            }
+            updateGroupHighlight(field.key);
+        });
+        syncSeverityAndMajorType();
+        syncExceptionDetailState();
+        updateLivePreview();
+    }
+
+    // =========================================================================
+    // 4. 欄位連動防呆邏輯 (案件層級 <-> 重大類型、異常 <-> 異常說明)
+    // =========================================================================
+    function onFieldChange(changedKey) {
+        if (changedKey === 'trigger_severity' || changedKey === 'trigger_major_type') {
+            syncSeverityAndMajorType(changedKey);
+        }
+        if (changedKey === 'trigger_exception') {
+            syncExceptionDetailState();
+        }
+        updateGroupHighlight(changedKey);
+        updateLivePreview();
+    }
+
+    function syncSeverityAndMajorType(changedKey) {
+        const sevEl = document.getElementById('select-trigger_severity-0');
+        const m0 = document.getElementById('select-trigger_major_type-0');
+        const m1 = document.getElementById('select-trigger_major_type-1');
+        const m2 = document.getElementById('select-trigger_major_type-2');
+        const helper = document.getElementById('helper-trigger_major_type');
+
+        if (sevEl.value === '一般案件') {
+            m0.value = '無';
+            m1.value = '';
+            m2.value = '';
+            m0.disabled = true;
+            m1.disabled = true;
+            m2.disabled = true;
+            helper.className = 'helper-text show info';
+            helper.textContent = '💡 一般案件非屬重大類型，已自動鎖定為「無」。';
+        } else if (sevEl.value === '重大案件') {
+            m0.disabled = false;
+            m1.disabled = false;
+            m2.disabled = false;
+            if (changedKey === 'trigger_severity' && m0.value === '無') {
+                m0.value = '';
+            }
+            if (!m0.value && !m1.value && !m2.value) {
+                helper.className = 'helper-text show warn';
+                helper.textContent = '⚠️ 重大案件請至少於選單 1 指定一項具體重大類型（不得為「無」）。';
+            } else {
+                helper.className = 'helper-text';
+            }
+        }
+        updateGroupHighlight('trigger_major_type');
+    }
+
+    function syncExceptionDetailState() {
+        const excEl = document.getElementById('select-trigger_exception-0');
+        const detailEl = document.getElementById('input-trigger_exception_detail');
+        if (excEl.value === '無異常' || excEl.value === '') {
+            detailEl.value = '';
+            detailEl.disabled = true;
+        } else {
+            detailEl.disabled = false;
+        }
+        updateGroupHighlight('trigger_exception_detail');
+    }
+
+    function updateGroupHighlight(key) {
+        const field = FIELD_SCHEMA.find(f => f.key === key);
+        if (!field) return;
+        const wrapper = document.getElementById(`group-${key}`);
+        const val = getFieldValue(field);
+
+        let isActive = false;
+        if (field.mode === 'text_null') {
+            isActive = val !== null && val !== '';
+        } else if (Array.isArray(val) && val.length > 0) {
+            // 若非預設「無/無異常/無體傷/無財損」則特別高亮，或只要有值於 Module C 即高亮
+            const defaultNegatives = ["無異常", "無", "無體傷", "無財損"];
+            if (field.group === 'C') isActive = true;
+            else isActive = val.some(v => !defaultNegatives.includes(v));
+        }
+
+        if (isActive) wrapper.classList.add('active-val');
+        else wrapper.classList.remove('active-val');
+    }
+
+    // =========================================================================
+    // 5. 智慧 JSON 解析器 (自動剝除雜訊、去重、傷亡財損自動擇重)
+    // =========================================================================
+    function extractCleanJSON(rawText) {
+        // 1. 替換 NBSP (\u00A0) 為標準半形空白
+        let cleaned = rawText.replace(/\u00A0/g, ' ').trim();
+        // 2. 移除 Markdown code fence
+        cleaned = cleaned.replace(/```json/gi, '').replace(/```/g, '').trim();
+
+        // 3. 尋找第一個 '{' 與對應的結構
+        const firstBrace = cleaned.indexOf('{');
+        if (firstBrace === -1) throw new Error("找不到有效的 JSON 起始括號 '{'");
+
+        // 使用括號計數器精準擷取第一個完整 JSON 物件（避免貼上含分隔線文字時解析失敗）
+        let depth = 0;
+        let inString = false;
+        let escape = false;
+        let endBrace = -1;
+
+        for (let i = firstBrace; i < cleaned.length; i++) {
+            const ch = cleaned[i];
+            if (escape) { escape = false; continue; }
+            if (ch === '\\') { escape = true; continue; }
+            if (ch === '"') { inString = !inString; continue; }
+            if (!inString) {
+                if (ch === '{') depth++;
+                else if (ch === '}') {
+                    depth--;
+                    if (depth === 0) { endBrace = i; break; }
+                }
+            }
+        }
+
+        if (endBrace === -1) throw new Error("JSON 括號結構不完整，請確認複製內容是否齊全");
+        const jsonSubstring = cleaned.substring(firstBrace, endBrace + 1);
+        const parsed = JSON.parse(jsonSubstring);
+        return parsed.llm_json ? parsed.llm_json : parsed;
+    }
+
+    function parseAndPopulate() {
+        const rawInput = document.getElementById('raw-json-input').value;
+        const logEl = document.getElementById('parse-log');
+
+        if (!rawInput.trim()) {
+            logEl.className = 'helper-text show warn';
+            logEl.textContent = '⚠️ 請先於上方文字框貼上 Gemini 產出的 JSON 內容。';
+            return;
+        }
+
+        try {
+            const llmData = extractCleanJSON(rawInput);
+            let logs = [];
+
+            FIELD_SCHEMA.forEach(field => {
+                const rawVal = llmData[field.key];
+                const helperEl = document.getElementById(`helper-${field.key}`);
+                helperEl.className = 'helper-text';
+                helperEl.textContent = '';
+
+                if (field.mode === 'text_null') {
+                    const inputEl = document.getElementById(`input-${field.key}`);
+                    inputEl.value = (rawVal !== null && rawVal !== undefined) ? String(rawVal) : '';
+                    return;
+                }
+
+                // 正規化為陣列並執行同義詞校正與空值過濾
+                let arr = [];
+                if (Array.isArray(rawVal)) {
+                    arr = rawVal.filter(v => v !== null && v !== undefined && String(v).trim() !== '' && String(v).trim() !== 'null')
+                                .map(v => SYNONYM_MAP[String(v).trim()] || String(v).trim());
+                } else if (rawVal !== null && rawVal !== undefined && String(rawVal).trim() !== '' && String(rawVal).trim() !== 'null') {
+                    const strVal = String(rawVal).trim();
+                    arr = [SYNONYM_MAP[strVal] || strVal];
+                }
+
+                if (field.mode === 'single') {
+                    const sel = document.getElementById(`select-${field.key}-0`);
+                    sel.value = arr.length > 0 ? arr[0] : (field.nullable ? '' : (field.requiredDefault || ''));
+                } 
+                else if (field.mode === 'severity') {
+                    // 程度型變數：自動依嚴重度排序，僅保留最嚴重之單一變數於選單 1，選單 2 & 3 強制留空
+                    const uniqueOriginal = [...new Set(arr)];
+                    let chosen = field.requiredDefault || '';
+                    if (arr.length > 0) {
+                        const sorted = [...arr].sort((a, b) => (field.severityRank[b] || 0) - (field.severityRank[a] || 0));
+                        chosen = sorted[0];
+                    }
+                    document.getElementById(`select-${field.key}-0`).value = chosen;
+                    document.getElementById(`select-${field.key}-1`).value = '';
+                    document.getElementById(`select-${field.key}-2`).value = '';
+
+                    if (arr.length > 1) {
+                        const msg = `已由 [${arr.join('、')}] 自動擇重收斂為單一變數「${chosen}」`;
+                        logs.push(`${field.label}：${msg}`);
+                        helperEl.className = 'helper-text show info';
+                        helperEl.textContent = `⚡ ${msg}`;
+                    }
+                } 
+                else if (field.mode === 'multi') {
+                    // 多變數屬性欄位：自動去除重複值，依序填入選單 1~3
+                    const deduped = [...new Set(arr)];
+                    for (let i = 0; i < 3; i++) {
+                        document.getElementById(`select-${field.key}-${i}`).value = deduped[i] || '';
+                    }
+                    if (arr.length > deduped.length) {
+                        const msg = `已自動去除重複項 [${arr.join('、')}] ➔ [${deduped.join('、')}]`;
+                        logs.push(`${field.label}：${msg}`);
+                        helperEl.className = 'helper-text show info';
+                        helperEl.textContent = `✨ ${msg}`;
+                    }
+                }
+            });
+
+            // 檢查重大類型若含有非「無」之選項，自動確保案件層級同步
+            const m0 = document.getElementById('select-trigger_major_type-0').value;
+            if (m0 && m0 !== '無') {
+                document.getElementById('select-trigger_severity-0').value = '重大案件';
+            }
+
+            syncSeverityAndMajorType();
+            syncExceptionDetailState();
+            FIELD_SCHEMA.forEach(f => updateGroupHighlight(f.key));
+            updateLivePreview();
+
+            logEl.className = 'helper-text show info';
+            logEl.innerHTML = `✅ <strong>JSON 解析成功！</strong>` + (logs.length > 0 ? `<br>• ${logs.join('<br>• ')}` : ' 所有變數已載入下方選單。');
+            showToast("✅ JSON 已成功解析並載入表單！");
+        } catch (err) {
+            logEl.className = 'helper-text show warn';
+            logEl.textContent = `❌ 解析失敗：${err.message}`;
+        }
+    }
+
+    // =========================================================================
+    // 6. 讀取目前表單數值並組裝標準 llm_json
+    // =========================================================================
+    function getFieldValue(field) {
+        if (field.mode === 'text_null') {
+            const excVal = document.getElementById('select-trigger_exception-0').value;
+            const textVal = document.getElementById(`input-${field.key}`).value.trim();
+            if (excVal === '無異常' || excVal === '' || textVal === '') return null;
+            return textVal;
+        }
+
+        if (field.mode === 'single') {
+            const val = document.getElementById(`select-${field.key}-0`).value.trim();
+            if (!val) return field.nullable ? null : (field.requiredDefault ? [field.requiredDefault] : null);
+            return [val];
+        }
+
+        // mode === 'multi' or 'severity'
+        let rawVals = [];
+        for (let i = 0; i < 3; i++) {
+            const v = document.getElementById(`select-${field.key}-${i}`).value.trim();
+            if (v !== '') rawVals.push(v);
+        }
+        // 自動去重
+        let deduped = [...new Set(rawVals)];
+
+        if (field.key === 'trigger_major_type') {
+            const sev = document.getElementById('select-trigger_severity-0').value;
+            if (sev === '一般案件') return ["無"];
+            deduped = deduped.filter(v => v !== '無');
+            return deduped.length > 0 ? deduped : ["無"];
+        }
+
+        if (deduped.length === 0) {
+            return field.nullable ? null : (field.requiredDefault ? [field.requiredDefault] : null);
+        }
+        return deduped;
+    }
+
+    function buildLlmJsonObject() {
+        const llmJson = {};
+        FIELD_SCHEMA.forEach(field => {
+            llmJson[field.key] = getFieldValue(field);
+        });
+        return { llm_json: llmJson };
+    }
+
+    // =========================================================================
+    // 7. 法理卡片比對引擎與靜態 HTML 報告渲染器 (100% 移植自 Cloudflare Workers)
+    // =========================================================================
+    function evaluateMatchedCards() {
+        if (!ONLINE_LEGAL_CARDS) return { isBlocked: false, cards: [], finalVars: {} };
+
+        const parsedLlmVars = buildLlmJsonObject().llm_json;
+        let finalVars = {};
+
+        for (const [key, value] of Object.entries(parsedLlmVars)) {
+            if (value === null || value === "" || value === "無" || value === "無異常" || (Array.isArray(value) && value.length === 0)) continue;
+            if (key === "trigger_major_type") {
+                const llmArr = Array.isArray(value) ? value : [value];
+                let combined = [...new Set(llmArr)].filter(v => v !== "無" && v !== "");
+                finalVars[key] = combined.length > 0 ? combined : ["無"];
+            } else {
+                finalVars[key] = value;
+            }
+        }
+
+        let matchedCards = [];
+        for (const card of ONLINE_LEGAL_CARDS) {
+            const rules = card.trigger_rules || {};
+            let isMatch = true;
+            for (const [key, allowedValues] of Object.entries(rules)) {
+                if (key === 'tags' || key === 'description') continue;
+                const isExclude = key.endsWith('_exclude');
+                const baseKey = isExclude ? key.replace('_exclude', '') : key;
+                const actualValuesArray = finalVars[baseKey] ? (Array.isArray(finalVars[baseKey]) ? finalVars[baseKey] : [finalVars[baseKey]]) : [];
+
+                if (allowedValues === null) {
+                    if (!isExclude && actualValuesArray.length > 0) { isMatch = false; break; }
+                    if (isExclude && actualValuesArray.length === 0) { isMatch = false; break; }
+                    continue;
+                }
+
+                const safeAllowedArray = Array.isArray(allowedValues) ? allowedValues : [allowedValues];
+                const hasIntersection = actualValuesArray.some(v => safeAllowedArray.includes(v));
+
+                if (isExclude) {
+                    if (hasIntersection) { isMatch = false; break; }
+                } else {
+                    if (actualValuesArray.length === 0 || !hasIntersection) { isMatch = false; break; }
+                }
+            }
+            if (isMatch) matchedCards.push(card);
+        }
+
+        let finalOutputCards = matchedCards;
+        const blockingCards = matchedCards.filter(c => c.card_name.startsWith('00_'));
+        let isBlocked = blockingCards.length > 0;
+
+        if (isBlocked) finalOutputCards = blockingCards;
+        else finalOutputCards.sort((a, b) => a.card_name.localeCompare(b.card_name));
+
+        return { isBlocked, cards: finalOutputCards, finalVars };
+    }
+
+    function updateLivePreview() {
+        const listEl = document.getElementById('matched-cards-list');
+        const badgeEl = document.getElementById('matched-count-badge');
+
+        if (!ONLINE_LEGAL_CARDS) {
+            badgeEl.textContent = "尚未載入雲端卡片庫";
+            return;
+        }
+
+        const { isBlocked, cards } = evaluateMatchedCards();
+        badgeEl.textContent = isBlocked
+            ? `⚠️ 觸發系統阻斷 (${cards.length} 張阻斷卡)`
+            : `✅ 共匹配 ${cards.length} 張法理處置卡片`;
+
+        if (cards.length === 0) {
+            listEl.innerHTML = `<span style="color:#6c757d;">⚠️ 目前變數組合未匹配任何卡片（或無須特別處置說明）。</span>`;
+            return;
+        }
+
+        listEl.innerHTML = cards.map(c => {
+            const cls = c.card_name.startsWith('00_') ? 'card-pill blocking' : 'card-pill';
+            return `<div class="${cls}">${c.card_name}</div>`;
+        }).join('');
+    }
+
+    // 原生移植自 Code_Cloudflare Workers_2.md 的無狀態 HTML 渲染引擎
+    function generateStaticHTMLReport(vars, cards) {
+        function parseMarkdownToHTML(text) {
+            const lines = text.split('\n');
+            let html = '';
+
+            lines.forEach(line => {
+                let trimmed = line.trim();
+                if (trimmed === '') {
+                    html += '<div class="md-spacer"></div>';
+                    return;
+                }
+                let processedLine = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                const headerMatch = processedLine.match(/^(#{1,6})\s+(.*)/);
+                if (headerMatch) {
+                    html += `<div class="md-heading">${headerMatch[2]}</div>`;
+                } else if (processedLine.startsWith('- ')) {
+                    html += `<div class="md-list-item"><span class="md-bullet">•</span><span class="md-content">${processedLine.substring(2)}</span></div>`;
+                } else if (/^\d+\.\s/.test(processedLine)) {
+                    let numMatch = processedLine.match(/^(\d+\.)\s(.*)/);
+                    html += `<div class="md-list-item"><span class="md-number">${numMatch[1]}</span><span class="md-content">${numMatch[2]}</span></div>`;
+                } else {
+                    if (line.startsWith('  ') || line.startsWith('\t')) {
+                        html += `<div class="md-indent">${processedLine}</div>`;
+                    } else {
+                        html += `<div class="md-p">${processedLine}</div>`;
+                    }
+                }
+            });
+            return html;
+        }
+
+        let cardsHTML = "";
+        if (cards.length === 0) {
+            cardsHTML = "<div style='color:red; font-weight:bold;'>⚠️ 未找到完全匹配的卡片或為無須說明之案件。有疑義請尋求承辦人員協助。</div>";
+        } else {
+            cards.forEach(card => {
+                let content = card.ui_content;
+                content = content.replace(/\{\{(.*?)\}\}/g, (match, varName) => {
+                    let val = vars[varName.trim()];
+                    return Array.isArray(val) ? val.join("、") : (val || "【未知資訊】");
+                });
+                const renderedHTML = parseMarkdownToHTML(content);
+                cardsHTML += `
+                    <div class="section">
+                        <div class="section-title">${card.card_name}</div>
+                        <div class="section-body">${renderedHTML}</div>
+                    </div>
+                `;
+            });
+        }
+
+        const dateStr = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+
+        return `<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>清潔隊交通事故處理說明</title>
+  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+  <link href="[https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap)" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Times New Roman', 'Noto Sans TC', sans-serif;
+      font-size: 16pt;
+      color: #000;
+      line-height: 1.4;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .main-title { text-align: center; font-size: 22pt; margin-top: 0; margin-bottom: 15px; font-weight: bold; }
+    .meta-info {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      font-size: 14pt; font-weight: bold; border-bottom: 2px solid #000;
+      padding-bottom: 10px; margin-bottom: 25px;
+    }
+    .meta-disclaimer { font-weight: normal; color: #555; }
+    .section { border-bottom: 1px solid #d3d3d3; padding-bottom: 25px; margin-bottom: 25px; }
+    .section:last-child { border-bottom: none; padding-bottom: 0; }
+    .section-title {
+      font-size: 18pt; font-weight: bold;
+      border-left: 6px solid #000; padding-left: 10px;
+      margin-top: 10px; margin-bottom: 15px;
+      page-break-after: avoid;
+    }
+    .section-body { padding-left: 16px; orphans: 3; widows: 3; text-align: justify; text-justify: inter-ideograph; }
+    .md-heading { margin-top: 18px; margin-bottom: 8px; font-weight: bold; font-size: 16pt; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+    .md-list-item { display: flex; margin-bottom: 6px; }
+    .md-bullet { margin-right: 8px; font-weight: bold; }
+    .md-number { margin-right: 8px; font-weight: bold; white-space: nowrap; }
+    .md-content { flex: 1; }
+    .md-indent { padding-left: 28px; margin-bottom: 6px; color: #333; }
+    .md-p { margin-top: 6px; margin-bottom: 12px; }
+    .md-spacer { height: 12px; }
+    strong { font-weight: bold; }
+    .btn-print { display: block; width: 220px; margin: 20px auto; padding: 10px; text-align: center; background-color: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16pt; font-family: inherit; }
+    @media print {
+      .btn-print { display: none; }
+      @page { margin: 2cm 2cm 2.5cm 2cm; }
+      body { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <button class="btn-print" onclick="window.print()">🖨️ 列印 / 儲存為 PDF</button>
+  <div class="main-title">清潔隊交通事故處理說明</div>
+  <div class="meta-info">
+    <div class="meta-disclaimer">內容由系統生成僅供參考</div>
+    <div>${dateStr}</div>
+  </div>
+  <div id="cards-container">
+    ${cardsHTML}
+  </div>
+</body>
+</html>`;
+    }
+
+    function openReportWindow() {
+        if (!ONLINE_LEGAL_CARDS) {
+            alert("目前無法連線至雲端法理卡片庫，為避免使用舊版資料，已阻斷報告生成。");
+            return;
+        }
+        const { cards, finalVars } = evaluateMatchedCards();
+        const htmlContent = generateStaticHTMLReport(finalVars, cards);
+        const reportWin = window.open("", "_blank");
+        if (!reportWin) {
+            alert("彈出視窗遭瀏覽器攔截，請允許本頁面的彈出視窗權限。");
+            return;
+        }
+        reportWin.document.open();
+        reportWin.document.write(htmlContent);
+        reportWin.document.close();
+    }
+
+    // =========================================================================
+    // 8. 匯出標準 JSON 並複製至剪貼簿 (確保純半形空白 U+0020)
+    // =========================================================================
+    function exportAndCopyJSON() {
+        const finalObj = buildLlmJsonObject();
+        // 強制使用標準半形空白並移除任何潛在 NBSP
+        const jsonString = JSON.stringify(finalObj, null, 2).replace(/\u00A0/g, ' ');
+
+        const outSec = document.getElementById('output-section');
+        const outTxt = document.getElementById('output-json');
+        outSec.style.display = 'block';
+        outTxt.value = jsonString;
+        outSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        navigator.clipboard.writeText(jsonString).then(() => {
+            showToast("✅ 標準 JSON 已複製！可直接切換至 LINE 貼上");
+        }).catch(() => {
+            outTxt.select();
+            alert("自動複製失敗，請手動複製下方文字框內容。");
+        });
+    }
+
+    // =========================================================================
+    // 9. 測試範例與輔助函式
+    // =========================================================================
+    function loadSample(num) {
+        const sample1 = `{
+  "llm_json": {
+    "trigger_exception": ["無異常"],
+    "trigger_exception_detail": null,
+    "trigger_vehicle_type": ["公務小客車"],
+    "trigger_opponent_type": ["一般車輛"],
+    "trigger_severity": ["一般案件"],
+    "trigger_major_type": ["無"],
+    "trigger_terrain": ["交岔路口(有號誌)"],
+    "trigger_video_status": ["影像正常已擷取"],
+    "trigger_tachograph": ["記錄器正常"],
+    "trigger_police_report": ["已依規定報案"],
+    "trigger_our_injury": ["無體傷"],
+    "trigger_our_damage": ["一般財損"],
+    "trigger_opponent_injury": ["無體傷"],
+    "trigger_opponent_damage": ["一般財損"],
+    "trigger_crew_identity": null,
+    "trigger_our_property_identity": null,
+    "trigger_opponent_person_identity": null,
+    "trigger_opponent_duty_status": null,
+    "trigger_opponent_property_identity": ["外部私有財物"],
+    "trigger_opponent_property_state": ["一般行駛"],
+    "trigger_action_phase": ["一般行駛"],
+    "trigger_action": ["靜止"],
+    "trigger_bac_state": null,
+    "trigger_factor": null,
+    "trigger_osh_fault": null
+  }
+}`;
+        const sample2 = `{
+  "llm_json": {
+    "trigger_exception": ["無異常"],
+    "trigger_exception_detail": null,
+    "trigger_vehicle_type": ["垃圾車"],
+    "trigger_opponent_type": ["一般車輛", "一般車輛", "一般車輛"],
+    "trigger_severity": ["一般案件"],
+    "trigger_major_type": ["無"],
+    "trigger_terrain": ["快速道路"],
+    "trigger_video_status": ["影像正常已擷取"],
+    "trigger_tachograph": ["記錄器正常"],
+    "trigger_police_report": ["已依規定報案"],
+    "trigger_our_injury": ["無體傷"],
+    "trigger_our_damage": ["一般財損"],
+    "trigger_opponent_injury": ["無體傷", "輕微體傷", "無體傷"],
+    "trigger_opponent_damage": ["無財損", "一般財損", "一般財損"],
+    "trigger_crew_identity": null,
+    "trigger_our_property_identity": null,
+    "trigger_opponent_person_identity": ["外部人員", "外部人員", "外部人員"],
+    "trigger_opponent_duty_status": null,
+    "trigger_opponent_property_identity": ["外部私有財物", "外部私有財物", "外部私有財物"],
+    "trigger_opponent_property_state": ["一般行駛", "車道停等", "車道停等"],
+    "trigger_action_phase": ["一般行駛"],
+    "trigger_action": ["一般直行"],
+    "trigger_bac_state": null,
+    "trigger_factor": ["未注意車前狀況", "未保持安全間隔"],
+    "trigger_osh_fault": null
+  }
+}`;
+        document.getElementById('raw-json-input').value = num === 1 ? sample1 : sample2;
+        parseAndPopulate();
+    }
+
+    function clearPasteInput() {
+        document.getElementById('raw-json-input').value = '';
+        document.getElementById('parse-log').className = 'helper-text';
+    }
+
+    function resetAll() {
+        clearPasteInput();
+        document.getElementById('output-section').style.display = 'none';
+        FIELD_SCHEMA.forEach(f => {
+            const h = document.getElementById(`helper-${f.key}`);
+            if (h) h.className = 'helper-text';
+        });
+        applyDefaultValues();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast("🔄 表單已重置為預設狀態");
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.className = "show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    // 初始化啟動
+    document.addEventListener('DOMContentLoaded', () => {
+        buildFormUI();
+        fetchOnlineCards();
+    });
+</script>
+
+</body>
+</html>
